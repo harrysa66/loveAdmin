@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Auth">
+	
+	<!-- 添加权限 -->
+	<insert id="insert" parameterType="auth">
+		insert into T_CDR_SYSTEM_AUTH (ID,CODE,NAME,STATUS,ISVALID,MODULE_ID)
+    	values (#{id},#{code},#{name},#{status},#{isvalid},#{moduleId})
+	</insert>
+	
+	<!-- 修改权限 -->
+	<update id="update" parameterType="auth">
+		update T_CDR_SYSTEM_AUTH
+		<set>  
+		        <if test="code!= null">  
+		           CODE= #{code},  
+		        </if>  
+		        <if test="name!= null">  
+		          NAME = #{name},
+		        </if>  
+		        <if test="status != null">  
+		          STATUS = #{status},
+		        </if>
+		        <if test="isvalid != null">  
+		         ISVALID = #{isvalid},
+		        </if>
+		        <if test="moduleId != null">  
+		         MODULE_ID = #{moduleId},
+		        </if>
+		    </set>  
+		where ID=#{id}
+	</update>
+	
+	<!-- 分页查询权限 -->
+	<select id="queryPage" parameterType="map" resultType="com.cfc.creditor.system.controller.form.AuthForm">
+		select distinct o.ID,o.CODE,o.NAME,o.STATUS,o.ISVALID,o.MODULE_ID,m.NAME as moduleName
+		from T_CDR_SYSTEM_AUTH o , T_CDR_SYSTEM_MODULE m 
+		where o.MODULE_ID = m.ID and o.STATUS !='DELETED'
+		 	<if test="code !=null and code != ''"> 
+              and  o.CODE like '%${code}%'
+            </if> 
+            <if test="name !=null and name != ''"> 
+              and  o.NAME like '%${name}%'
+            </if>
+            <if test="authType !=null and authType != ''"> 
+              and  o.CODE like '${authType}%'
+            </if>
+            <if test="moduleId !=null and moduleId != ''"> 
+				and m.id in <foreach collection="moduleId" item="item" index="index" 
+				open="(" separator="," close=")">#{item}</foreach>
+            </if>  
+            order by o.MODULE_ID asc
+       
+	</select>
+	
+	<!-- 统计分页查询的数据条数 -->
+	<select id="queryPageCount" parameterType="map" resultType="int">
+		select count(distinct o.ID)
+		from T_CDR_SYSTEM_AUTH o , T_CDR_SYSTEM_MODULE m 
+		where o.MODULE_ID = m.ID and o.STATUS !='DELETED'
+            <if test="code !=null and code != ''"> 
+              and  o.CODE like '%${code}%'
+            </if> 
+            <if test="name !=null and name != ''"> 
+              and  o.NAME like '%${name}%'
+            </if>
+            <if test="authType !=null and authType != ''"> 
+              and  o.CODE like '${authType}%'
+            </if>
+            <if test="moduleId !=null and moduleId != ''"> 
+				and m.id in <foreach collection="moduleId" item="item" index="index" 
+				open="(" separator="," close=")">#{item}</foreach>
+            </if>  
+        
+	</select>
+	
+	<!-- 通过ID查找权限 -->
+	<select id="findAuthById" parameterType="String" resultType="com.cfc.creditor.system.controller.form.AuthForm">
+		select o.ID,o.CODE,o.NAME,o.STATUS,o.ISVALID,o.MODULE_ID,m.NAME as moduleName
+		from T_CDR_SYSTEM_AUTH o , T_CDR_SYSTEM_MODULE m 
+		where o.MODULE_ID = m.ID and o.ID=#{id} and o.STATUS !='DELETED'
+	</select>
+	
+	<!-- 逻辑删除权限 -->
+	<update id="deleteById" parameterType="map">
+		update T_CDR_SYSTEM_AUTH set STATUS=#{status} where ID=#{id}
+	</update>
+	
+	<!-- 启用/禁用权限 -->
+	<update id="runById" parameterType="map">
+		update T_CDR_SYSTEM_AUTH set ISVALID=#{isvalid} where ID=#{id}
+	</update>
+	
+	<!-- 根据条件查询权限集合 -->
+	<select id="findListBy" parameterType="map" resultType="com.cfc.creditor.system.controller.form.AuthForm">
+		select o.ID,o.CODE,o.NAME,o.STATUS,o.ISVALID,o.MODULE_ID,m.NAME as moduleName
+		from T_CDR_SYSTEM_AUTH o , T_CDR_SYSTEM_MODULE m 
+		where o.MODULE_ID = m.ID and o.ISVALID ='Y' and m.SYSTEM_ID=#{systemId}
+		<if test="moduleId !=null and moduleId != ''">
+			and m.ID=#{moduleId}
+		</if>
+		<if test="status !=null and status != ''">
+			and o.STATUS=#{status}
+		</if>
+	</select>
+	
+	<!-- 根据条件和用户,查询权限集合 -->
+	<select id="findListByUser" parameterType="map" resultType="com.cfc.creditor.system.controller.form.AuthForm">
+		select o.ID,o.CODE,o.NAME,o.STATUS,o.ISVALID,o.MODULE_ID,m.NAME as moduleName
+		from T_CDR_SYSTEM_AUTH o , T_CDR_SYSTEM_MODULE m  ,T_CDR_SYSTEM_R_AUTH_USER r
+		where o.MODULE_ID = m.ID and o.ISVALID ='Y' and o.ID=r.AUTH_ID and r.USER_ID=#{userId} and m.SYSTEM_ID=#{systemId}
+		<if test="moduleId !=null and moduleId != ''">
+			and m.ID=#{moduleId}
+		</if>
+		<if test="status !=null and status != ''">
+			and o.STATUS=#{status}
+		</if>
+	</select>
+	
+	<!-- 给用户分配权限 -->
+	<insert id="authUser" parameterType="map">
+		insert into T_CDR_SYSTEM_R_AUTH_USER(ID,USER_ID,AUTH_ID) values(#{id},#{userId},#{authId})
+	</insert>
+	
+	<!-- 清除用户的权限 -->
+	<delete id="authUserClear" parameterType="String">
+		delete from T_CDR_SYSTEM_R_AUTH_USER where USER_ID=#{userId}
+	</delete>
+	
+	<!-- 权限编码重复 -->
+	<select id="isRepeatCode" parameterType="map" resultType="auth">
+		select o.ID,o.CODE,o.NAME,o.STATUS,o.ISVALID,o.MODULE_ID
+		from T_CDR_SYSTEM_AUTH o
+		where o.CODE=#{code} 
+		<if test="id !=null and id != ''"> 
+            	and o.ID!=#{id}
+            </if> 
+	</select>
+	
+	<!-- 权限名称重复 -->
+	<select id="isRepeatName" parameterType="map" resultType="auth">
+		select o.ID,o.CODE,o.NAME,o.STATUS,o.ISVALID,o.MODULE_ID
+		from T_CDR_SYSTEM_AUTH o
+		where o.NAME=#{name} 
+		<if test="id !=null and id != ''"> 
+            	and o.ID!=#{id}
+            </if> 
+	</select>
+</mapper>

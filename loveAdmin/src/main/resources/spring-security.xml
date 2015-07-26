@@ -16,7 +16,9 @@
 	<http pattern="/verifyCode.s" security="none" />
 	<!-- <http pattern="/system/attachment/download.s" security="none" /> -->
     
-	<http auto-config="false" access-denied-page="/timeout.s" use-expressions="true" entry-point-ref="authenticationProcessingFilterEntryPoint">
+    <!-- access-denied-page="/timeout.s"  spring 2.0 -->
+	<http auto-config="false"  use-expressions="true" entry-point-ref="authenticationProcessingFilterEntryPoint">
+		<access-denied-handler error-page="/timeout.s"/>
 		<intercept-url pattern='/**' access="hasRole('ROLE_USER')" />
 		<!-- 设置登录过滤器 -->  
   		<custom-filter position="FORM_LOGIN_FILTER" ref="UsernamePasswordAuthenticationExtendFilter" />

@@ -76,7 +76,6 @@
 		<servlet-name>dispatcher</servlet-name>
 		<url-pattern>*.s</url-pattern>
 	</servlet-mapping>
-
 	<!-- 定义会话超时时间，单位分钟 -->
 	<session-config>
 		<session-timeout>120</session-timeout>

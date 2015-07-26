@@ -29,7 +29,7 @@
 		<property name="driverClassName" value="com.mysql.jdbc.Driver"/>
 		<property name="url" value="jdbc:mysql://localhost:3306/love"/>
 		<property name="username" value="root"/> 
-		<property name="password" value="12323211"/> 
+		<property name="password" value="123456"/> 
 		<property name="initialSize" value="1"/>
 		<property name="defaultAutoCommit" value="false"/>
 	</bean>
@@ -45,6 +45,10 @@
 	
 	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate" depends-on="dataSource">
 		<constructor-arg type="DataSource" ref="dataSource" />
+	</bean>
+	
+	<bean id="tayhJdbcTemplate" class="com.love.framework.dao.jdbc.TayhJdbcTemplate" depends-on="dataSource">
+		<constructor-arg type="DataSource"  ref="dataSource" />
 	</bean>
 	
 	<!-- 事务管理器配置,单数据源事务 -->

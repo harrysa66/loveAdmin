@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="User">
+	<!-- 登录获取用户 -->
+	<select id="getById" parameterType="String" resultType="user">
+		select o.*
+		from T_CDR_SYSTEM_USER o 
+        where o.username = #{username}
+	</select>
+	<!-- 用户插入 -->
+	<insert id="insert" parameterType="com.cfc.creditor.system.controller.form.UserForm">
+		INSERT INTO T_CDR_SYSTEM_USER
+		  (ID,
+		   USERNAME,
+		   REALNAME,
+		   PASSWORD
+		   <if  test="employeeId !=null and employeeId != ''">
+		   ,EMPLOYEE_ID
+		   </if>
+		   <if  test="sex !=null and sex != ''">
+		   ,SEX
+		   </if>
+		   <if  test="address !=null and address != ''">
+		   ,ADDRESS
+		   </if>
+		   <if  test="mobile !=null and mobile != ''">
+		   ,MOBILE
+		   </if>
+		   <if  test="phone !=null and phone != ''">
+		   ,PHONE
+		   </if>
+		   <if  test="email !=null and email != ''">
+		   ,EMAIL
+		   </if>
+		   <if  test="remark !=null and remark != ''">
+		   ,REMARK
+		   </if>
+		   <if  test="displayId !=null and displayId != ''">
+		   ,DISPLAY_ID
+		   </if>
+		   <if  test="createTime !=null and createTime != ''">
+		   ,CREATE_TIME
+		   </if>
+		   <if  test="modifyTime !=null and modifyTime != ''">
+		   ,MODIFY_TIME
+		   </if>
+		   <if  test="status !=null and status != ''">
+		   ,STATUS
+		   </if>
+		   <if  test="isvalid!=null and isvalid!= ''">
+		   ,ISVALID
+		   </if>
+		   <if  test="orgId!=null and orgId!= ''">
+		   ,ORG_ID
+		   </if>
+		   
+		   )
+		VALUES
+		  (#{id},
+		   #{username},
+		   #{realname},
+		   #{password}
+		   
+		   
+		   <if  test="employeeId !=null and employeeId != ''">
+		   ,#{employeeId}
+		   </if>
+		   <if  test="sex !=null and sex != ''">
+		   ,#{sex}
+		   </if>
+		   <if  test="address !=null and address != ''">
+		   ,#{address}
+		   </if>
+		   <if  test="mobile !=null and mobile != ''">
+		   ,#{mobile}
+		   </if>
+		   <if  test="phone !=null and phone != ''">
+		   ,#{phone}
+		   </if>
+		   <if  test="email !=null and email != ''">
+		   ,#{email}
+		   </if>
+		   <if  test="remark !=null and remark != ''">
+		   ,#{remark}
+		   </if>
+		   <if  test="displayId !=null and displayId != ''">
+		   ,#{displayId}
+		   </if>
+		   <if  test="createTime !=null and createTime != ''">
+		  ,#{createTime}
+		   </if>
+		   <if  test="modifyTime !=null and modifyTime != ''">
+		   ,#{modifyTime}
+		   </if>
+		   <if  test="status !=null and status != ''">
+		  ,#{status}
+		   </if>
+		   <if  test="isvalid !=null and isvalid != ''">
+		  ,#{isvalid}
+		   </if>
+		   <if  test="orgId!=null and orgId!= ''">
+		   ,#{orgId}
+		   </if>
+		   
+		   )
+	</insert>
+	<!-- 用户更新 -->
+	<update id="update" parameterType="com.cfc.creditor.system.controller.form.UserForm">
+	
+			update T_CDR_SYSTEM_USER
+			
+			<set>  
+		        <if test="realname!= null">  
+		           REALNAME= #{realname},  
+		        </if>  
+		        <if test="employeeId!= null">  
+		          EMPLOYEE_ID = #{employeeId},
+		        </if>  
+		        <if test="sex != null">  
+		          SEX = #{sex},
+		        </if>
+		        <if test="address != null">  
+		         ADDRESS     = #{address},
+		        </if>
+		        <if test="mobile != null">  
+		         MOBILE      = #{mobile},
+		        </if>
+		        <if test="phone != null">  
+		         PHONE       = #{phone},
+		        </if>
+		        <if test="email!= null">  
+		         EMAIL       = #{email},
+		        </if>
+		        <if test="remark != null">  
+		         REMARK      = #{remark},
+		        </if>
+		        <if test="displayId!= null">  
+		         DISPLAY_ID  = #{displayId},
+		        </if>
+		        <if test="modifyTime!= null">  
+		         MODIFY_TIME = #{modifyTime},
+		        </if>
+		        <if test="isvalid!= null">  
+		         ISVALID = #{isvalid},
+		        </if>
+		        <if test="status!= null">  
+		         STATUS = #{status},
+		        </if>
+		        <if test="orgId!= null">  
+		         ORG_ID = #{orgId}
+		        </if>
+		    </set>  	
+		 WHERE ID = #{id}
+	
+	</update>
+	<!-- 用户删除 -->
+	<update id="deleted" parameterType="map">   
+	    update T_CDR_SYSTEM_USER
+	    	SET  STATUS= #{status}  
+	    	where id = #{id}    
+	</update>
+	<!-- 修改密码 -->
+	<update id="updatePassword" parameterType="map">   
+	    update T_CDR_SYSTEM_USER
+	    	SET  PASSWORD= #{newPassword}  
+	    	where id = #{id}  and PASSWORD=#{oldPassword}  
+	</update>
+	<!-- 密码重置 -->
+	<update id="resetPassword" parameterType="map">   
+	    update T_CDR_SYSTEM_USER
+	    	SET  PASSWORD= #{password}  
+	    	where id = #{id} 
+	</update>
+	<!-- 密码是否正确 -->
+	<select id="passwordCorrect" parameterType="map" resultType="int">
+		select count(1)
+		from T_CDR_SYSTEM_USER o
+		where o.ID=#{id} and PASSWORD= #{oldPassword}
+	</select>
+	<!-- 用户查询 -->
+	<select id="findUserById" parameterType="String" resultType="com.cfc.creditor.system.controller.form.UserForm">
+		select o.*,G.NAME as orgName
+		from T_CDR_SYSTEM_USER o
+		LEFT JOIN  T_CDR_SYSTEM_ORGANIZATION G 
+		ON O.ORG_ID=G.ID 
+		where o.ID=#{id} and o.STATUS !='DELETED'
+	</select>
+	
+	<select id="findUserByCode" parameterType="String" resultType="com.cfc.creditor.system.controller.form.UserForm">
+		select o.*,G.NAME as orgName
+		from T_CDR_SYSTEM_USER o
+		LEFT JOIN  T_CDR_SYSTEM_ORGANIZATION G 
+		ON O.ORG_ID=G.ID 
+		where o.EMPLOYEE_ID=#{code} and o.STATUS !='DELETED'
+	</select>
+	<!--用户列表查询 -->
+	<select id="queryPage" parameterType="map" resultType="com.cfc.creditor.system.controller.form.UserForm">
+		SELECT O.*,G.NAME as orgName,G.id as orgId FROM T_CDR_SYSTEM_USER O 
+		LEFT JOIN  T_CDR_SYSTEM_ORGANIZATION G 
+		ON O.ORG_ID=G.ID 
+		WHERE O.STATUS!='DELETED'
+		 	<if test="employeeId !=null and employeeId != ''"> 
+              and  O.EMPLOYEE_ID like '%${employeeId}%'
+            </if> 
+            <if test="realname !=null and realname != ''"> 
+              and  O.realname like '%${realname}%'
+            </if>
+            order by G.PARENT_ID,G.display_id,O.display_id
+	</select>
+	<!-- 用户名是否重复 -->
+	<select id="queryRepeat" parameterType="map" resultType="int">
+		 	select count(1)
+			from T_CDR_SYSTEM_USER o 
+			where o.username=#{username}
+		 	<if test="id !=null and id != ''"> 
+            	and o.ID!=#{id}
+            </if> 
+	</select>
+	<!-- 员工编号 是否重复-->
+	<select id="queryRepeatCode" parameterType="map" resultType="int">
+		 	select count(1)
+			from T_CDR_SYSTEM_USER o 
+			where o.employee_id=#{employeeId} 
+		 	<if test="id !=null and id != ''"> 
+            	and o.ID!=#{id}
+            </if> 
+	</select>
+	<!-- 总数 -->
+	<select id="queryPageCount" parameterType="map" resultType="int">
+		select count(1)
+		from T_CDR_SYSTEM_USER o
+		where o.STATUS !='DELETED'
+            <if test="employeeId !=null and employeeId != ''"> 
+              and  o.EMPLOYEE_ID like '%${employeeId}%'
+            </if> 
+            <if test="realname !=null and realname != ''"> 
+              and  o.realname like '%${realname}%'
+            </if>
+	</select>
+</mapper>
