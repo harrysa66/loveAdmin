@@ -21,7 +21,6 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class AuthBusiness {
 
-	@Resource
 	private BaseDao<Auth, String> authDao;
 
 	@Resource

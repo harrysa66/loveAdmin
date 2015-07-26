@@ -27,7 +27,6 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class RoleBusiness {
 	
-	@Resource
 	private BaseDao<Role, String> roleDao;
 
 	@Resource

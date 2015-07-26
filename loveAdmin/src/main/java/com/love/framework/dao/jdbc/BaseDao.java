@@ -9,7 +9,6 @@ import java.util.Map;
 import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.support.SqlSessionDaoSupport;
-import org.springframework.stereotype.Repository;
 
 import com.love.framework.exception.DataStorageException;
 

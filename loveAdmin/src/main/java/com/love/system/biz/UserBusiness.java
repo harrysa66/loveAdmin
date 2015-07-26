@@ -21,7 +21,6 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class UserBusiness {
 
-	@Resource
 	private BaseDao<User, String> userDao;
 
 	@Resource

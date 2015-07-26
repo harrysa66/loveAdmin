@@ -33,7 +33,7 @@
 	</update>
 	
 	<!-- 分页查询权限 -->
-	<select id="queryPage" parameterType="map" resultType="com.cfc.creditor.system.controller.form.AuthForm">
+	<select id="queryPage" parameterType="map" resultType="auth">
 		select distinct o.ID,o.CODE,o.NAME,o.STATUS,o.ISVALID,o.MODULE_ID,m.NAME as moduleName
 		from T_CDR_SYSTEM_AUTH o , T_CDR_SYSTEM_MODULE m 
 		where o.MODULE_ID = m.ID and o.STATUS !='DELETED'
@@ -76,7 +76,7 @@
 	</select>
 	
 	<!-- 通过ID查找权限 -->
-	<select id="findAuthById" parameterType="String" resultType="com.cfc.creditor.system.controller.form.AuthForm">
+	<select id="findAuthById" parameterType="String" resultType="auth">
 		select o.ID,o.CODE,o.NAME,o.STATUS,o.ISVALID,o.MODULE_ID,m.NAME as moduleName
 		from T_CDR_SYSTEM_AUTH o , T_CDR_SYSTEM_MODULE m 
 		where o.MODULE_ID = m.ID and o.ID=#{id} and o.STATUS !='DELETED'
@@ -93,7 +93,7 @@
 	</update>
 	
 	<!-- 根据条件查询权限集合 -->
-	<select id="findListBy" parameterType="map" resultType="com.cfc.creditor.system.controller.form.AuthForm">
+	<select id="findListBy" parameterType="map" resultType="auth">
 		select o.ID,o.CODE,o.NAME,o.STATUS,o.ISVALID,o.MODULE_ID,m.NAME as moduleName
 		from T_CDR_SYSTEM_AUTH o , T_CDR_SYSTEM_MODULE m 
 		where o.MODULE_ID = m.ID and o.ISVALID ='Y' and m.SYSTEM_ID=#{systemId}
@@ -106,7 +106,7 @@
 	</select>
 	
 	<!-- 根据条件和用户,查询权限集合 -->
-	<select id="findListByUser" parameterType="map" resultType="com.cfc.creditor.system.controller.form.AuthForm">
+	<select id="findListByUser" parameterType="map" resultType="auth">
 		select o.ID,o.CODE,o.NAME,o.STATUS,o.ISVALID,o.MODULE_ID,m.NAME as moduleName
 		from T_CDR_SYSTEM_AUTH o , T_CDR_SYSTEM_MODULE m  ,T_CDR_SYSTEM_R_AUTH_USER r
 		where o.MODULE_ID = m.ID and o.ISVALID ='Y' and o.ID=r.AUTH_ID and r.USER_ID=#{userId} and m.SYSTEM_ID=#{systemId}

@@ -47,7 +47,7 @@
 	</update>
 	
 	<!-- 分页查询角色 -->
-	<select id="queryPage" parameterType="map" resultType="com.cfc.creditor.system.controller.form.RoleForm">
+	<select id="queryPage" parameterType="map" resultType="role">
 		select o.ID,o.CODE,o.NAME,o.CREATE_TIME,o.MODIFY_TIME,o.STATUS,o.ISVALID,o.SYSTEM_ID,s.NAME as systemName
 		from T_CDR_SYSTEM_ROLE o , T_CDR_SYSTEM_LIST s 
 		where o.SYSTEM_ID = s.ID and o.STATUS !='DELETED'
@@ -81,7 +81,7 @@
 	</select>
 	
 	<!-- 通过ID查找角色 -->
-	<select id="findRoleById" parameterType="String" resultType="com.cfc.creditor.system.controller.form.RoleForm">
+	<select id="findRoleById" parameterType="String" resultType="role">
 		select o.ID,o.CODE,o.NAME,o.CREATE_TIME,o.MODIFY_TIME,o.STATUS,o.ISVALID,o.SYSTEM_ID,s.NAME as systemName
 		from T_CDR_SYSTEM_ROLE o , T_CDR_SYSTEM_LIST s 
 		where o.SYSTEM_ID = s.ID and o.ID=#{id} and o.STATUS !='DELETED'
@@ -98,7 +98,7 @@
 	</update>
 	
 	<!-- 根据条件查找角色集合 -->
-	<select id="findListBy" parameterType="map" resultType="com.cfc.creditor.system.controller.form.RoleForm">
+	<select id="findListBy" parameterType="map" resultType="role">
 		select o.ID,o.CODE,o.NAME,o.CREATE_TIME,o.MODIFY_TIME,o.STATUS,o.ISVALID,o.SYSTEM_ID,s.NAME as systemName
 		from T_CDR_SYSTEM_ROLE o , T_CDR_SYSTEM_LIST s 
 		where o.SYSTEM_ID = s.ID and o.ISVALID ='Y'
@@ -111,7 +111,7 @@
 	</select>
 	
 	<!-- 根据条件和用户查找角色集合 -->
-	<select id="findListByUser" parameterType="map" resultType="com.cfc.creditor.system.controller.form.RoleForm">
+	<select id="findListByUser" parameterType="map" resultType="role">
 		select o.ID,o.CODE,o.NAME,o.CREATE_TIME,o.MODIFY_TIME,o.STATUS,o.ISVALID,o.SYSTEM_ID,s.NAME as systemName
 		from T_CDR_SYSTEM_ROLE o , T_CDR_SYSTEM_LIST s ,T_CDR_SYSTEM_R_USER_ROLE r
 		where o.SYSTEM_ID = s.ID and o.ISVALID ='Y' and o.ID=r.ROLE_ID and r.USER_ID=#{userId}
@@ -125,7 +125,7 @@
 	</select>
 	
 	<!-- 分页查询 给角色分配的权限 -->
-	<select id="queryAuthPage" parameterType="map" resultType="com.cfc.creditor.system.controller.form.AuthForm">
+	<select id="queryAuthPage" parameterType="map" resultType="auth">
 		select distinct o.ID,o.CODE,o.NAME,o.STATUS,o.ISVALID,o.MODULE_ID,m.NAME as moduleName
 		from T_CDR_SYSTEM_AUTH o , T_CDR_SYSTEM_MODULE m 
 		where o.MODULE_ID = m.ID and o.ISVALID='Y' and o.STATUS =#{status} and m.SYSTEM_ID=#{systemId}
@@ -177,7 +177,7 @@
 	</delete>
 	
 	<!-- 根据角色查找权限 -->
-	<select id="findAuthByRole" parameterType="String" resultType="com.cfc.creditor.system.controller.form.AuthForm">
+	<select id="findAuthByRole" parameterType="String" resultType="auth">
 		select o.ID,o.CODE,o.NAME,o.STATUS,o.ISVALID,o.MODULE_ID,m.NAME as moduleName
 		from T_CDR_SYSTEM_AUTH o,T_CDR_SYSTEM_R_ROLE_AUTH r, T_CDR_SYSTEM_MODULE m 
 		where o.ID=r.AUTH_ID and o.MODULE_ID = m.ID and o.ISVALID='Y' and o.STATUS !='DELETED' and r.ROLE_ID=#{roleId}
@@ -204,7 +204,7 @@
 	</select>
 	
 	<!-- 通过CODE查找角色 -->
-	<select id="findRoleByCode" parameterType="String" resultType="com.cfc.creditor.system.controller.form.RoleForm">
+	<select id="findRoleByCode" parameterType="String" resultType="role">
 		select o.ID,o.CODE,o.NAME,o.CREATE_TIME,o.MODIFY_TIME,o.STATUS,o.ISVALID,o.SYSTEM_ID,s.NAME as systemName
 		from T_CDR_SYSTEM_ROLE o , T_CDR_SYSTEM_LIST s 
 		where o.SYSTEM_ID = s.ID and o.CODE=#{code} and o.STATUS !='DELETED'
@@ -234,7 +234,7 @@
  			o.ROLE_ID=#{roleId}
 	</select>
 	
-	<select id="findPageByUser" parameterType="map" resultType="com.cfc.creditor.system.controller.form.RoleForm">
+	<select id="findPageByUser" parameterType="map" resultType="role">
 		select o.ID,o.CODE,o.NAME,o.CREATE_TIME,o.MODIFY_TIME,o.STATUS,o.ISVALID,o.SYSTEM_ID,s.NAME as systemName
 		from T_CDR_SYSTEM_ROLE o , T_CDR_SYSTEM_LIST s ,T_CDR_SYSTEM_R_USER_ROLE r
 		where o.SYSTEM_ID = s.ID and o.ISVALID ='Y' and o.ID=r.ROLE_ID and r.USER_ID=#{userId}

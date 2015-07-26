@@ -9,7 +9,7 @@
         where o.username = #{username}
 	</select>
 	<!-- 用户插入 -->
-	<insert id="insert" parameterType="com.cfc.creditor.system.controller.form.UserForm">
+	<insert id="insert" parameterType="user">
 		INSERT INTO T_CDR_SYSTEM_USER
 		  (ID,
 		   USERNAME,
@@ -106,7 +106,7 @@
 		   )
 	</insert>
 	<!-- 用户更新 -->
-	<update id="update" parameterType="com.cfc.creditor.system.controller.form.UserForm">
+	<update id="update" parameterType="user">
 	
 			update T_CDR_SYSTEM_USER
 			
@@ -179,7 +179,7 @@
 		where o.ID=#{id} and PASSWORD= #{oldPassword}
 	</select>
 	<!-- 用户查询 -->
-	<select id="findUserById" parameterType="String" resultType="com.cfc.creditor.system.controller.form.UserForm">
+	<select id="findUserById" parameterType="String" resultType="user">
 		select o.*,G.NAME as orgName
 		from T_CDR_SYSTEM_USER o
 		LEFT JOIN  T_CDR_SYSTEM_ORGANIZATION G 
@@ -187,7 +187,7 @@
 		where o.ID=#{id} and o.STATUS !='DELETED'
 	</select>
 	
-	<select id="findUserByCode" parameterType="String" resultType="com.cfc.creditor.system.controller.form.UserForm">
+	<select id="findUserByCode" parameterType="String" resultType="user">
 		select o.*,G.NAME as orgName
 		from T_CDR_SYSTEM_USER o
 		LEFT JOIN  T_CDR_SYSTEM_ORGANIZATION G 
@@ -195,7 +195,7 @@
 		where o.EMPLOYEE_ID=#{code} and o.STATUS !='DELETED'
 	</select>
 	<!--用户列表查询 -->
-	<select id="queryPage" parameterType="map" resultType="com.cfc.creditor.system.controller.form.UserForm">
+	<select id="queryPage" parameterType="map" resultType="user">
 		SELECT O.*,G.NAME as orgName,G.id as orgId FROM T_CDR_SYSTEM_USER O 
 		LEFT JOIN  T_CDR_SYSTEM_ORGANIZATION G 
 		ON O.ORG_ID=G.ID 
