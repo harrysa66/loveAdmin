@@ -14,6 +14,7 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -28,7 +29,7 @@ public class UserBusiness {
 		userDao = new BaseDao<User, String>(sqlSessionFactory, User.class);
 	}
 
-	@Transactional
+	/*@Transactional
 	public void save(User user) throws ApplicationRuntimeException {
 		try {
 			user.setId(UUIDGenerator.getUUID());
@@ -42,6 +43,27 @@ public class UserBusiness {
 	public void update(User user) throws ApplicationRuntimeException {
 		try {
 			userDao.update(user);
+		} catch (Exception e) {
+			throw new ApplicationRuntimeException(Constants.EDIT_ERROR, e);
+		}
+	}*/
+	
+	@Transactional
+	public String saveUser(User user) throws ApplicationRuntimeException {
+		if (StringUtils.isEmpty(user.getId())) {
+			user.setId(UUIDGenerator.getUUID());
+			try {
+				user.setStatus(Constants.STATUS_DEFAULT);
+				user.setIsValid(Constants.ISVALIAD_HIDDEN);
+				userDao.insert(user);
+				return Constants.ADD_SUCCESS;
+			} catch (Exception e) {
+				throw new ApplicationRuntimeException(Constants.ADD_ERROR, e);
+			}
+		}
+		try {
+			userDao.update(user);
+			return Constants.EDIT_SUCCESS;
 		} catch (Exception e) {
 			throw new ApplicationRuntimeException(Constants.EDIT_ERROR, e);
 		}
@@ -98,7 +120,7 @@ public class UserBusiness {
 		return userDao.findByProperty("findUserByUsername", username);
 	}
 	
-	public List<User> findUserListByCode(String roleId) {
+	public List<User> findUserListByRoleId(String roleId) {
 		return userDao.findListByProperty("findUserListByRoleId", roleId);
 	}
 
@@ -118,11 +140,11 @@ public class UserBusiness {
 		return userDao.countByMap("isRepeat", map).intValue();
 	}
 
-	public int isRepeatCode(Map<String, Object> map) {
+	public int isRepeatNick(Map<String, Object> map) {
 		if (map == null) {
 			map = new HashMap<String, Object>();
 		}
-		return userDao.countByMap("isRepeatCode", map).intValue();
+		return userDao.countByMap("isRepeatNick", map).intValue();
 	}
 
 	@Transactional

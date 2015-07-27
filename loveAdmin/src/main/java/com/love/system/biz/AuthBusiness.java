@@ -43,11 +43,6 @@ public class AuthBusiness {
 	}
 
 	@Transactional
-	public void insertAuth(Auth auth) {
-		this.authDao.insert(auth);
-	}
-
-	@Transactional
 	public String saveAuth(Auth auth) {
 		if (StringUtils.isEmpty(auth.getId())) {
 			auth.setId(UUIDGenerator.getUUID());

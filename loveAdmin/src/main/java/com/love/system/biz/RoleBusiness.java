@@ -237,7 +237,7 @@ public class RoleBusiness {
 		List<User> userList = new ArrayList<User>();
 		if ((code != null) && (!("".equals(code)))) {
 			String roleId = findRoleByCode(code).getId();
-			userList = userBusiness.findUserListByCode(roleId);
+			userList = userBusiness.findUserListByRoleId(roleId);
 		}
 		return userList;
 	}

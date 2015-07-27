@@ -7,10 +7,9 @@
     http://www.springframework.org/schema/security
     http://www.springframework.org/schema/security/spring-security.xsd">
     
-	<http pattern="/javascript/**" security="none" />
+	<http pattern="/js/**" security="none" />
 	<http pattern="/css/**" security="none" />
 	<http pattern="/themes/**" security="none" />
-	<http pattern="/services/**" security="none" />
 	<http pattern="/images/**" security="none" />
 	<http pattern="/login.s" security="none" />
 	<http pattern="/verifyCode.s" security="none" />
@@ -51,11 +50,10 @@
 	<beans:bean id="userDetailService" class="com.love.framework.security.UserDetailServiceImpl" />
 	
 	<beans:bean id="UsernamePasswordAuthenticationExtendFilter"
-		class="com.cfc.creditor.framework.security.UsernamePasswordAuthenticationExtendFilter">
+		class="com.love.framework.security.UsernamePasswordAuthenticationExtendFilter">
 		<beans:property name="authenticationManager"
 			ref="authenticationManager" />
 		<beans:property name="usernameParameter" value="j_username" />
-		<beans:property name="usernameParametertemp" value="k_username" />
 		<beans:property name="passwordParameter" value="j_password" />
 		<beans:property name="validateCodeParameter" value="vercode" />
 		<beans:property name="checkCodeParameter" value="checkCode" />

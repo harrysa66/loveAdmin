@@ -40,7 +40,7 @@ public class UserDetailServiceImpl implements UserDetailsService {
 				|| (Constants.STATUS_DELETED.equals(user.getStatus()))) {
 			throw new UsernameNotFoundException("登录名错误, username=" + username);
 		}
-		List<Auth> listAuth = roleBusiness.findAuthByUsername(username);
+		List<Auth> listAuth = roleBusiness.findAuthByUser(user.getId());
 		for (Auth auth : listAuth) {
 			user.addAuthoritie(auth.getCode());
 		}

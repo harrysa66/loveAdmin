@@ -12,7 +12,7 @@
 		<param-name>contextConfigLocation</param-name>
 		<param-value>
 			classpath*:/applicationContext.xml
-		 	<!-- classpath*:/spring-security.xml -->
+		 	classpath*:/spring-security.xml
 		</param-value>
 	</context-param>
 	<context-param>   
@@ -38,7 +38,7 @@
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
 
-	<!-- Spring Secutiry3.1的过滤器链配置 
+	<!-- Spring Secutiry3.1的过滤器链配置 -->
 	<filter>
 		<filter-name>springSecurityFilterChain</filter-name>
 		<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
@@ -46,7 +46,7 @@
 	<filter-mapping>
 		<filter-name>springSecurityFilterChain</filter-name>
 		<url-pattern>/*</url-pattern>
-	</filter-mapping>-->
+	</filter-mapping>
 
 	<!-- 定义listener -->
 	<!-- Spring 刷新Introspector防止内存泄露 -->
@@ -82,19 +82,19 @@
 	</session-config>
 	<!-- 定义首页 -->
 	<welcome-file-list>
-		<welcome-file>index.jsp</welcome-file>
+		<welcome-file>index.html</welcome-file>
 	</welcome-file-list>
 	<!-- 定义错误显示页面 -->
 	<error-page>
 		<exception-type>java.lang.Exception</exception-type>
-		<location>/pages/404.jsp</location>
+		<location>/view/404.jsp</location>
 	</error-page>
 	<error-page>
 		<error-code>403</error-code>
-		<location>/pages/403.jsp</location>
+		<location>/view/403.jsp</location>
 	</error-page>
 	<error-page>
 		<error-code>404</error-code>
-		<location>/pages/404.jsp</location>
+		<location>/view/404.jsp</location>
 	</error-page>
 </web-app>

@@ -5,13 +5,19 @@
 	
 	<!-- 添加权限 -->
 	<insert id="insert" parameterType="auth">
-		insert into T_CDR_SYSTEM_AUTH (ID,CODE,NAME,STATUS,ISVALID,MODULE_ID)
-    	values (#{id},#{code},#{name},#{status},#{isvalid},#{moduleId})
+		insert into love_system_auth (ID,CODE,NAME,CREATE_TIME,
+		<if test="modifyTime !=null and modifyTime != ''"> 
+              MODIFY_TIME,
+        </if> STATUS,ISVALID,menu_id)
+    	values (#{id},#{code},#{name},#{createTime},
+    	<if test="modifyTime !=null and modifyTime != ''"> 
+             #{modifyTime},
+        </if>#{status},#{isvalid},#{menuId})
 	</insert>
 	
 	<!-- 修改权限 -->
 	<update id="update" parameterType="auth">
-		update T_CDR_SYSTEM_AUTH
+		update love_system_auth
 		<set>  
 		        <if test="code!= null">  
 		           CODE= #{code},  
@@ -19,24 +25,30 @@
 		        <if test="name!= null">  
 		          NAME = #{name},
 		        </if>  
+		        <if test="createTime!= null and createTime != ''">  
+		          CREATE_TIME = #{createTime},
+		        </if>
+		        <if test="modifyTime!= null and modifyTime != ''">  
+		          MODIFY_TIME = #{modifyTime},
+		        </if>
 		        <if test="status != null">  
 		          STATUS = #{status},
 		        </if>
 		        <if test="isvalid != null">  
-		         ISVALID = #{isvalid},
+		         ISVALID = #{isvalid}
 		        </if>
-		        <if test="moduleId != null">  
-		         MODULE_ID = #{moduleId},
+		        <if test="menuId != null">  
+		         menu_id = #{menuId}
 		        </if>
 		    </set>  
 		where ID=#{id}
 	</update>
 	
 	<!-- 分页查询权限 -->
-	<select id="queryPage" parameterType="map" resultType="auth">
-		select distinct o.ID,o.CODE,o.NAME,o.STATUS,o.ISVALID,o.MODULE_ID,m.NAME as moduleName
-		from T_CDR_SYSTEM_AUTH o , T_CDR_SYSTEM_MODULE m 
-		where o.MODULE_ID = m.ID and o.STATUS !='DELETED'
+	<select id="queryPage" parameterType="map" resultType="authVo">
+		select distinct o.ID,o.CODE,o.NAME,o.CREATE_TIME,o.MODIFY_TIME,o.STATUS,o.ISVALID,o.menu_id,m.name as menuName
+		from love_system_auth o,love_system_menu m
+		where o.menu_id = m.id and o.STATUS !='DELETED'
 		 	<if test="code !=null and code != ''"> 
               and  o.CODE like '%${code}%'
             </if> 
@@ -46,19 +58,19 @@
             <if test="authType !=null and authType != ''"> 
               and  o.CODE like '${authType}%'
             </if>
-            <if test="moduleId !=null and moduleId != ''"> 
-				and m.id in <foreach collection="moduleId" item="item" index="index" 
+            <if test="menuId !=null and menuId != ''"> 
+				and m.id in <foreach collection="menuId" item="item" index="index" 
 				open="(" separator="," close=")">#{item}</foreach>
             </if>  
-            order by o.MODULE_ID asc
+            order by o.menu_id asc
        
 	</select>
 	
 	<!-- 统计分页查询的数据条数 -->
 	<select id="queryPageCount" parameterType="map" resultType="int">
 		select count(distinct o.ID)
-		from T_CDR_SYSTEM_AUTH o , T_CDR_SYSTEM_MODULE m 
-		where o.MODULE_ID = m.ID and o.STATUS !='DELETED'
+		from love_system_auth o,love_system_menu m
+		where o.menu_id = m.id and o.STATUS !='DELETED'
             <if test="code !=null and code != ''"> 
               and  o.CODE like '%${code}%'
             </if> 
@@ -68,37 +80,36 @@
             <if test="authType !=null and authType != ''"> 
               and  o.CODE like '${authType}%'
             </if>
-            <if test="moduleId !=null and moduleId != ''"> 
-				and m.id in <foreach collection="moduleId" item="item" index="index" 
+            <if test="menuId !=null and menuId != ''"> 
+				and m.id in <foreach collection="menuId" item="item" index="index" 
 				open="(" separator="," close=")">#{item}</foreach>
             </if>  
-        
 	</select>
 	
 	<!-- 通过ID查找权限 -->
-	<select id="findAuthById" parameterType="String" resultType="auth">
-		select o.ID,o.CODE,o.NAME,o.STATUS,o.ISVALID,o.MODULE_ID,m.NAME as moduleName
-		from T_CDR_SYSTEM_AUTH o , T_CDR_SYSTEM_MODULE m 
-		where o.MODULE_ID = m.ID and o.ID=#{id} and o.STATUS !='DELETED'
+	<select id="findAuthById" parameterType="String" resultType="authVo">
+		select o.ID,o.CODE,o.NAME,o.CREATE_TIME,o.MODIFY_TIME,o.STATUS,o.ISVALID,o.menu_id,m.name as menuName
+		from love_system_auth o,love_system_menu m
+		where o.menu_id = m.id and o.ID=#{id} and o.STATUS !='DELETED'
 	</select>
 	
 	<!-- 逻辑删除权限 -->
 	<update id="deleteById" parameterType="map">
-		update T_CDR_SYSTEM_AUTH set STATUS=#{status} where ID=#{id}
+		update love_system_auth set STATUS=#{status} where ID=#{id}
 	</update>
 	
 	<!-- 启用/禁用权限 -->
 	<update id="runById" parameterType="map">
-		update T_CDR_SYSTEM_AUTH set ISVALID=#{isvalid} where ID=#{id}
+		update love_system_auth set ISVALID=#{isvalid} where ID=#{id}
 	</update>
 	
 	<!-- 根据条件查询权限集合 -->
-	<select id="findListBy" parameterType="map" resultType="auth">
-		select o.ID,o.CODE,o.NAME,o.STATUS,o.ISVALID,o.MODULE_ID,m.NAME as moduleName
-		from T_CDR_SYSTEM_AUTH o , T_CDR_SYSTEM_MODULE m 
-		where o.MODULE_ID = m.ID and o.ISVALID ='Y' and m.SYSTEM_ID=#{systemId}
-		<if test="moduleId !=null and moduleId != ''">
-			and m.ID=#{moduleId}
+	<select id="findListBy" parameterType="map" resultType="authVo">
+		select o.ID,o.CODE,o.NAME,o.CREATE_TIME,o.MODIFY_TIME,o.STATUS,o.ISVALID,o.menu_id,m.name as menuName
+		from love_system_auth o,love_system_menu m
+		where o.menu_id = m.id and o.ISVALID ='Y'
+		<if test="menuId !=null and menuId != ''">
+			and m.ID=#{menuId}
 		</if>
 		<if test="status !=null and status != ''">
 			and o.STATUS=#{status}
@@ -106,12 +117,12 @@
 	</select>
 	
 	<!-- 根据条件和用户,查询权限集合 -->
-	<select id="findListByUser" parameterType="map" resultType="auth">
-		select o.ID,o.CODE,o.NAME,o.STATUS,o.ISVALID,o.MODULE_ID,m.NAME as moduleName
-		from T_CDR_SYSTEM_AUTH o , T_CDR_SYSTEM_MODULE m  ,T_CDR_SYSTEM_R_AUTH_USER r
-		where o.MODULE_ID = m.ID and o.ISVALID ='Y' and o.ID=r.AUTH_ID and r.USER_ID=#{userId} and m.SYSTEM_ID=#{systemId}
-		<if test="moduleId !=null and moduleId != ''">
-			and m.ID=#{moduleId}
+	<select id="findListByUser" parameterType="map" resultType="authVo">
+		select o.ID,o.CODE,o.NAME,o.CREATE_TIME,o.MODIFY_TIME,o.STATUS,o.ISVALID,o.menu_id,m.name as menuName
+		from love_system_auth o , love_system_r_user_auth r,love_system_menu m
+		where o.menu_id = m.id and o.ISVALID ='Y' and o.ID=r.AUTH_ID and r.USER_ID=#{userId} 
+		<if test="menuId !=null and menuId != ''">
+			and m.ID=#{menuId}
 		</if>
 		<if test="status !=null and status != ''">
 			and o.STATUS=#{status}
@@ -119,19 +130,19 @@
 	</select>
 	
 	<!-- 给用户分配权限 -->
-	<insert id="authUser" parameterType="map">
-		insert into T_CDR_SYSTEM_R_AUTH_USER(ID,USER_ID,AUTH_ID) values(#{id},#{userId},#{authId})
+	<insert id="grantAuthToUser" parameterType="map">
+		insert into love_system_r_user_auth(ID,USER_ID,AUTH_ID) values(#{id},#{userId},#{authId})
 	</insert>
 	
 	<!-- 清除用户的权限 -->
-	<delete id="authUserClear" parameterType="String">
-		delete from T_CDR_SYSTEM_R_AUTH_USER where USER_ID=#{userId}
+	<delete id="clearAuthToUser" parameterType="String">
+		delete from love_system_r_user_auth where USER_ID=#{userId}
 	</delete>
 	
 	<!-- 权限编码重复 -->
 	<select id="isRepeatCode" parameterType="map" resultType="auth">
-		select o.ID,o.CODE,o.NAME,o.STATUS,o.ISVALID,o.MODULE_ID
-		from T_CDR_SYSTEM_AUTH o
+		select o.ID,o.CODE,o.NAME,o.CREATE_TIME,o.MODIFY_TIME,o.STATUS,o.ISVALID,o.menu_id
+		from love_system_auth o
 		where o.CODE=#{code} 
 		<if test="id !=null and id != ''"> 
             	and o.ID!=#{id}
@@ -140,11 +151,18 @@
 	
 	<!-- 权限名称重复 -->
 	<select id="isRepeatName" parameterType="map" resultType="auth">
-		select o.ID,o.CODE,o.NAME,o.STATUS,o.ISVALID,o.MODULE_ID
-		from T_CDR_SYSTEM_AUTH o
+		select o.ID,o.CODE,o.NAME,o.CREATE_TIME,o.MODIFY_TIME,o.STATUS,o.ISVALID,o.menu_id
+		from love_system_auth o
 		where o.NAME=#{name} 
 		<if test="id !=null and id != ''"> 
             	and o.ID!=#{id}
             </if> 
+	</select>
+	
+	<!-- 根据角色查找权限 -->
+	<select id="findAuthByRole" parameterType="String" resultType="authVo">
+		select o.ID,o.CODE,o.NAME,o.STATUS,o.ISVALID,o.CREATE_TIME,o.MODIFY_TIME,o.menu_id,m.name as menuName
+		from love_system_auth o,love_system_r_role_auth r,love_system_menu m
+		where o.menu_id = m.id and o.ID=r.AUTH_ID and o.ISVALID='Y' and o.STATUS !='DELETED' and r.ROLE_ID=#{roleId}
 	</select>
 </mapper>

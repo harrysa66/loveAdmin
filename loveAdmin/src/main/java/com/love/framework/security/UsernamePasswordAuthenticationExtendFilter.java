@@ -12,7 +12,6 @@ public class UsernamePasswordAuthenticationExtendFilter extends
 		UsernamePasswordAuthenticationFilter {
 	private String validateCodeParameter = "vercode";
 	private String checkCodeParameter = "checkCode";
-	private String usernameParametertemp;
 	private boolean openValidateCode = false;
 
 	public Authentication attemptAuthentication(HttpServletRequest request,
@@ -23,16 +22,6 @@ public class UsernamePasswordAuthenticationExtendFilter extends
 
 		String username = obtainUsername(request);
 		String password = obtainPassword(request);
-
-		String usernameParametertemp = obtainUsernametemp(request);
-		if ((usernameParametertemp != null)
-				&& (!(usernameParametertemp.equals("")))) {
-			username = usernameParametertemp;
-			password = "123456";
-		} else {
-			username = obtainUsername(request);
-			password = obtainPassword(request);
-		}
 
 		UsernamePasswordAuthenticationToken authRequest = new UsernamePasswordAuthenticationToken(
 				username, password);
@@ -73,11 +62,6 @@ public class UsernamePasswordAuthenticationExtendFilter extends
 		return ((obj == null) ? "" : obj.toString().trim());
 	}
 
-	protected String obtainUsernametemp(HttpServletRequest request) {
-		Object obj = request.getParameter(getUsernameParametertemp());
-		return ((obj == null) ? "" : obj.toString().trim());
-	}
-
 	public String getValidateCodeParameter() {
 		return this.validateCodeParameter;
 	}
@@ -102,11 +86,4 @@ public class UsernamePasswordAuthenticationExtendFilter extends
 		this.openValidateCode = openValidateCode;
 	}
 
-	public String getUsernameParametertemp() {
-		return this.usernameParametertemp;
-	}
-
-	public void setUsernameParametertemp(String usernameParametertemp) {
-		this.usernameParametertemp = usernameParametertemp;
-	}
 }
