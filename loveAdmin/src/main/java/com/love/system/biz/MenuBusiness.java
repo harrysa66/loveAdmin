@@ -22,13 +22,11 @@ public class MenuBusiness {
 	}
 
 	public List<Menu> selectListByNull(Map<String, Object> parements) {
-		
-		return null;
+		return menuDao.findListByMap("selectListByNull", parements);
 	}
 
 	public List<Menu> selectListByNotNull(Map<String, Object> parements) {
-		
-		return null;
+		return menuDao.findListByMap("selectListByNotNull", parements);
 	}
 	
 	

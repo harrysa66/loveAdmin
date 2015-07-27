@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Menu">
+	<!-- 一级菜单 -->
+	<select id="selectListByNull" parameterType="map" resultType="menu">
+		select o.*
+		from love_system_menu o
+		where  o.parent_id is null and o.STATUS=#{status} and o.ISVALID=#{isvalid}  order by o.id
+	</select>
+	<!-- 子菜单 -->
+	<select id="selectListByNotNull" parameterType="map" resultType="menu">
+		select o.*
+		from love_system_menu o
+		where  o.parent_id is not null and o.STATUS=#{status} and o.ISVALID=#{isvalid}  order by o.id
+	</select>
+	
+</mapper>

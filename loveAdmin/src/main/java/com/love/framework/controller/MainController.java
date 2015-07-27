@@ -115,12 +115,4 @@ public class MainController extends BaseController{
 		}
 		return showList;
 	}
-	
-	public List<Menu> initChildMenu(){
-		
-		
-		
-		return null;
-	}
-
 }
