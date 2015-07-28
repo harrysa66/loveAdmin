@@ -46,7 +46,7 @@ var YDataGrid = function(config){
 					var data ={};
 					var idKey = dataGrid.idField || 'id'; //主键名称
  					data[idKey] = (record[0][idKey]);
-					Love.getById(Action.getId,data,function(result){
+					Love.view(Action.view,data,function(result){
 						Form.edit.form('load',result.data);
 						Win.edit.dialog('open'); 
 						//回调函数
