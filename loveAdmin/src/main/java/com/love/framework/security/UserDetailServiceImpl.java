@@ -36,7 +36,7 @@ public class UserDetailServiceImpl implements UserDetailsService {
 			throws UsernameNotFoundException, DataAccessException {
 		User user = userBusiness.findUserByUsername(username);
 		if ((user == null)
-				|| (Constants.ISVALIAD_HIDDEN.equals(user.getIsValid()))
+				|| (Constants.ISVALIAD_HIDDEN.equals(user.getIsvalid()))
 				|| (Constants.STATUS_DELETED.equals(user.getStatus()))) {
 			throw new UsernameNotFoundException("登录名错误, username=" + username);
 		}

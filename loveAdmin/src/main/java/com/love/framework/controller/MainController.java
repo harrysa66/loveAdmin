@@ -8,7 +8,9 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Controller;
@@ -18,12 +20,17 @@ import org.springframework.web.servlet.ModelAndView;
 import com.love.framework.common.Constants;
 import com.love.framework.common.TreeNode;
 import com.love.framework.security.SpringSecurityUtils;
+import com.love.system.biz.MenuBtnBusiness;
 import com.love.system.biz.MenuBusiness;
 import com.love.system.biz.RoleBusiness;
 import com.love.system.po.Menu;
+import com.love.system.po.MenuBtn;
 import com.love.system.po.Role;
 import com.love.system.po.User;
+import com.love.util.HtmlUtil;
+import com.love.util.SessionUtils;
 import com.love.util.TreeUtil;
+import com.love.util.URLUtils;
 
 @Controller
 public class MainController extends BaseController{
@@ -31,6 +38,9 @@ public class MainController extends BaseController{
 	
 	@Resource
 	private MenuBusiness menuBusiness;
+	
+	@Resource
+	private MenuBtnBusiness menuBtnBusiness;
 	
 	@Resource
 	private RoleBusiness roleBusiness;
@@ -57,12 +67,34 @@ public class MainController extends BaseController{
    		parements.put("type",Constants.MENU_ADMIN);
 		List<Menu> rootMenuList = menuBusiness.selectListByNull(parements);
 		List<Menu> childMenuList = menuBusiness.selectListByNotNull(parements);
+		List<MenuBtn> childBtnList = menuBtnBusiness.selectList(parements);
 		List<Menu> rootMenus = initMenu(rootMenuList, user);
 		List<Menu> childMenus = initMenu(childMenuList, user);
+		List<MenuBtn> childBtns = initBtn(childBtnList,user);
+		buildData(childMenus,childBtns,request); //构建必要的数据
 		context.put("user", user);
 		context.put("userIp", userIp);
 		context.put("menuList", treeMenu(rootMenus, childMenus));
 		return forword("index",context); 
+	}
+	
+	@RequestMapping("/getActionBtn")
+	public void  getActionBtn(String url,HttpServletRequest request,HttpServletResponse response) throws Exception{
+		Map<String, Object> result = new HashMap<String, Object>();
+		List<String> actionTypes = new ArrayList<String>();
+		//判断是否超级管理员
+		if(SessionUtils.isAdmin()){
+			result.put("allType", true);
+		}else{
+			String menuUrl = URLUtils.getReqUri(url);
+			menuUrl = StringUtils.remove(menuUrl,request.getContextPath());
+			//获取权限按钮
+			actionTypes = SessionUtils.getMemuBtnListVal(request, StringUtils.trim(menuUrl));
+			result.put("allType", false);
+			result.put("types", actionTypes);
+		}
+		result.put(SUCCESS, true);
+		HtmlUtil.writerJson(response, result);
 	}
 	
 	/**
@@ -114,5 +146,73 @@ public class MainController extends BaseController{
    	   		}
 		}
 		return showList;
+	}
+	
+	/**
+	 * 初始化按钮
+	 * @param childBtnList
+	 * @param user
+	 * @return
+	 */
+	private List<MenuBtn> initBtn(List<MenuBtn> childBtnList, User user) {
+		List<MenuBtn> showList = new ArrayList<MenuBtn>();
+		Collection<GrantedAuthority> authority=user.getAuthorities();
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("status",Constants.STATUS_DEFAULT);
+		map.put("userId",user.getId());
+		List<Role> roleList = roleBusiness.findListByUser(map);
+		Role role = roleBusiness.findRoleByCode(Constants.ROLE_ADMIN_CODE);
+		if(roleList.contains(role) || "admin".equals(user.getUsername())){
+			showList=childBtnList;
+		}else{
+			for(int i=0;i<childBtnList.size();i++)
+   	   		{
+   				 boolean flag=false;
+   			     for (GrantedAuthority attribute : authority) 
+   			    {  
+   				  	String key = attribute.getAuthority();
+   				  	String code=childBtnList.get(i).getCode().trim();
+		   	   		if(key.startsWith(code))
+		   	   		{
+		   	   			flag=true;
+		   	   			break;
+		   	   		}
+   		        }  
+   	   	   		if(flag)
+   	   	   		{
+   	   	   			showList.add(childBtnList.get(i));	
+   	   	   		}
+   	   			
+   	   		}
+		}
+		return showList;
+	}
+	
+	/**
+	 * 构建树形数据
+	 * @return
+	 */
+	private void buildData(List<Menu> childMenus,List<MenuBtn> childBtns,HttpServletRequest request){
+		//能够访问的url列表
+		List<String> accessUrls  = new ArrayList<String>();
+		//菜单对应的按钮
+		Map<String,List<String>> menuBtnMap = new HashMap<String,List<String>>(); 
+		for(Menu menu: childMenus){
+			//判断URL是否为空
+			if(StringUtils.isNotBlank(menu.getUrl())){
+				List<String> btnNames = new ArrayList<String>();
+				for(MenuBtn btn  : childBtns){
+					if(menu.getId().equals(btn.getMenuId())){
+						btnNames.add(btn.getName());
+						URLUtils.getBtnAccessUrls(menu.getUrl(), btn.getUrl(),accessUrls);
+					}
+				}
+				menuBtnMap.put(menu.getUrl(), btnNames);
+				URLUtils.getBtnAccessUrls(menu.getUrl(), menu.getActions(),accessUrls);
+				accessUrls.add(menu.getUrl());
+			}
+		}
+		SessionUtils.setAccessUrl(request, accessUrls);//设置可访问的URL
+		SessionUtils.setMemuBtnMap(request, menuBtnMap); //设置可用的按钮
 	}
 }

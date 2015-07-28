@@ -19,9 +19,9 @@ Love.sysMenu = function(){
 		//设置默认按钮数据
 		addDefBtns:function(){
 			var defaultBtns= [
-				{"btnName":"添加","menuid":2,"actionUrls":"save.do","btnType":"add"},
-				{"btnName":"修改","menuid":2,"actionUrls":"getId.do|save.do","btnType":"edit"},
-				{"btnName":"删除","menuid":2,"actionUrls":"delete.do","btnType":"remove"}
+				{"btnName":"添加","menuid":2,"actionUrls":"save.s","btnType":"add"},
+				{"btnName":"修改","menuid":2,"actionUrls":"view.s|save.s","btnType":"edit"},
+				{"btnName":"删除","menuid":2,"actionUrls":"delete.s","btnType":"remove"}
 			];
 			var tbline = $(".tb-line:visible");
 			var btnType = $("input[name='btnType']",tbline);

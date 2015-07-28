@@ -4,9 +4,9 @@ var YDataGrid = function(config){
 		//Actions
 		var actionUrl =  config.action || {}
 		var Action = {
-			'save': actionUrl.save ||'save.do',
-			'getId': actionUrl.getId||'getId.do',
-			'remove': actionUrl.remove||'delete.do'
+			'save': actionUrl.save ||'save.s',
+			'view': actionUrl.getId||'view.s',
+			'delete': actionUrl.remove||'delete.s'
 		}
 		
 		//Grid DataList
@@ -167,20 +167,20 @@ var YDataGrid = function(config){
 		//按钮控制 btnType 用来控制按钮是否显示,后台根据授权控制是否显示
 		var bar_add ={	
 						id:'btnadd',
-						text:'Add',
+						text:'添加',
 						iconCls:'icon-add',
 						btnType:'add',
 						handler: Events.add
 					 };
 		var bar_edit = {
 							id:'btnedit',
-							text:'Edit',
+							text:'修改',
 							iconCls:'icon-edit',
 							btnType:'edit',
 							handler: Events.edit
 						};
 		var bar_remove = { id:'btnremove',
-						text:'Remove',
+						text:'删除',
 						iconCls:'icon-remove',
 						btnType:'remove',
 						handler:Events.remove
@@ -217,7 +217,7 @@ var YDataGrid = function(config){
 		//初始化表格
 		var initGrid = function(){
 			var dataconfig = {
-				title: dataGrid.title || 'Data List',
+				title: dataGrid.title || '数据列表',
 				iconCls: dataGrid.iconCls || 'icon-save',
 				height: dataGrid.height || 365,
 				nowrap: true,
@@ -257,7 +257,7 @@ var YDataGrid = function(config){
 		//初始化Grid按钮 按钮控制
 		var initTbar = function(){
 			var tbars = getToolbar();
-			var _url = urls['msUrl'] + '/getActionBtn.do';
+			var _url = urls['msUrl'] + '/getActionBtn.s';
 			var data = {'url':window.location.href};
 			//查询页面授权的btnType
 			Love.ajaxJson(_url,data,function(data){

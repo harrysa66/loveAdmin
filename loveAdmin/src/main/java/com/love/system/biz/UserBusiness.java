@@ -54,7 +54,7 @@ public class UserBusiness {
 			user.setId(UUIDGenerator.getUUID());
 			try {
 				user.setStatus(Constants.STATUS_DEFAULT);
-				user.setIsValid(Constants.ISVALIAD_HIDDEN);
+				user.setIsvalid(Constants.ISVALIAD_HIDDEN);
 				userDao.insert(user);
 				return Constants.ADD_SUCCESS;
 			} catch (Exception e) {

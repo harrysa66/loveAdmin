@@ -17,7 +17,7 @@ public class Auth implements Serializable {
 	private Date modifyTime;
 	private String status;
 	private String isvalid;
-	private String menuId;
+	private String menuName;
 
 	public String getId() {
 		return this.id;
@@ -75,11 +75,11 @@ public class Auth implements Serializable {
 		this.isvalid = isvalid;
 	}
 
-	public String getMenuId() {
-		return menuId;
+	public String getMenuName() {
+		return menuName;
 	}
 
-	public void setMenuId(String menuId) {
-		this.menuId = menuId;
+	public void setMenuName(String menuName) {
+		this.menuName = menuName;
 	}
 }

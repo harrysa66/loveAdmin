@@ -7,6 +7,7 @@ import com.love.framework.dao.jdbc.Page;
 import com.love.framework.exception.ApplicationRuntimeException;
 import com.love.system.po.Auth;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -20,6 +21,12 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class AuthBusiness {
+	
+	@Resource
+	private MenuBusiness menuBusiness;
+	
+	@Resource
+	private MenuBtnBusiness menuBtnBusiness;
 
 	private BaseDao<Auth, String> authDao;
 
@@ -49,6 +56,7 @@ public class AuthBusiness {
 			try {
 				auth.setStatus(Constants.STATUS_DEFAULT);
 				auth.setIsvalid(Constants.ISVALIAD_HIDDEN);
+				auth.setCreateTime(new Date());
 				authDao.insert(auth);
 				return Constants.ADD_SUCCESS;
 			} catch (Exception e) {
@@ -57,7 +65,31 @@ public class AuthBusiness {
 		}
 		try {
 			authDao.update(auth);
+			auth.setModifyTime(new Date());
 			return Constants.EDIT_SUCCESS;
+		} catch (Exception e) {
+			throw new ApplicationRuntimeException(Constants.EDIT_ERROR, e);
+		}
+	}
+	
+	@Transactional
+	public String saveAuthReId(Auth auth) {
+		if (StringUtils.isEmpty(auth.getId())) {
+			auth.setId(UUIDGenerator.getUUID());
+			try {
+				auth.setStatus(Constants.STATUS_DEFAULT);
+				auth.setIsvalid(Constants.ISVALIAD_HIDDEN);
+				auth.setCreateTime(new Date());
+				authDao.insert(auth);
+				return auth.getId();
+			} catch (Exception e) {
+				throw new ApplicationRuntimeException(Constants.ADD_ERROR, e);
+			}
+		}
+		try {
+			auth.setModifyTime(new Date());
+			authDao.update(auth);
+			return auth.getId();
 		} catch (Exception e) {
 			throw new ApplicationRuntimeException(Constants.EDIT_ERROR, e);
 		}
@@ -156,5 +188,16 @@ public class AuthBusiness {
 
 	public Auth isRepeatName(Map<String, String> map) {
 		return this.authDao.findByMap("isRepeatName", map);
+	}
+
+	public void saveAuthWithMenu(Auth auth,Integer menuId,String menuCode) {
+		auth.setCode(menuCode);
+		String authId = saveAuthReId(auth);
+		if(menuCode.indexOf("BTN_") == -1){
+			menuBusiness.updateAuth(menuId,authId);
+		}else{
+			menuBtnBusiness.updateAuth(menuId,authId);
+		}
+		
 	}
 }

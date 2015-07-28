@@ -1,29 +1,39 @@
-package com.love.system.vo;
+package com.love.system.po;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import org.apache.ibatis.type.Alias;
 import org.springframework.stereotype.Component;
 
-@Alias("authVo")
+@Alias("menuBtn")
 @Component
-public class AuthVo {
-	
-	private String id;
+public class MenuBtn implements Serializable{
+
+	private static final long serialVersionUID = 7087242222781349056L;
+
+	private Integer id;
+	private Integer menuId;
 	private String code;
 	private String name;
+	private String url;
 	private Date createTime;
 	private Date modifyTime;
 	private String status;
 	private String isvalid;
-	private String menuId;
-	private String menuName;
+	private String authId;
 	
-	public String getId() {
+	public Integer getId() {
 		return id;
 	}
-	public void setId(String id) {
+	public void setId(Integer id) {
 		this.id = id;
+	}
+	public Integer getMenuId() {
+		return menuId;
+	}
+	public void setMenuId(Integer menuId) {
+		this.menuId = menuId;
 	}
 	public String getCode() {
 		return code;
@@ -36,6 +46,12 @@ public class AuthVo {
 	}
 	public void setName(String name) {
 		this.name = name;
+	}
+	public String getUrl() {
+		return url;
+	}
+	public void setUrl(String url) {
+		this.url = url;
 	}
 	public Date getCreateTime() {
 		return createTime;
@@ -61,17 +77,10 @@ public class AuthVo {
 	public void setIsvalid(String isvalid) {
 		this.isvalid = isvalid;
 	}
-	public String getMenuId() {
-		return menuId;
+	public String getAuthId() {
+		return authId;
 	}
-	public void setMenuId(String menuId) {
-		this.menuId = menuId;
+	public void setAuthId(String authId) {
+		this.authId = authId;
 	}
-	public String getMenuName() {
-		return menuName;
-	}
-	public void setMenuName(String menuName) {
-		this.menuName = menuName;
-	}
-
 }

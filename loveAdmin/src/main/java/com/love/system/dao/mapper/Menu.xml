@@ -6,13 +6,25 @@
 	<select id="selectListByNull" parameterType="map" resultType="menu">
 		select o.*
 		from love_system_menu o
-		where  o.parent_id is null and o.STATUS=#{status} and o.ISVALID=#{isvalid}  order by o.id
+		where  o.parent_id is null and o.STATUS=#{status} and o.ISVALID=#{isvalid}
+		<if test="type !=null and type != ''"> 
+           and  o.type=#{type} 
+        </if>
+		order by o.id
 	</select>
 	<!-- 子菜单 -->
 	<select id="selectListByNotNull" parameterType="map" resultType="menu">
 		select o.*
 		from love_system_menu o
-		where  o.parent_id is not null and o.STATUS=#{status} and o.ISVALID=#{isvalid}  order by o.id
+		where  o.parent_id is not null and o.STATUS=#{status} and o.ISVALID=#{isvalid}
+		<if test="type !=null and type != ''"> 
+           and  o.type=#{type} 
+        </if>
+        order by o.id
 	</select>
+	
+	<update id="updateAuth" parameterType="map">
+		update love_system_menu set auth_id=#{authId} where id=#{id}
+	</update>
 	
 </mapper>

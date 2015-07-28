@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="MenuBtn">
+	<select id="selectListAll" parameterType="map" resultType="menuBtn">
+		select o.*
+		from love_system_menu_btn o
+		where o.STATUS=#{status} and o.ISVALID=#{isvalid}
+		order by o.id
+	</select>
+	
+	<update id="updateAuth" parameterType="map">
+		update love_system_menu_btn set auth_id=#{authId} where id=#{id}
+	</update>
+</mapper>

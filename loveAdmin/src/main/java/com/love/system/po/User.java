@@ -23,7 +23,7 @@ public class User implements UserDetails {
 	private Date createTime;
 	private Date modifyTime;
 	private String status;
-	private String isValid;
+	private String isvalid;
 	private String roleCodeList;
 	boolean enabled = true;
 	boolean accountNonExpired = true;
@@ -141,12 +141,12 @@ public class User implements UserDetails {
 		this.status = status;
 	}
 
-	public String getIsValid() {
-		return this.isValid;
+	public String getIsvalid() {
+		return isvalid;
 	}
 
-	public void setIsValid(String isValid) {
-		this.isValid = isValid;
+	public void setIsvalid(String isvalid) {
+		this.isvalid = isvalid;
 	}
 
 	public void setAuthorities(Collection<GrantedAuthority> authorities) {

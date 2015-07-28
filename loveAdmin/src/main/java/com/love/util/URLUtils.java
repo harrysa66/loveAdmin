@@ -8,6 +8,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
 
+import org.apache.commons.lang3.StringUtils;
+
 public class URLUtils {
 	
 	private static ResourceBundle res = ResourceBundle.getBundle("urls");
@@ -56,7 +58,7 @@ public class URLUtils {
 	 * @param actionUrls
 	 * @return
 	 */
-	/*public static void getBtnAccessUrls(String menuUrl,String actionUrls,List<String> accessUrls){
+	public static void getBtnAccessUrls(String menuUrl,String actionUrls,List<String> accessUrls){
 		if(menuUrl == null || actionUrls == null || accessUrls == null ){
 			return;
 		}
@@ -70,6 +72,6 @@ public class URLUtils {
 			else
 				accessUrls.add(menuUri+"/"+action);
 		}
-	}*/
+	}
 	
 }

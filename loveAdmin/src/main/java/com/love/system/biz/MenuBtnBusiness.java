@@ -10,33 +10,27 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.springframework.stereotype.Service;
 
 import com.love.framework.dao.jdbc.BaseDao;
-import com.love.system.po.Menu;
+import com.love.system.po.MenuBtn;
 
 @Service
-public class MenuBusiness {
+public class MenuBtnBusiness {
 	
-	private BaseDao<Menu, String> menuDao;
+	private BaseDao<MenuBtn, String> menuBtnDao;
 	
 	@Resource
 	private void init(SqlSessionFactory sqlSessionFactory) {
-		menuDao = new BaseDao<Menu, String>(sqlSessionFactory, Menu.class);
+		menuBtnDao = new BaseDao<MenuBtn, String>(sqlSessionFactory, MenuBtn.class);
 	}
 
-	public List<Menu> selectListByNull(Map<String, Object> parements) {
-		return menuDao.findListByMap("selectListByNull", parements);
-	}
-
-	public List<Menu> selectListByNotNull(Map<String, Object> parements) {
-		return menuDao.findListByMap("selectListByNotNull", parements);
+	public List<MenuBtn> selectList(Map<String, Object> parements) {
+		return menuBtnDao.findListByMap("selectListAll", parements);
 	}
 
 	public void updateAuth(Integer menuId, String authId) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("id", menuId);
 		map.put("authId", authId);
-		menuDao.updateObject("updateAuth", map);
+		menuBtnDao.updateObject("updateAuth", map);
 	}
-	
-	
 
 }
