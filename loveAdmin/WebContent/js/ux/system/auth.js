@@ -123,13 +123,7 @@ Love.system.auth = function(){
 							}},
 						{field:'fullName',title:'所属菜单',width:200,sortable:true}
 						
-				]]/*,
-				toolbar:[
-					{id:'btnadd',text:'添加',btnType:'add'},
-					{id:'btnedit',text:'修改',btnType:'edit'},
-					{id:'btndelete',text:'删除',btnType:'remove'},
-					{id:'btnrun',text:'启停',btnType:'run'}
-				]*/
+				]]
 			}
 		},
 		init:function(){

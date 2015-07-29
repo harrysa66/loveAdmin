@@ -18,6 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.love.framework.common.Constants;
 import com.love.framework.controller.BaseController;
 import com.love.framework.dao.jdbc.Page;
+import com.love.system.biz.AuthBusiness;
 import com.love.system.biz.RoleBusiness;
 import com.love.system.po.Auth;
 import com.love.system.po.Role;
@@ -30,6 +31,9 @@ public class RoleController extends BaseController{
 	
 	@Resource
 	private RoleBusiness roleBusiness;
+	
+	@Resource
+	private AuthBusiness authBusiness;
 	
 	@RequestMapping("/query")
 	public ModelAndView  doQuery(HttpServletRequest request) throws Exception{
@@ -99,6 +103,28 @@ public class RoleController extends BaseController{
 		}else{
 			sendSuccessMessage(response, "超级管理员不能进行该操作,其他数据操作成功!");
 		}
+	}
+	
+	@RequestMapping("/authDataList")
+	public void  authDataList(HttpServletRequest request,HttpServletResponse response){
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("code", ServletRequestUtils.getStringParameter(request, "code", "").trim());
+		map.put("name", ServletRequestUtils.getStringParameter(request, "name", "").trim());
+		map.put("authType", ServletRequestUtils.getStringParameter(request, "authType", "").trim());
+		map.put("isvalid", ServletRequestUtils.getStringParameter(request, "isvalid", "").trim());
+		Page<Auth> page = PageUtil.getPageObj(request);
+		page = authBusiness.queryPage(map, page);
+		List<Auth> authList= new ArrayList<Auth>();
+		for(Auth auth : page.getResult()){
+			auth.setFullName(authBusiness.getFullParentName(auth.getId()));
+			authList.add(auth);
+		}
+		page.setResult(authList);
+		//设置页面数据
+		Map<String,Object> jsonMap = new HashMap<String,Object>();
+		jsonMap.put("total",page.getTotalCount());
+		jsonMap.put("rows", page.getResult());
+		HtmlUtil.writerJson(response, jsonMap);
 	}
 
 }
