@@ -36,6 +36,14 @@ public class MenuBusiness {
 		map.put("authId", authId);
 		menuDao.updateObject("updateAuth", map);
 	}
+
+	public Menu findByAuthId(String authId) {
+		return menuDao.findByProperty("findByAuthId", authId);
+	}
+	
+	public Menu findById(String id){
+		return menuDao.findById(id);
+	}
 	
 	
 

@@ -54,6 +54,13 @@ public class RoleBusiness {
 			try {
 				role.setStatus(Constants.STATUS_DEFAULT);
 				role.setIsvalid(Constants.ISVALIAD_HIDDEN);
+				String roleSubCode = "";
+				if(role.getCode().length() > 4){
+					roleSubCode = role.getCode().substring(0, Constants.CODE_RULE_ROLE.length());
+				}
+				if(!roleSubCode.equals(Constants.CODE_RULE_ROLE)){
+					role.setCode(Constants.CODE_RULE_ROLE+role.getCode());
+				}
 				role.setCreateTime(new Date());
 				this.roleDao.insert(role);
 				return Constants.ADD_SUCCESS;
@@ -62,6 +69,13 @@ public class RoleBusiness {
 			}
 		}
 		try {
+			String roleSubCode = "";
+			if(role.getCode().length() > 4){
+				roleSubCode = role.getCode().substring(0, Constants.CODE_RULE_ROLE.length());
+			}
+			if(!roleSubCode.equals(Constants.CODE_RULE_ROLE)){
+				role.setCode(Constants.CODE_RULE_ROLE+role.getCode());
+			}
 			role.setModifyTime(new Date());
 			roleDao.update(role);
 			return Constants.EDIT_SUCCESS;
@@ -82,7 +96,7 @@ public class RoleBusiness {
 		}
 	}
 
-	@Transactional
+	/*@Transactional
 	public String toogleRole(String id, String isvalid) {
 		String successMessage = null;
 		String errorMessage = null;
@@ -109,6 +123,27 @@ public class RoleBusiness {
 			return successMessage;
 		} catch (Exception e) {
 			throw new ApplicationRuntimeException(errorMessage, e);
+		}
+	}*/
+	
+	@Transactional
+	public void toogleRole(String id, String isvalid) {
+		try {
+			if ((isvalid == Constants.ISVALIAD_SHOW)
+					|| (Constants.ISVALIAD_SHOW.equals(isvalid))) {
+				isvalid = Constants.ISVALIAD_HIDDEN;
+			} else if ((isvalid == Constants.ISVALIAD_HIDDEN)
+					|| (Constants.ISVALIAD_HIDDEN.equals(isvalid))) {
+				isvalid = Constants.ISVALIAD_SHOW;
+			} else {
+				throw new Exception();
+			}
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("id", id);
+			map.put("isvalid", isvalid);
+			roleDao.updateObject("runById", map);
+		} catch (Exception e) {
+			throw new ApplicationRuntimeException(Constants.DO_ERROR, e);
 		}
 	}
 
@@ -211,6 +246,7 @@ public class RoleBusiness {
 		return resultList;
 	}
 
+	@Transactional
 	public void clearAuthToRole(String roleId) {
 		try {
 			Map<String, Object> paramMap = new HashMap<String, Object>();
@@ -262,5 +298,33 @@ public class RoleBusiness {
 		List<Auth> resultList = new ArrayList<Auth>();
 		resultList.addAll(authSet);
 		return resultList;
+	}
+
+	@Transactional
+	public boolean removeRoles(String[] ids) {
+		boolean flag = true;
+		for(String id : ids){
+			Role role = findRoleById(id);
+			if(role.getCode().equals(Constants.ROLE_ADMIN_CODE)){
+				flag = false;
+				continue;
+			}
+			deleteRole(id);
+		}
+		return flag;
+	}
+
+	@Transactional
+	public boolean runRoles(String[] ids) {
+		boolean flag = true;
+		for(String id : ids){
+			Role role = findRoleById(id);
+			if(role.getCode().equals(Constants.ROLE_ADMIN_CODE)){
+				flag = false;
+				continue;
+			}
+			toogleRole(id,role.getIsvalid());
+		}
+		return flag;
 	}
 }

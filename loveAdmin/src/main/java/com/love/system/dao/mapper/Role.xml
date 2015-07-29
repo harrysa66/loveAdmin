@@ -47,12 +47,15 @@
 	<select id="queryPage" parameterType="map" resultType="role">
 		select o.ID,o.CODE,o.NAME,o.CREATE_TIME,o.MODIFY_TIME,o.STATUS,o.ISVALID
 		from love_system_role o 
-		where and o.STATUS !='DELETED'
+		where o.STATUS !='DELETED'
 		 	<if test="code !=null and code != ''"> 
               and  o.CODE like '%${code}%'
             </if> 
             <if test="name !=null and name != ''"> 
               and  o.NAME like '%${name}%'
+            </if>
+            <if test="isvalid !=null and isvalid != ''"> 
+              and  o.isvalid = #{isvalid}
             </if>
             order by o.CODE,o.CREATE_TIME desc
 	</select>
@@ -61,17 +64,20 @@
 	<select id="queryPageCount" parameterType="map" resultType="int">
 		select count(1)
 		from love_system_role o 
-		where and o.STATUS !='DELETED'
+		where o.STATUS !='DELETED'
             <if test="code !=null and code != ''"> 
               and  o.CODE like '%${code}%'
             </if> 
             <if test="name !=null and name != ''"> 
               and  o.NAME like '%${name}%'
             </if>
+            <if test="isvalid !=null and isvalid != ''"> 
+              and  o.isvalid = #{isvalid}
+            </if>
 	</select>
 	
 	<!-- 通过ID查找角色 -->
-	<select id="findRoleById" parameterType="String" resultType="role">
+	<select id="selectById" parameterType="String" resultType="role">
 		select o.ID,o.CODE,o.NAME,o.CREATE_TIME,o.MODIFY_TIME,o.STATUS,o.ISVALID
 		from love_system_role o 
 		where o.ID=#{id} and o.STATUS !='DELETED'

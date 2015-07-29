@@ -1,7 +1,7 @@
 $package('Love.system.auth');
 Love.system.auth = function(){
 	var _box = null;
-	var parents = new Array();
+	//var parents = new Array();
 	var _this = {
 		menu: $('#menu-tree'),
 		/*getParents:function(node){
@@ -37,15 +37,15 @@ Love.system.auth = function(){
 		setTreeValue:function(id){
 			var node = _this.menu.tree("find",id);
 			if(node && node.target){
+				_this.menu.tree('select',node.target);
 				//判断是否选择或者半选状态 
-				if($(node.target).find(".tree-checkbox0")[0]){
+				/*if($(node.target).find(".tree-checkbox0")[0]){
 					_this.menu.tree('check',node.target);
-				}
+				}*/
 			}
 		},
 		clearTreeData:function(){
-			$(".tree-checkbox1",_this.menu).removeClass("tree-checkbox1").addClass("tree-checkbox0")
-			$(".tree-checkbox2",_this.menu).removeClass("tree-checkbox2").addClass("tree-checkbox0");
+			$(".tree-node-selected",_this.menu).removeClass("tree-node-selected");
 			$('.c_menus').remove();
 		},
 		config:{
@@ -57,15 +57,16 @@ Love.system.auth = function(){
 				edit:function(){
 					_this.clearTreeData();
 					_box.handler.edit(function(result){
-						var btnIds  = result.data.btnIds;
-						var menuIds  = result.data.menuIds;
-					/**/	$.each(btnIds,function(i,id){
+						var menuId  = result.data.menuId;
+						_this.setTreeValue(menuId);
+						$("#menuFullName").text(result.menuFullName);
+						/*$.each(btnIds,function(i,id){
 							_this.setTreeValue("btn_"+id);
 						});
 						
 						$.each(menuIds,function(i,id){
 							_this.setTreeValue("menu_"+id);
-						});
+						});*/
 					});
 				},
 				save:function(){
@@ -74,7 +75,7 @@ Love.system.auth = function(){
 					//var nodes = new Array();
 					var selectnode = _this.menu.tree('getSelected');
 					if(selectnode == null){
-						Love.alert('警告','未选中记录.','warning');
+						Love.alert('警告','未选中菜单','warning');
 					}else{
 						//nodes.push(selectnode);
 						//var parents = _this.getParents(selectnode);
@@ -119,18 +120,20 @@ Love.system.auth = function(){
 								if(value == 'N'){
 									return "禁用";
 								}
-							}}
+							}},
+						{field:'fullName',title:'所属菜单',width:200,sortable:true}
 						
-				]],
+				]]/*,
 				toolbar:[
 					{id:'btnadd',text:'添加',btnType:'add'},
 					{id:'btnedit',text:'修改',btnType:'edit'},
-					{id:'btndelete',text:'删除',btnType:'remove'}
-				]
+					{id:'btndelete',text:'删除',btnType:'remove'},
+					{id:'btnrun',text:'启停',btnType:'run'}
+				]*/
 			}
 		},
 		init:function(){
-			_box = new YDataGrid(_this.config); 
+			_box = new DataGrid(_this.config); 
 			_box.init();
 			
 			_this.menu.tree({

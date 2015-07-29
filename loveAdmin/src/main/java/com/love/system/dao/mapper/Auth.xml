@@ -57,11 +57,14 @@
             <if test="authType !=null and authType != ''"> 
               and  o.CODE like '${authType}%'
             </if>
+            <if test="isvalid !=null and isvalid != ''"> 
+              and  o.isvalid = #{isvalid}
+            </if>
             <if test="menuId !=null and menuId != ''"> 
 				and m.id in <foreach collection="menuId" item="item" index="index" 
 				open="(" separator="," close=")">#{item}</foreach>
             </if>  
-            order by m.id asc
+            order by o.CODE
        
 	</select>
 	
@@ -81,6 +84,9 @@
             <if test="authType !=null and authType != ''"> 
               and  o.CODE like '${authType}%'
             </if>
+            <if test="isvalid !=null and isvalid != ''"> 
+              and  o.isvalid = #{isvalid}
+            </if>
             <if test="menuId !=null and menuId != ''"> 
 				and m.id in <foreach collection="menuId" item="item" index="index" 
 				open="(" separator="," close=")">#{item}</foreach>
@@ -88,12 +94,12 @@
 	</select>
 	
 	<!-- 通过ID查找权限 -->
-	<select id="findAuthById" parameterType="String" resultType="auth">
+	<select id="selectById" parameterType="String" resultType="auth">
 		select o.ID,o.CODE,o.NAME,o.CREATE_TIME,o.MODIFY_TIME,o.STATUS,o.ISVALID,IFNULL(m. NAME,mb.NAME) as menuName
 		FROM love_system_auth o
 		left JOIN love_system_menu m on o.id = m.auth_id
 		LEFT JOIN love_system_menu_btn mb on o.id = mb.auth_id
-		WHERE and o.ID=#{id} and o.STATUS !='DELETED'
+		WHERE o.ID=#{id} and o.STATUS !='DELETED'
 	</select>
 	
 	<!-- 逻辑删除权限 -->

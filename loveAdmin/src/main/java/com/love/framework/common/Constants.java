@@ -32,6 +32,7 @@ public class Constants {
 	public static String ROLE_ADMIN_CODE = "ROLE_ADMIN";
 	public static String MENU_ADMIN = "ADMIN";
 	public static String MENU_WEB = "WEB";
-//	public static String CODE_RULE_ROLE = "ROLE";
+	public static String DELETE_CODE = "_DEL";
+	public static String CODE_RULE_ROLE = "ROLE_";
 	
 }

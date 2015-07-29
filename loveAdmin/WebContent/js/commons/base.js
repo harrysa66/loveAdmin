@@ -159,8 +159,28 @@ var Love={
 					Love.alert('提示',result.msg,'error');  
 				}
 		});
-	}
+	},
+	runForm:function(url,option,callback){
+		Love.progress();
+		Love.ajaxJson(url,option,function(data){
+				Love.closeProgress();
+				if(data.success){
+					if(callback){
+				       	callback(data);
+				    }
+				}else{
+					Love.alert('提示',result.msg,'error');  
+				}
+		});
+	}/*,
+	getLocalTime:function(date){
+		return new Date(parseInt(date) * 1000).toLocaleString().replace(/:\d{1,2}$/,' ');
+	}*/
 }
+
+Date.prototype.toLocaleString = function() {
+  return this.getFullYear() + "年" + (this.getMonth() + 1) + "月" + this.getDate() + "日 " + this.getHours() + ":" + this.getMinutes() + ":" + this.getSeconds();
+ };
 
 /* 自定义密码验证*/
 $.extend($.fn.validatebox.defaults.rules, {  

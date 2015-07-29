@@ -12,4 +12,16 @@
 	<update id="updateAuth" parameterType="map">
 		update love_system_menu_btn set auth_id=#{authId} where id=#{id}
 	</update>
+	
+	<select id="findByAuthId" parameterType="String" resultType="menuBtn">
+		select o.*
+		from love_system_menu_btn o
+		where o.STATUS !='DELETED' and o.ISVALID='Y' and o.auth_id = #{authId}
+	</select>
+	
+	<select id="selectById" parameterType="String" resultType="menuBtn">
+		select o.*
+		from love_system_menu_btn o
+		where o.STATUS !='DELETED' and o.ISVALID='Y' and o.id = #{id}
+	</select>
 </mapper>

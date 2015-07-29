@@ -1,12 +1,13 @@
-var YDataGrid = function(config){
+var DataGrid = function(config){
 		config = config || {};
 		var dataGrid = config.dataGrid || {}
 		//Actions
 		var actionUrl =  config.action || {}
 		var Action = {
 			'save': actionUrl.save ||'save.s',
-			'view': actionUrl.getId||'view.s',
-			'delete': actionUrl.remove||'delete.s'
+			'view': actionUrl.view||'view.s',
+			'remove': actionUrl.remove||'remove.s',
+			'run': actionUrl.run||'run.s'
 		}
 		
 		//Grid DataList
@@ -46,7 +47,7 @@ var YDataGrid = function(config){
 					var data ={};
 					var idKey = dataGrid.idField || 'id'; //主键名称
  					data[idKey] = (record[0][idKey]);
-					Love.view(Action.view,data,function(result){
+					Love.getById(Action.view,data,function(result){
 						Form.edit.form('load',result.data);
 						Win.edit.dialog('open'); 
 						//回调函数
@@ -69,12 +70,13 @@ var YDataGrid = function(config){
 			remove: function(callback){
 				var records = Utils.getCheckedRows();
 				if (Utils.checkSelect(records)){
-					$.messager.confirm('Confirm','Are you sure you want to delete record?',function(r){  
+					$.messager.confirm('确认','确定删除该记录?',function(r){  
 					    if (r){
 					    	var idKey = dataGrid.idField || 'id'; //主键名称
 					    	var  data = $("input[name='"+idKey+"']", Form.list ).fieldSerialize(); //序列化字段
 					   		Love.deleteForm(Action.remove,data,function(result){
 								Events.refresh();
+								Love.alert('提示',result.msg,'info');
 								//回调函数
 								if(jQuery.isFunction(callback)){
 									callback(result);
@@ -83,7 +85,28 @@ var YDataGrid = function(config){
 					    }  
 					});
 				}
-			},//保存调用方法
+			},
+			//启停记录
+			run: function(callback){
+				var records = Utils.getCheckedRows();
+				if (Utils.checkSelect(records)){
+					$.messager.confirm('确认','确定操作该记录?',function(r){  
+					    if (r){
+					    	var idKey = dataGrid.idField || 'id'; //主键名称
+					    	var  data = $("input[name='"+idKey+"']", Form.list ).fieldSerialize(); //序列化字段
+					   		Love.runForm(Action.run,data,function(result){
+								Events.refresh();
+								Love.alert('提示',result.msg,'info');
+								//回调函数
+								if(jQuery.isFunction(callback)){
+									callback(result);
+								}
+							});
+					    }  
+					});
+				}
+			},
+			//保存调用方法
 			save: function(callback){
 				if(Form.edit.form('validate')){
 					Form.edit.attr('action',Action.save);
@@ -93,6 +116,7 @@ var YDataGrid = function(config){
 							 Win.edit.dialog('close');
 						     Events.refresh();
 						     Form.edit.resetForm();
+						     Love.alert('提示',data.msg,'info');
 						     //回调函数
 							if(jQuery.isFunction(callback)){
 								callback(data);
@@ -102,7 +126,7 @@ var YDataGrid = function(config){
 			},
 			//关闭按钮事件
 			close : function (callback){
-				$.messager.confirm('Confirm','Are you sure you want close Window?',function(r){  
+				$.messager.confirm('确认','确定关闭该窗口?',function(r){  
 				    if (r){  
 				     	Win.edit.dialog('close');
 				     	//回调函数
@@ -158,6 +182,8 @@ var YDataGrid = function(config){
 			refresh: evt.refresh || Handler.refresh,
 			//删除记录
 			remove: evt.remove || Handler.remove,
+			//启停记录
+			run: evt.run || Handler.run,
 			//保存调用方法
 			save: evt.save || Handler.save,
 			//关闭按钮事件
@@ -185,7 +211,13 @@ var YDataGrid = function(config){
 						btnType:'remove',
 						handler:Events.remove
 					   };
-		var toolbarConfig = [bar_add,bar_edit,bar_remove];
+		var bar_run = { id:'btnrun',
+						text:'启停',
+						iconCls:'icon-edit',
+						btnType:'run',
+						handler:Events.run
+					   };
+		var toolbarConfig = [bar_add,bar_edit,bar_remove,bar_run];
 		var getToolbar = function (){
 			var tbars = [];
 			if (dataGrid.toolbar != undefined && dataGrid.toolbar.length > 0) {
@@ -204,6 +236,10 @@ var YDataGrid = function(config){
 					}
 					if(bar.btnType=='remove'){
 						tbars.push({id:bar.id || bar_remove.id,text:bar.text || bar_remove.text ,iconCls: bar.iconCls || bar_remove.iconCls,btnType: bar.btnType || bar_remove.btnType,handler:bar.handler || bar_remove.handler});
+						continue;
+					}
+					if(bar.btnType=='run'){
+						tbars.push({id:bar.id || bar_run.id,text:bar.text || bar_run.text ,iconCls: bar.iconCls || bar_run.iconCls,btnType: bar.btnType || bar_run.btnType,handler:bar.handler || bar_run.handler});
 						continue;
 					}
 					tbars.push({id:bar.id,text:bar.text,iconCls:bar.iconCls,btnType: bar.btnType,handler:bar.handler,disabled:bar.disabled});
@@ -305,10 +341,10 @@ var YDataGrid = function(config){
 					Win.edit.dialog({
 						buttons:[
 							{
-								text:'Save',
+								text:'保存',
 								handler:Events.save
 							},{
-								text:'Close',
+								text:'关闭',
 								handler:Events.close
 							}
 						]

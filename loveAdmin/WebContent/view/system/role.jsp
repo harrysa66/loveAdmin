@@ -10,16 +10,10 @@
  	 <div class="easyui-panel ui-search-panel" title="查询项" data-options="striped: true,collapsible:true,iconCls:'icon-search'">  
  	 <form id="searchForm">
  	 	<p class="ui-fields">
-            <label class="ui-label">权限编码:</label> 
+            <label class="ui-label">角色编码:</label> 
             <input name="code" class="easyui-box ui-text" style="width:100px;">
-            <label class="ui-label">权限名称:</label> 
+            <label class="ui-label">角色名称:</label> 
             <input name="name" class="easyui-box ui-text" style="width:100px;">
-            <label>菜单类型:</label>  
-	        <select class="easyui-combobox" name="authType" style="width:100px;" editable="false" panelHeight="80">
-	        	<option value="" selected="selected">全部</option>
-	        	<option value="MENU_">菜单权限</option>
-                <option value="BTN_">按钮权限</option>
-            </select>
             <label>状态:</label>  
 	        <select class="easyui-combobox" name="isvalid" style="width:100px;" editable="false" panelHeight="80">
 	        	<option value="" selected="selected">全部</option>
@@ -37,26 +31,19 @@
      <table id="data-list"></table>
 	 </form> 
      <!-- Edit Form -->
-     <div id="edit-win" class="easyui-dialog" title="修改" data-options="closed:true,iconCls:'icon-save',modal:true" style="width:400px;height:410px;">  
+     <div id="edit-win" class="easyui-dialog" title="修改" data-options="closed:true,iconCls:'icon-save',modal:true" style="width:400px;height:210px;">  
      	<form id="editForm" class="ui-form" method="post">  
      		 <input class="hidden" type="text" name="id">
      		 <div class="ui-edit">
-	     	   <div class="ftitle">权限信息</div>    
+	     	   <div class="ftitle">角色信息</div>    
 	           <div class="fitem">  
-	               <label>权限名称:</label>  
-	               <input class="easyui-validatebox" type="text" name="name" data-options="required:true">
+	               <label>角色编码:</label>  
+	               <input class="easyui-validatebox" type="text" name="code" data-options="required:true">
 	           </div>  
-	            <div class="fitem" style="">  
-	               <label>菜单列表:</label>
-	               <span id="menuFullName"></span>
-	               <div style="border: 1px solid #A4BED4; width:230px;height:200px;margin-left: 105px ;overflow: auto; ">  
-	               	<ul id="menu-tree"  >
-	               	</ul>
-	               </div>
-	               <!-- 
-	               <select id="menu-tree" name="menuIds" class="easyui-combotree" data-options="url:'${msUrl}/sysMenu/getMenuTree.do'" multiple style="width:180px;"></select>
-	                -->
-	           </div>
+	           <div class="fitem">  
+	               <label>角色名称:</label>  
+	               <input class="easyui-validatebox" type="text" name="name" data-options="required:true">
+	           </div> 
 	         </div>
      	</form>
   	 </div> 
@@ -64,6 +51,6 @@
 </div>
 
 <script type="text/javascript" src="${msUrl}/js/commons/DataGrid.js"></script>
-<script type="text/javascript" src="${msUrl}/js/ux/system/auth.js"></script>
+<script type="text/javascript" src="${msUrl}/js/ux/system/role.js"></script>
   </body>
 </html>

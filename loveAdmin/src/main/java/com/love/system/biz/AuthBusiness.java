@@ -6,6 +6,8 @@ import com.love.framework.dao.jdbc.BaseDao;
 import com.love.framework.dao.jdbc.Page;
 import com.love.framework.exception.ApplicationRuntimeException;
 import com.love.system.po.Auth;
+import com.love.system.po.Menu;
+import com.love.system.po.MenuBtn;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -98,6 +100,9 @@ public class AuthBusiness {
 	@Transactional
 	public void deleteAuth(String id) {
 		try {
+			Auth auth = findAuthById(id);
+			auth.setCode(auth.getCode()+Constants.DELETE_CODE);
+			authDao.update(auth);
 			Map<String, Object> map = new HashMap<String, Object>();
 			map.put("id", id);
 			map.put("status", Constants.STATUS_DELETED);
@@ -107,7 +112,7 @@ public class AuthBusiness {
 		}
 	}
 
-	@Transactional
+	/*@Transactional
 	public String toogleAuth(String id, String isvalid) {
 		String successMessage = null;
 		String errorMessage = null;
@@ -133,6 +138,27 @@ public class AuthBusiness {
 			return successMessage;
 		} catch (Exception e) {
 			throw new ApplicationRuntimeException(errorMessage, e);
+		}
+	}*/
+	
+	@Transactional
+	public void toogleAuth(String id, String isvalid) {
+		try {
+			if ((isvalid == Constants.ISVALIAD_SHOW)
+					|| (Constants.ISVALIAD_SHOW.equals(isvalid))) {
+				isvalid = Constants.ISVALIAD_HIDDEN;
+			} else if ((isvalid == Constants.ISVALIAD_HIDDEN)
+					|| (Constants.ISVALIAD_HIDDEN.equals(isvalid))) {
+				isvalid = Constants.ISVALIAD_SHOW;
+			}else {
+				throw new Exception();
+			}
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("id", id);
+			map.put("isvalid", isvalid);
+			authDao.updateObject("runById", map);
+		} catch (Exception e) {
+			throw new ApplicationRuntimeException(Constants.DO_ERROR, e);
 		}
 	}
 
@@ -190,14 +216,70 @@ public class AuthBusiness {
 		return this.authDao.findByMap("isRepeatName", map);
 	}
 
+	@Transactional
 	public void saveAuthWithMenu(Auth auth,Integer menuId,String menuCode) {
 		auth.setCode(menuCode);
 		String authId = saveAuthReId(auth);
 		if(menuCode.indexOf("BTN_") == -1){
+			Menu tempMenu = menuBusiness.findByAuthId(authId);
+			if(tempMenu != null){
+				menuBusiness.updateAuth(tempMenu.getId(), "");
+			}
 			menuBusiness.updateAuth(menuId,authId);
 		}else{
+			MenuBtn tempMenuBtn = menuBtnBusiness.findByAuthId(authId);
+			if(tempMenuBtn != null){
+				menuBtnBusiness.updateAuth(tempMenuBtn.getId(), "");
+			}
 			menuBtnBusiness.updateAuth(menuId,authId);
 		}
 		
+	}
+	
+	public String getFullParentName(String authId){
+		MenuBtn menuBtn = menuBtnBusiness.findByAuthId(authId);
+		Menu menu = menuBusiness.findByAuthId(authId);
+		String menuId = "";
+		String menuName = "";
+		if(menuBtn != null){
+			menuId = menuBtn.getMenuId().toString();
+			menuName = menuBtn.getName();
+		}else if(menu != null){
+			menuId = menu.getId().toString();
+			menuName = menu.getName();
+		}
+		while(menuId != ""){
+			Menu tempMenu = menuBusiness.findById(menuId);
+			menuName = String.format("%s / %s", tempMenu.getName(), menuName);
+			if(null == tempMenu.getParentId() || "".equals(tempMenu.getParentId())){
+				menuId = "";
+			}else{
+				menuId = tempMenu.getParentId().toString();
+			}
+		}
+		return menuName;
+	}
+
+	@Transactional
+	public void removeAuths(String[] ids) {
+		for(String id : ids){
+			Menu menu = menuBusiness.findByAuthId(id);
+			if(menu != null){
+				menuBusiness.updateAuth(menu.getId(), "");
+			}
+			MenuBtn menuBtn = menuBtnBusiness.findByAuthId(id);
+			if(menuBtn != null){
+				menuBtnBusiness.updateAuth(menuBtn.getId(), "");
+			}
+			deleteAuth(id);
+		}
+	}
+
+	@Transactional
+	public void runAuths(String[] ids) {
+		for(String id : ids){
+			Auth auth = findAuthById(id);
+			toogleAuth(id, auth.getIsvalid());
+		}
 	}
 }

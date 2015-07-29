@@ -18,6 +18,7 @@ public class Auth implements Serializable {
 	private String status;
 	private String isvalid;
 	private String menuName;
+	private String fullName;
 
 	public String getId() {
 		return this.id;
@@ -81,5 +82,13 @@ public class Auth implements Serializable {
 
 	public void setMenuName(String menuName) {
 		this.menuName = menuName;
+	}
+
+	public String getFullName() {
+		return fullName;
+	}
+
+	public void setFullName(String fullName) {
+		this.fullName = fullName;
 	}
 }
