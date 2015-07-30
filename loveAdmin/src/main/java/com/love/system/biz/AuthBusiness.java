@@ -8,11 +8,15 @@ import com.love.framework.exception.ApplicationRuntimeException;
 import com.love.system.po.Auth;
 import com.love.system.po.Menu;
 import com.love.system.po.MenuBtn;
+import com.love.system.po.Role;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.annotation.Resource;
 
@@ -29,6 +33,9 @@ public class AuthBusiness {
 	
 	@Resource
 	private MenuBtnBusiness menuBtnBusiness;
+	
+	@Resource
+	private RoleBusiness roleBusiness;
 
 	private BaseDao<Auth, String> authDao;
 
@@ -171,13 +178,13 @@ public class AuthBusiness {
 	}
 
 	@Transactional
-	public String grantAuthToUser(String userId, String ids) {
+	public String grantAuthToUser(String userId, String[] ids) {
 		Map<String, Object> map = null;
 		try {
 			authDao.deleteById("clearAuthToUser", userId);;
-			if ((ids != null) && (!("".equals(ids)))) {
-				String[] id = ids.split(",");
-				for (String authId : id) {
+			if ((ids != null) && (ids.length > 0)) {
+				//String[] id = ids.split(",");
+				for (String authId : ids) {
 					map = new HashMap<String, Object>();
 					map.put("id", UUIDGenerator.getUUID());
 					map.put("userId", userId);

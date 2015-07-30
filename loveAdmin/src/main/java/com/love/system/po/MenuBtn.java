@@ -16,6 +16,7 @@ public class MenuBtn implements Serializable{
 	private Integer menuId;
 	private String code;
 	private String name;
+	private String type;
 	private String url;
 	private Date createTime;
 	private Date modifyTime;
@@ -46,6 +47,12 @@ public class MenuBtn implements Serializable{
 	}
 	public void setName(String name) {
 		this.name = name;
+	}
+	public String getType() {
+		return type;
+	}
+	public void setType(String type) {
+		this.type = type;
 	}
 	public String getUrl() {
 		return url;

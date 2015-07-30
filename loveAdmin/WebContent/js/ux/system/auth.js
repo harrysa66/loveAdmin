@@ -90,7 +90,7 @@ Love.system.auth = function(){
 	   			url:'dataList.s',
 	   			columns:[[
 						{field:'id',checkbox:true},
-						{field:'code',title:'编码',width:200,sortable:true},
+						{field:'code',title:'编号',width:200,sortable:true},
 						{field:'name',title:'名称',width:80,sortable:true},
 						{field:'createTime',title:'创建时间',width:150,sortable:true,
 							formatter:function(value,row,index){  

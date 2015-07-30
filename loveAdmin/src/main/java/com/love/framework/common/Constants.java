@@ -19,10 +19,10 @@ public class Constants {
 	public static String RESET_PASSWORD_ERROR = "重置密码失败";
 	public static String DO_SUCCESS = "操作成功";
 	public static String DO_ERROR = "操作失败";
-	public static String ALLOT_AUTH_SUCCESS = "授权成功";
-	public static String ALLOT_AUTH_ERROR = "授权失败";
-	public static String ALLOT_ROLE_SUCCESS = "角色授权失败";
-	public static String ALLOT_ROLE_ERROR = "角色授权失败";
+	public static String ALLOT_AUTH_SUCCESS = "分配权限成功";
+	public static String ALLOT_AUTH_ERROR = "分配权限失败";
+	public static String ALLOT_ROLE_SUCCESS = "分配角色成功";
+	public static String ALLOT_ROLE_ERROR = "分配角色失败";
 	public static String STATUS_DEFAULT = "DEFAULT";
 	public static String STATUS_ACTIVATION = "ACTIVATION";
 	public static String STATUS_DELETED = "DELETED";
@@ -30,6 +30,7 @@ public class Constants {
 	public static String ISVALIAD_HIDDEN = "N";
 	public static String INIT_PASSWORD = "123456";
 	public static String ROLE_ADMIN_CODE = "ROLE_ADMIN";
+	public static String USER_ADMIN_CODE = "admin";
 	public static String MENU_ADMIN = "ADMIN";
 	public static String MENU_WEB = "WEB";
 	public static String DELETE_CODE = "_DEL";

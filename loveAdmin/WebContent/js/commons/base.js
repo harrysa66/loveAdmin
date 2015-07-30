@@ -178,6 +178,45 @@ var Love={
 	}*/
 }
 
+var fileview = $.extend({}, $.fn.datagrid.defaults.view, { onAfterRender: function (target) {checkboxUtil.ischeckItem(target); } });
+var checkedItems = [];
+var checkboxUtil={
+	ischeckItem:function(checkgrid){
+		for (var i = 0; i < checkedItems.length; i++) {
+            $('#'+checkgrid.id+'').datagrid('selectRecord', checkedItems[i]); //根据id选中行 
+        }
+	},
+	findCheckedItem:function(ID){
+		for (var i = 0; i < checkedItems.length; i++) {
+            if (checkedItems[i] == ID) return i;
+        }
+        return -1;
+	},
+	addcheckItem:function(row){
+		var rows = [row];
+		//var row = checkgrid.datagrid('getChecked');
+        for (var i = 0; i < rows.length; i++) {
+            if (this.findCheckedItem(rows[i].id) == -1) {
+                checkedItems.push(rows[i].id);
+            }
+        }
+	},
+	removeAllItem:function(rows){
+		for (var i = 0; i < rows.length; i++) {
+            var k = this.findCheckedItem(rows[i].id);
+            if (k != -1) {
+                checkedItems.splice(i, 1);
+            }
+        }
+	},
+	removeSingleItem:function(rowIndex, rowData){
+		var k = this.findCheckedItem(rowData.id);
+        if (k != -1) {
+            checkedItems.splice(k, 1);
+        }
+	}
+}
+
 Date.prototype.toLocaleString = function() {
   return this.getFullYear() + "年" + (this.getMonth() + 1) + "月" + this.getDate() + "日 " + this.getHours() + ":" + this.getMinutes() + ":" + this.getSeconds();
  };

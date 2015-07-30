@@ -203,7 +203,7 @@ public class MainController extends BaseController{
 				List<String> btnNames = new ArrayList<String>();
 				for(MenuBtn btn  : childBtns){
 					if(menu.getId().equals(btn.getMenuId())){
-						btnNames.add(btn.getName());
+						btnNames.add(btn.getType());
 						URLUtils.getBtnAccessUrls(menu.getUrl(), btn.getUrl(),accessUrls);
 					}
 				}

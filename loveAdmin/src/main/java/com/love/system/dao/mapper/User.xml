@@ -53,7 +53,7 @@
 			update love_system_user
 			
 			<set>  
-		        <if test="realname!= null">  
+		        <if test="nickname!= null">  
 		           NICKNAME= #{nickname},  
 		        </if>  
 		        <if test="modifyTime!= null">  
@@ -121,7 +121,7 @@
             <if test="nickname !=null and nickname != ''"> 
               and  o.nickname like '%${nickname}%'
             </if>
-            order by o.createtime
+            order by o.create_time
 	</select>
 	<!-- 总数 -->
 	<select id="queryPageCount" parameterType="map" resultType="int">
@@ -136,8 +136,8 @@
             </if>
 	</select>
 	<!-- 用户名是否重复 -->
-	<select id="isRepeat" parameterType="map" resultType="int">
-		 	select count(1)
+	<select id="isRepeat" parameterType="map" resultType="user">
+		 	select o.*
 			from love_system_user o 
 			where o.username=#{username}
 		 	<if test="id !=null and id != ''"> 
@@ -145,8 +145,8 @@
             </if> 
 	</select>
 	<!-- 员工编号 是否重复-->
-	<select id="isRepeatNick" parameterType="map" resultType="int">
-		 	select count(1)
+	<select id="isRepeatNick" parameterType="map" resultType="user">
+		 	select o.*
 			from love_system_user o 
 			where o.nickname=#{nickname} 
 		 	<if test="id !=null and id != ''"> 

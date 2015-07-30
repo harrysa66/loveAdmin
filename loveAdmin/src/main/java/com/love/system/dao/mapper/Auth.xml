@@ -113,7 +113,7 @@
 	</update>
 	
 	<!-- 根据条件查询权限集合 -->
-	<select id="findListBy" parameterType="map" resultType="auth">
+	<select id="selectListByMap" parameterType="map" resultType="auth">
 		select o.ID,o.CODE,o.NAME,o.CREATE_TIME,o.MODIFY_TIME,o.STATUS,o.ISVALID,IFNULL(m. NAME,mb.NAME) as menuName
 		FROM love_system_auth o
 		left JOIN love_system_menu m on o.id = m.auth_id
@@ -152,7 +152,7 @@
 		delete from love_system_r_user_auth where USER_ID=#{userId}
 	</delete>
 	
-	<!-- 权限编码重复 -->
+	<!-- 权限编号重复 -->
 	<select id="isRepeatCode" parameterType="map" resultType="auth">
 		select o.ID,o.CODE,o.NAME,o.CREATE_TIME,o.MODIFY_TIME,o.STATUS,o.ISVALID
 		from love_system_auth o

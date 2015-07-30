@@ -59,8 +59,27 @@ public class RoleController extends BaseController{
 	
 	@RequestMapping("/save")
 	public void save(Role role,HttpServletResponse response){
-		String message = roleBusiness.saveRole(role);
-		sendSuccessMessage(response, message);
+		String roleSubCode = "";
+		if(role.getCode().length() > 4){
+			roleSubCode = role.getCode().substring(0, Constants.CODE_RULE_ROLE.length());
+		}
+		if(!roleSubCode.equals(Constants.CODE_RULE_ROLE)){
+			role.setCode(Constants.CODE_RULE_ROLE+role.getCode());
+		}
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("id", role.getId());
+		map.put("code", role.getCode());
+		map.put("name", role.getName());
+		Role vaCode = roleBusiness.isRepeatCode(map);
+		Role vaName = roleBusiness.isRepeatName(map);
+		if(vaCode != null){
+			sendFailureMessage(response, "角色编号已存在，请重新填写!");
+		}else if(vaName != null){
+			sendFailureMessage(response, "角色名称已存在，请重新填写!");
+		}else{
+			String message = roleBusiness.saveRole(role);
+			sendSuccessMessage(response, message);
+		}
 	}
 	
 	@RequestMapping("/view")
@@ -111,7 +130,6 @@ public class RoleController extends BaseController{
 		map.put("code", ServletRequestUtils.getStringParameter(request, "code", "").trim());
 		map.put("name", ServletRequestUtils.getStringParameter(request, "name", "").trim());
 		map.put("authType", ServletRequestUtils.getStringParameter(request, "authType", "").trim());
-		map.put("isvalid", ServletRequestUtils.getStringParameter(request, "isvalid", "").trim());
 		Page<Auth> page = PageUtil.getPageObj(request);
 		page = authBusiness.queryPage(map, page);
 		List<Auth> authList= new ArrayList<Auth>();
@@ -124,6 +142,52 @@ public class RoleController extends BaseController{
 		Map<String,Object> jsonMap = new HashMap<String,Object>();
 		jsonMap.put("total",page.getTotalCount());
 		jsonMap.put("rows", page.getResult());
+		HtmlUtil.writerJson(response, jsonMap);
+	}
+	
+	@RequestMapping("/getAuthIdsByRole")
+	public void  getAuthIdsByRole(String id,HttpServletResponse response){
+		List<String> authIds = new ArrayList<String>();
+		List<Auth> authList = authBusiness.findAuthByRole(id);
+		for(Auth auth : authList){
+			authIds.add(auth.getId());
+		}
+		HtmlUtil.writerJson(response, authIds);
+	}
+	
+	@RequestMapping("/grantAuth")
+	public void grantAuth(String roleId,String[] ids,HttpServletResponse response){
+		Map<String,Object>  context = new HashMap<String,Object> ();
+		roleBusiness.clearAuthToRole(roleId);
+		if(ids.length > 0){
+			roleBusiness.grantAuthToRole(roleId, ids);
+		}
+		context.put(SUCCESS, true);
+		context.put("msg", Constants.ALLOT_AUTH_SUCCESS);
+		HtmlUtil.writerJson(response, context);
+	}
+	
+	@RequestMapping("/viewAuth")
+	public void  viewAuth(HttpServletRequest request,HttpServletResponse response){
+		String roleId = ServletRequestUtils.getStringParameter(request, "roleId", "");
+		Role role = roleBusiness.findRoleById(roleId);
+		List<Auth> findList = null;
+		if(role.getCode().equals(Constants.ROLE_ADMIN_CODE)){
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("status", Constants.STATUS_DEFAULT);
+			findList = authBusiness.findListBy(map);
+		}else{
+			findList = roleBusiness.findAuthByRole(roleId);
+		}
+		List<Auth> authList= new ArrayList<Auth>();
+		for(Auth auth : findList){
+			auth.setFullName(authBusiness.getFullParentName(auth.getId()));
+			authList.add(auth);
+		}
+		
+		//设置页面数据
+		Map<String,Object> jsonMap = new HashMap<String,Object>();
+		jsonMap.put("rows", authList);
 		HtmlUtil.writerJson(response, jsonMap);
 	}
 

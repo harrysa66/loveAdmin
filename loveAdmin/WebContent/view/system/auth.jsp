@@ -10,7 +10,7 @@
  	 <div class="easyui-panel ui-search-panel" title="查询项" data-options="striped: true,collapsible:true,iconCls:'icon-search'">  
  	 <form id="searchForm">
  	 	<p class="ui-fields">
-            <label class="ui-label">权限编码:</label> 
+            <label class="ui-label">权限编号:</label> 
             <input name="code" class="easyui-box ui-text" style="width:100px;">
             <label class="ui-label">权限名称:</label> 
             <input name="name" class="easyui-box ui-text" style="width:100px;">

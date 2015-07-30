@@ -11,4 +11,5 @@
 <script type="text/javascript" src="${easyuiUrl}/jquery.easyui.min.js"></script>
 <script type="text/javascript" src="${easyuiUrl}/locale/easyui-lang-zh_CN.js"></script>
 <script type="text/javascript" src="${msUrl}/js/commons/urls.js?v=11"></script>
+<script type="text/javascript" src="${msUrl}/js/commons/contants.js?v=11"></script>
 <script type="text/javascript" src="${msUrl}/js/commons/base.js?v=11"></script>

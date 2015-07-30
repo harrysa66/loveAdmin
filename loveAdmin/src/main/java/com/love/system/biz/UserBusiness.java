@@ -8,6 +8,7 @@ import com.love.system.po.User;
 import com.love.util.MD5Util;
 import com.love.util.UUIDGenerator;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -52,7 +53,9 @@ public class UserBusiness {
 	public String saveUser(User user) throws ApplicationRuntimeException {
 		if (StringUtils.isEmpty(user.getId())) {
 			user.setId(UUIDGenerator.getUUID());
+			user.setPassword(MD5Util.MD5(Constants.INIT_PASSWORD));
 			try {
+				user.setCreateTime(new Date());
 				user.setStatus(Constants.STATUS_DEFAULT);
 				user.setIsvalid(Constants.ISVALIAD_HIDDEN);
 				userDao.insert(user);
@@ -62,6 +65,7 @@ public class UserBusiness {
 			}
 		}
 		try {
+			user.setModifyTime(new Date());
 			userDao.update(user);
 			return Constants.EDIT_SUCCESS;
 		} catch (Exception e) {
@@ -99,9 +103,12 @@ public class UserBusiness {
 	}
 
 	@Transactional
-	public void deleted(Map<String, Object> map)
+	public void deleted(String id)
 			throws ApplicationRuntimeException {
 		try {
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("id", id);
+			map.put("status", Constants.STATUS_DELETED);
 			userDao.updateObject("deleted", map);
 		} catch (ApplicationRuntimeException e) {
 			throw new ApplicationRuntimeException(Constants.DELETE_ERROR, e);
@@ -133,18 +140,18 @@ public class UserBusiness {
 		return resMap;
 	}*/
 
-	public int isRepeat(Map<String, Object> map) {
+	public User isRepeatUsername(Map<String, String> map) {
 		if (map == null) {
-			map = new HashMap<String, Object>();
+			map = new HashMap<String, String>();
 		}
-		return userDao.countByMap("isRepeat", map).intValue();
+		return userDao.findByMap("isRepeat", map);
 	}
 
-	public int isRepeatNick(Map<String, Object> map) {
+	public User isRepeatNickname(Map<String, String> map) {
 		if (map == null) {
-			map = new HashMap<String, Object>();
+			map = new HashMap<String, String>();
 		}
-		return userDao.countByMap("isRepeatNick", map).intValue();
+		return userDao.findByMap("isRepeatNick", map);
 	}
 
 	@Transactional
@@ -171,5 +178,31 @@ public class UserBusiness {
 		} catch (Exception e) {
 			throw new ApplicationRuntimeException(Constants.RESET_PASSWORD_ERROR, e);
 		}
+	}
+
+	public boolean removeUsers(String[] ids) {
+		boolean flag = true;
+		for(String id : ids){
+			User user = findUserById(id);
+			if(user.getUsername().equals(Constants.USER_ADMIN_CODE)){
+				flag = false;
+				continue;
+			}
+			deleted(id);
+		}
+		return flag;
+	}
+
+	public boolean runUsers(String[] ids) {
+		boolean flag = true;
+		for(String id : ids){
+			User user = findUserById(id);
+			if(user.getUsername().equals(Constants.USER_ADMIN_CODE)){
+				flag = false;
+				continue;
+			}
+			updateValid(id,user.getIsvalid());
+		}
+		return flag;
 	}
 }

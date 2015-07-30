@@ -54,13 +54,6 @@ public class RoleBusiness {
 			try {
 				role.setStatus(Constants.STATUS_DEFAULT);
 				role.setIsvalid(Constants.ISVALIAD_HIDDEN);
-				String roleSubCode = "";
-				if(role.getCode().length() > 4){
-					roleSubCode = role.getCode().substring(0, Constants.CODE_RULE_ROLE.length());
-				}
-				if(!roleSubCode.equals(Constants.CODE_RULE_ROLE)){
-					role.setCode(Constants.CODE_RULE_ROLE+role.getCode());
-				}
 				role.setCreateTime(new Date());
 				this.roleDao.insert(role);
 				return Constants.ADD_SUCCESS;
@@ -69,13 +62,6 @@ public class RoleBusiness {
 			}
 		}
 		try {
-			String roleSubCode = "";
-			if(role.getCode().length() > 4){
-				roleSubCode = role.getCode().substring(0, Constants.CODE_RULE_ROLE.length());
-			}
-			if(!roleSubCode.equals(Constants.CODE_RULE_ROLE)){
-				role.setCode(Constants.CODE_RULE_ROLE+role.getCode());
-			}
 			role.setModifyTime(new Date());
 			roleDao.update(role);
 			return Constants.EDIT_SUCCESS;
@@ -172,14 +158,14 @@ public class RoleBusiness {
 	}
 
 	@Transactional
-  public String grantAuthToRole(String ctx, String roleId, String ids)
+  public String grantAuthToRole(String roleId, String[] ids)
   {
     Map<String, Object> map = null;
     try {
-      String[] id = ids.split(",");
-      if (id.length > 0) {
+      //String[] id = ids.split(",");
+      if (ids.length > 0) {
         clearAuthToRole(roleId);
-        for (String authId : id) {
+        for (String authId : ids) {
             if ((authId != null) && (!"".equals(authId))) {
               map = new HashMap<String, Object>();
               map.put("id", UUIDGenerator.getUUID());
@@ -202,15 +188,15 @@ public class RoleBusiness {
 	}
 
 	@Transactional
-	public String grantRoleToUser(String userId, String ids) {
+	public String grantRoleToUser(String userId, String[] ids) {
 		Map<String, Object> map = null;
 		try {
 			Map<String, Object> paramMap = new HashMap<String, Object>();
 	    	paramMap.put("userId", userId);
 			roleDao.deleteByMap("clearRoleToUser", paramMap);
-			if ((ids != null) && (!("".equals(ids)))) {
-				String[] id = ids.split(",");
-				for (String roleId : id) {
+			if ((ids != null) && (ids.length > 0)) {
+				//String[] id = ids.split(",");
+				for (String roleId : ids) {
 					map = new HashMap<String, Object>();
 					map.put("id", UUIDGenerator.getUUID());
 					map.put("userId", userId);
@@ -224,21 +210,26 @@ public class RoleBusiness {
 		}
 	}
 
+	/**
+	 * 查找用户所具有的权限(去重)
+	 * @param userId 用户ID
+	 * @return 权限集合
+	 */
 	public List<Auth> findAuthByUser(String userId) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("userId", userId);
 		List<Auth> result = new ArrayList<Auth>();
-
+		//通过角色迭代出权限
 		List<Auth> authListByRole = new ArrayList<Auth>();
 		List<Role> roleListByUser = findListByUser(map);
 		for (Role role : roleListByUser) {
 			authListByRole.addAll(findAuthByRole(role.getId()));
 		}
 		result.addAll(authListByRole);
-
+		//通过用户查出权限
 		List<Auth> authList = authBusiness.findListByUser(map);
 		result.addAll(authList);
-
+		//全部的权限集合
 		Set<Auth> authSet = new HashSet<Auth>();
 		authSet.addAll(result);
 		List<Auth> resultList = new ArrayList<Auth>();

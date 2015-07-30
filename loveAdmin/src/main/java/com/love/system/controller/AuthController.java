@@ -73,9 +73,13 @@ public class AuthController extends BaseController{
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("id", auth.getId());
 		map.put("code", menuCode);
+		map.put("name", auth.getName());
 		Auth tempAuth = authBusiness.isRepeatCode(map);
+		Auth vaName = authBusiness.isRepeatName(map);
 		if(tempAuth != null){
 			sendFailureMessage(response, "此菜单已分配权限!");
+		}else if(vaName != null){
+			sendFailureMessage(response, "权限名称已存在，请重新填写!");
 		}else{
 			String message = "";
 			if(null == auth.getId() || "".equals(auth.getId())){

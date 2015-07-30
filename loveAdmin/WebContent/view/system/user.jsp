@@ -10,10 +10,10 @@
  	 <div class="easyui-panel ui-search-panel" title="查询项" data-options="striped: true,collapsible:true,iconCls:'icon-search'">  
  	 <form id="searchForm">
  	 	<p class="ui-fields">
-            <label class="ui-label">角色编号:</label> 
-            <input name="code" class="easyui-box ui-text" style="width:100px;">
-            <label class="ui-label">角色名称:</label> 
-            <input name="name" class="easyui-box ui-text" style="width:100px;">
+            <label class="ui-label">用户名:</label> 
+            <input name="username" class="easyui-box ui-text" style="width:100px;">
+            <label class="ui-label">昵称:</label> 
+            <input name="nickname" class="easyui-box ui-text" style="width:100px;">
             <label>状态:</label>  
 	        <select class="easyui-combobox" name="isvalid" style="width:100px;" editable="false" panelHeight="80">
 	        	<option value="" selected="selected">全部</option>
@@ -35,18 +35,36 @@
      	<form id="editForm" class="ui-form" method="post">  
      		 <input class="hidden" type="text" name="id">
      		 <div class="ui-edit">
-	     	   <div class="ftitle">角色信息</div>    
+	     	   <div class="ftitle">用户信息</div>    
 	           <div class="fitem">  
-	               <label>角色编号:</label>  
-	               <input class="easyui-validatebox" type="text" name="code" data-options="required:true">
+	               <label>用户名:</label>  
+	               <input class="easyui-validatebox" type="text" name="username" data-options="required:true">
 	           </div>  
 	           <div class="fitem">  
-	               <label>角色名称:</label>  
-	               <input class="easyui-validatebox" type="text" name="name" data-options="required:true">
+	               <label>昵称:</label>  
+	               <input class="easyui-validatebox" type="text" name="nickname" data-options="required:true">
 	           </div> 
 	         </div>
      	</form>
   	 </div> 
+  	 
+  	 <!-- 分配角色 -->
+  	 <div id="roleList-win" class="easyui-dialog" title="分配角色" data-options="closed:true,modal:true,top:0" style="width:900px;height:520px;"> 
+  	 	<div class="easyui-panel ui-search-panel" title="查询项" data-options="striped: true,collapsible:true,iconCls:'icon-search'">  
+ 	 <form id="roleSearchForm">
+ 	 	<p class="ui-fields">
+            <label class="ui-label">角色编号:</label> 
+            <input name="code" class="easyui-box ui-text" style="width:100px;">
+            <label class="ui-label">角色名称:</label> 
+            <input name="name" class="easyui-box ui-text" style="width:100px;">
+        </p>  
+        <a href="#" id="btn-search" class="easyui-linkbutton" iconCls="icon-search">查询</a>
+      </form>  
+     </div>
+  	 	<form id="roleListForm" method="post">
+     		<table id="role-list"></table>
+	 	</form>
+  	 </div>
   	 
   	 <!-- 分配权限 -->
   	 <div id="authList-win" class="easyui-dialog" title="分配权限" data-options="closed:true,modal:true,top:0" style="width:900px;height:520px;"> 
@@ -72,6 +90,11 @@
 	 	</form>
   	 </div>
   	 
+  	 <!-- 查看角色 -->
+  	 <div id="viewRole-win" class="easyui-dialog" title="查看角色" data-options="closed:true,modal:true,top:0" style="width:900px;height:520px;"> 
+  	 <table id="viewRole"></table>
+  	 </div>
+  	 
   	 <!-- 查看权限 -->
   	 <div id="viewAuth-win" class="easyui-dialog" title="查看权限" data-options="closed:true,modal:true,top:0" style="width:900px;height:520px;"> 
   	 <table id="viewAuth"></table>
@@ -80,6 +103,6 @@
 </div>
 
 <script type="text/javascript" src="${msUrl}/js/commons/DataGrid.js"></script>
-<script type="text/javascript" src="${msUrl}/js/ux/system/role.js"></script>
+<script type="text/javascript" src="${msUrl}/js/ux/system/user.js"></script>
   </body>
 </html>
