@@ -50,11 +50,18 @@ Love.main = function(){
 		modifyPwd:function(){
 			var pwdForm = $("#pwdForm");
 			if(pwdForm.form('validate')){
-				var parentId =$('#search_parentId').val();
-				$("#edit_parentId").val(parentId)
+				//var parentId =$('#search_parentId').val();
+				//$("#edit_parentId").val(parentId);
 				Love.saveForm(pwdForm,function(data){
-					$('#modify-pwd-win').dialog('close');
-				    pwdForm.resetForm();
+					if(data.success){
+						$('#modify-pwd-win').dialog('close');
+				    	pwdForm.resetForm();
+			       		Love.alert('提示',data.msg,'info',function(){
+			       			window.location.href=urls['msUrl']+"/j_spring_security_logout";
+			       		});
+		        	}else{
+		       	  	 Love.alert('提示',data.msg,'error');  
+		        	}
 				});
 			 }
 		},
@@ -64,6 +71,7 @@ Love.main = function(){
 			
 			//修改密码绑定事件
 			$('.modify-pwd-btn').click(function(){
+				$("#pwdForm").resetForm()
 				$('#modify-pwd-win').dialog('open');
 			});
 			$('#btn-pwd-close').click(function(){

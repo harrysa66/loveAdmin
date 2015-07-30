@@ -127,6 +127,7 @@ public class UserController extends BaseController{
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("code", ServletRequestUtils.getStringParameter(request, "code", "").trim());
 		map.put("name", ServletRequestUtils.getStringParameter(request, "name", "").trim());
+		map.put("isvalid", Constants.ISVALIAD_SHOW);
 		Page<Role> page = PageUtil.getPageObj(request);
 		page = roleBusiness.queryPage(map, page);
 		
@@ -164,6 +165,7 @@ public class UserController extends BaseController{
 		map.put("code", ServletRequestUtils.getStringParameter(request, "code", "").trim());
 		map.put("name", ServletRequestUtils.getStringParameter(request, "name", "").trim());
 		map.put("authType", ServletRequestUtils.getStringParameter(request, "authType", "").trim());
+		map.put("isvalid", Constants.ISVALIAD_SHOW);
 		Page<Auth> page = PageUtil.getPageObj(request);
 		page = authBusiness.queryPage(map, page);
 		List<Auth> authList= new ArrayList<Auth>();
@@ -238,5 +240,18 @@ public class UserController extends BaseController{
 		jsonMap.put("rows", authList);
 		HtmlUtil.writerJson(response, jsonMap);
 	}
-
+	
+	@RequestMapping("/resetPassword")
+	public void resetPassword(String[] id,HttpServletResponse response){
+		if(null == id || "".equals(id) || id.length<1){
+			sendFailureMessage(response, Constants.RESET_PASSWORD_ERROR);
+		}
+		boolean isNoAdmin = userBusiness.resetUserPasswords(id);;
+		if(isNoAdmin){
+			sendSuccessMessage(response, Constants.RESET_PASSWORD_SUCCESS);
+		}else{
+			sendSuccessMessage(response, "超级管理员不能进行该操作,其他用户重置密码成功!");
+		}
+	}
+	
 }

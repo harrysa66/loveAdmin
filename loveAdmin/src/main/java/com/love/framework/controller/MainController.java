@@ -23,11 +23,13 @@ import com.love.framework.security.SpringSecurityUtils;
 import com.love.system.biz.MenuBtnBusiness;
 import com.love.system.biz.MenuBusiness;
 import com.love.system.biz.RoleBusiness;
+import com.love.system.biz.UserBusiness;
 import com.love.system.po.Menu;
 import com.love.system.po.MenuBtn;
 import com.love.system.po.Role;
 import com.love.system.po.User;
 import com.love.util.HtmlUtil;
+import com.love.util.MD5Util;
 import com.love.util.SessionUtils;
 import com.love.util.TreeUtil;
 import com.love.util.URLUtils;
@@ -45,6 +47,9 @@ public class MainController extends BaseController{
 	@Resource
 	private RoleBusiness roleBusiness;
 	
+	@Resource
+	private UserBusiness userBusiness; 
+	
 	@RequestMapping("/login.s")
 	public ModelAndView login(){
 		Map<String,Object>  context = getRootMap();
@@ -54,6 +59,16 @@ public class MainController extends BaseController{
 	@RequestMapping("/timeout.s")
 	public void timeout(){
 		
+	}
+	
+	@RequestMapping("/modifyPassword")
+	public void modifyPassword(String id,String oldPwd,String newPwd,HttpServletResponse response){
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("id", id);
+		map.put("oldPassword", MD5Util.MD5(oldPwd));
+		map.put("newPassword", MD5Util.MD5(newPwd));
+		String message = userBusiness.updatePassword(map);
+		sendSuccessMessage(response, message);
 	}
 	
 	@RequestMapping("/index")

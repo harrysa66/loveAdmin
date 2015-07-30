@@ -185,6 +185,25 @@ Love.system.user = function(){
 							_this.authListWin().window('open');
 							}
 						}
+					}},
+					{id:'btnresetPassword',text:'重置密码',btnType:'resetPassword',iconCls:'icon-reload',handler:function(){
+						var records =  _box.utils.getCheckedRows();
+							if (_box.utils.checkSelect(records)){
+								$.messager.confirm('确认','确定重置密码?',function(r){  
+					    			if (r){
+					    				var idKey = 'id'; //主键名称
+					    				var  datas = $("input[name='"+idKey+"']", $("#listForm").list ).fieldSerialize(); //序列化字段
+					   					$.ajax({
+											type:'POST',
+											url:'resetPassword.s',
+											data:datas,
+											success:function(data){
+												Love.alert('提示',data.msg,'info');
+											}
+										});
+					    }  
+					});
+				}
 					}}
 				]
 			}

@@ -160,15 +160,16 @@ public class UserBusiness {
 		try {
 			if (userDao.countByMap("passwordCorrect", map) > 0) {
 				userDao.updateObject("updatePassword", map);
+				return Constants.UPDATE_PASSWORD_SUCCESS;
 			} else {
 				return Constants.OLD_PASSWORD_ERROR;
 			}
-			return Constants.UPDATE_PASSWORD_SUCCESS;
 		} catch (Exception e) {
 			throw new ApplicationRuntimeException(Constants.UPDATE_PASSWORD_ERROR, e);
 		}
 	}
 
+	@Transactional
 	public void resetPassword(String id) {
 		try {
 			Map<String, Object> map = new HashMap<String, Object>();
@@ -180,6 +181,7 @@ public class UserBusiness {
 		}
 	}
 
+	@Transactional
 	public boolean removeUsers(String[] ids) {
 		boolean flag = true;
 		for(String id : ids){
@@ -193,6 +195,7 @@ public class UserBusiness {
 		return flag;
 	}
 
+	@Transactional
 	public boolean runUsers(String[] ids) {
 		boolean flag = true;
 		for(String id : ids){
@@ -202,6 +205,22 @@ public class UserBusiness {
 				continue;
 			}
 			updateValid(id,user.getIsvalid());
+		}
+		return flag;
+	}
+
+	@Transactional
+	public boolean resetUserPasswords(String[] ids) {
+		boolean flag = true;
+		for(String id : ids){
+			User user = findUserById(id);
+			if(user != null){
+				if(user.getUsername().equals(Constants.USER_ADMIN_CODE)){
+					flag = false;
+					continue;
+				}
+				resetPassword(id);
+			}
 		}
 		return flag;
 	}

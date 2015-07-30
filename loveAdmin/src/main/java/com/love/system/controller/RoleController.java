@@ -130,6 +130,7 @@ public class RoleController extends BaseController{
 		map.put("code", ServletRequestUtils.getStringParameter(request, "code", "").trim());
 		map.put("name", ServletRequestUtils.getStringParameter(request, "name", "").trim());
 		map.put("authType", ServletRequestUtils.getStringParameter(request, "authType", "").trim());
+		map.put("isvalid", Constants.ISVALIAD_SHOW);
 		Page<Auth> page = PageUtil.getPageObj(request);
 		page = authBusiness.queryPage(map, page);
 		List<Auth> authList= new ArrayList<Auth>();

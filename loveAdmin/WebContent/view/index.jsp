@@ -35,7 +35,7 @@
 		</div>
 	</div>
 	<div data-options="region:'south',split:true,border:false" style="height: 30px;overflow:hidden;">
-		<div class="panel-header" style="border: none;text-align: center;" >CopyRight &copy; 2012 Swing 版权所有. &nbsp;&nbsp;官方网址:WWW.YY606.COM  &nbsp;&nbsp;湘ICP备1200044号</div>
+		<div class="panel-header" style="border: none;text-align: center;" >CopyRight &copy; 2015 harrysa66 版权所有. &nbsp;&nbsp;官方网址:www.hebingqing.cn  &nbsp;&nbsp;津ICP备15003227号</div>
 	</div>
 	<!-- 中间内容页面 -->
 	<div data-options="region:'center'" >
@@ -47,9 +47,9 @@
 	</div>
 	<!--  modify password start -->
 	<div id="modify-pwd-win"  class="easyui-dialog" buttons="#editPwdbtn" title="修改用户密码" data-options="closed:true,iconCls:'icon-save',modal:true" style="width:350px;height:200px;">
-		<form id="pwdForm" action="modifyPwd.do" class="ui-form" method="post">
-     		 <input class="hidden" name="id">
-     		 <input class="hidden" name="email">
+		<form id="pwdForm" action="modifyPassword.s" class="ui-form" method="post">
+     		 <input class="hidden" name="id" value="${user.id}">
+     		 <input class="hidden" name="username" value="${user.username}">
      		 <div class="ui-edit">
 	           <div class="fitem">  
 	              <label>旧密码:</label>  
@@ -66,8 +66,8 @@
 	         </div>
      	 </form>
      	 <div id="editPwdbtn" class="dialog-button" >  
-            <a href="javascript:void(0)" class="easyui-linkbutton" id="btn-pwd-submit">Submit</a>  
-            <a href="javascript:void(0)" class="easyui-linkbutton" id="btn-pwd-close">Close</a>  
+            <a href="javascript:void(0)" class="easyui-linkbutton" id="btn-pwd-submit">提交</a>  
+            <a href="javascript:void(0)" class="easyui-linkbutton" id="btn-pwd-close">关闭</a>  
          </div>
 	</div>
 	<!-- modify password end  -->
