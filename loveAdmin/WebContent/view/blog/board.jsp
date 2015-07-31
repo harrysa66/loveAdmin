@@ -31,13 +31,12 @@
      <table id="data-list"></table>
 	 </form> 
      <!-- Edit Form -->
-     <div id="edit-win" class="easyui-dialog" title="修改" data-options="closed:true,iconCls:'icon-save',modal:true" style="width:1000px;height:450px;">  
+     <div id="edit-win" class="easyui-dialog" title="回复" data-options="closed:true,iconCls:'icon-save',modal:true" style="width:1000px;height:450px;">  
      	<form id="editForm" class="ui-form" method="post">  
      		 <input class="hidden" type="text" name="id">
      		 <div class="ui-edit">
 	     	   <div class="ftitle">回复信息</div>    
 	           <div class="fitem">  
-	               <label>内容:</label>  
 	               <textarea id="replyContentText" cols="20" rows="2" class="ckeditor" data-options="required:true"></textarea>
 	               <input id="replyContent" type="hidden" name="replyContent">
 	               <!-- <input class="easyui-validatebox" type="text" name="content" data-options="required:true"> -->
@@ -47,6 +46,7 @@
   	 </div> 
   	 
   	 <div id="viewContent-win"></div>
+  	 <div id="viewReply-win"></div>
   
 </div>
 

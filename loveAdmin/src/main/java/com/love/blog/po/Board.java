@@ -13,8 +13,12 @@ public class Board implements Serializable{
 	private static final long serialVersionUID = -379445951212920553L;
 	
 	private String id;
+	private String content;
     private String visitorId;
+    private String replyContent;
+    private String ip;
     private String userId;
+    private String nickname;
     private Date createTime;
     private Date replyTime;
     private String status;
@@ -26,17 +30,41 @@ public class Board implements Serializable{
 	public void setId(String id) {
 		this.id = id;
 	}
+	public String getContent() {
+		return content;
+	}
+	public void setContent(String content) {
+		this.content = content;
+	}
 	public String getVisitorId() {
 		return visitorId;
 	}
 	public void setVisitorId(String visitorId) {
 		this.visitorId = visitorId;
 	}
+	public String getReplyContent() {
+		return replyContent;
+	}
+	public void setReplyContent(String replyContent) {
+		this.replyContent = replyContent;
+	}
+	public String getIp() {
+		return ip;
+	}
+	public void setIp(String ip) {
+		this.ip = ip;
+	}
 	public String getUserId() {
 		return userId;
 	}
 	public void setUserId(String userId) {
 		this.userId = userId;
+	}
+	public String getNickname() {
+		return nickname;
+	}
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
 	}
 	public Date getCreateTime() {
 		return createTime;
@@ -62,5 +90,5 @@ public class Board implements Serializable{
 	public void setIsvalid(String isvalid) {
 		this.isvalid = isvalid;
 	}
-
+    
 }
