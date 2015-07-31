@@ -1,7 +1,6 @@
-$package('Love.blog.article');
-Love.blog.article = function(){
+$package('Love.blog.board');
+Love.blog.board = function(){
 	var _box = null;
-	var selectType = null;
 	var editor = null;
 	var _this = {
 		viewContent : function(id){
@@ -40,18 +39,12 @@ Love.blog.article = function(){
 				}
 			},
   			dataGrid:{
-  				title:'文章列表',
+  				title:'留言板列表',
 	   			url:'dataList.s',
 	   			columns:[[
 						{field:'id',checkbox:true},
-						{field:'title',title:'标题',width:100,sortable:true},
-						{field:'subtitle',title:'副标题',width:200,sortable:true},
-						{field:'typeId',title:'类型',width:80,sortable:true,formatter:function(value,row,index){
-							return row.typeName;
-						}},
-						{field:'userId',title:'用户',width:80,sortable:true,formatter:function(value,row,index){
-							return row.nickname;
-						}},
+						{field:'visitorId',title:'访客',width:100,sortable:true},
+						{field:'userId',title:'用户',width:200,sortable:true},
 						{field:'createTime',title:'创建时间',width:150,sortable:true,
 							formatter:function(value,row,index){  
 								if(value != null && value != ''){
@@ -90,25 +83,6 @@ Love.blog.article = function(){
 			}
 		},
 		init:function(){
-			$('#searchType').combobox({    
-    			url:'selectType.s',    
-    			valueField:'id',    
-    			textField:'name',
-    			editable:false
-			});
-			$('#searchUser').combobox({    
-    			url:'selectUser.s',    
-    			valueField:'id',    
-    			textField:'nickname',
-    			editable:false
-			});
-			selectType = $('#selectType');
-			selectType.combobox({    
-    			url:'selectType.s',    
-    			valueField:'id',    
-    			textField:'name',
-    			editable:false
-			});
 			editor = CKEDITOR.replace('articleContent');
 			_box = new DataGrid(_this.config); 
 			_box.init();
@@ -119,5 +93,5 @@ Love.blog.article = function(){
 }();
 
 $(function(){
-	Love.blog.article.init();
+	Love.blog.board.init();
 });		

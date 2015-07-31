@@ -53,8 +53,9 @@
   
   <!-- 分页查询 -->
 	<select id="queryPage" parameterType="map" resultType="article">
-		select distinct <include refid="sqlList" />
-		FROM love_blog_article o
+		select distinct <include refid="sqlList" /> ,t.name as typeName,u.nickname as nickname
+		FROM love_blog_article o left join love_blog_article_type t on o.type_id = t.id 
+		left join love_system_user u on o.user_id = u.id
 		WHERE o.STATUS !='DELETED'
 		 	<if test="title !=null and title != ''"> 
               and  o.title like '%${title}%'
@@ -78,7 +79,8 @@
 	<!-- 统计分页查询的数据条数 -->
 	<select id="queryPageCount" parameterType="map" resultType="int">
 		select count(distinct o.id)
-		FROM love_blog_article o
+		FROM love_blog_article o left join love_blog_article_type t on o.type_id = t.id 
+		left join love_system_user u on o.user_id = u.id
 		WHERE o.STATUS !='DELETED'
 		 	<if test="title !=null and title != ''"> 
               and  o.title like '%${title}%'

@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "mybatis-3-mapper.dtd" >
+<mapper namespace="Visitor" >
+  <sql id="sqlList" >
+    o.id, o.ip, o.ip_address, o.create_time, o.login_time, o.login_count, o.`status`, o.forbid_start, 
+    o.forbid_end, o.forbid_day
+  </sql>
+  <insert id="insert" parameterType="visitor" >
+    insert into love_blog_visitor (id, ip, ip_address, 
+      create_time, login_time, login_count, 
+      `status`, forbid_start, forbid_end, 
+      forbid_day)
+    values (#{id,jdbcType=VARCHAR}, #{ip,jdbcType=VARCHAR}, #{ipAddress,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{loginTime,jdbcType=TIMESTAMP}, #{loginCount,jdbcType=VARCHAR}, 
+      #{status,jdbcType=VARCHAR}, #{forbidStart,jdbcType=TIMESTAMP}, #{forbidEnd,jdbcType=TIMESTAMP}, 
+      #{forbidDay,jdbcType=VARCHAR})
+  </insert>
+  
+  <update id="update" parameterType="visitor" >
+    update love_blog_visitor
+    <set >
+      <if test="ip != null" >
+        ip = #{ip,jdbcType=VARCHAR},
+      </if>
+      <if test="ipAddress != null" >
+        ip_address = #{ipAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="loginTime != null" >
+        login_time = #{loginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="loginCount != null" >
+        login_count = #{loginCount,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        `status` = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="forbidStart != null" >
+        forbid_start = #{forbidStart,jdbcType=TIMESTAMP},
+      </if>
+      <if test="forbidEnd != null" >
+        forbid_end = #{forbidEnd,jdbcType=TIMESTAMP},
+      </if>
+      <if test="forbidDay != null" >
+        forbid_day = #{forbidDay,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  
+  <!-- 分页查询 -->
+	<select id="queryPage" parameterType="map" resultType="visitor">
+		select distinct <include refid="sqlList" />
+		FROM love_blog_visitor o
+		WHERE 1=1
+		 	<if test="ip !=null and ip != ''"> 
+              and  o.ip like '%${ip}%'
+            </if> 
+            <if test="ipAddress !=null and ipAddress != ''"> 
+              and  o.ip_address like '%${ipAddress}%'
+            </if>
+            <if test="status !=null and status != ''"> 
+              and  o.status = #{status}
+            </if>
+            order by o.create_time desc
+	</select>
+	
+	<!-- 统计分页查询的数据条数 -->
+	<select id="queryPageCount" parameterType="map" resultType="int">
+		select count(distinct o.id)
+		FROM love_blog_visitor o
+		WHERE 1=1
+		 	<if test="ip !=null and ip != ''"> 
+              and  o.ip like '%${ip}%'
+            </if> 
+            <if test="ipAddress !=null and ipAddress != ''"> 
+              and  o.ip_address like '%${ipAddress}%'
+            </if>
+            <if test="status !=null and status != ''"> 
+              and  o.status = #{status}
+            </if>
+	</select>
+	
+	<!-- 通过ID查找 -->
+	<select id="selectById" parameterType="String" resultType="visitor">
+		select <include refid="sqlList" />
+		FROM love_blog_visitor o
+		WHERE o.id=#{id}
+	</select>
+	
+	<!-- 通过类型查找 -->
+	<select id="findListByStatus" parameterType="String" resultType="visitor">
+		select <include refid="sqlList" />
+		FROM love_blog_visitor o
+		WHERE o.status=#{status}
+	</select>
+	
+	<update id="updateByStatus" parameterType="visitor" >
+    update love_blog_visitor
+    set `status` = #{status,jdbcType=VARCHAR},
+      forbid_start = #{forbidStart,jdbcType=TIMESTAMP},
+      forbid_end = #{forbidEnd,jdbcType=TIMESTAMP},
+      forbid_day = #{forbidDay,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

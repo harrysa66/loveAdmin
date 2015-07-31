@@ -14,9 +14,11 @@ public class Article implements Serializable{
 	
 	private String id;
     private String typeId;
+    private String typeName;
     private String title;
     private String subtitle;
     private String userId;
+    private String nickname;
     private Date createTime;
     private Date modifyTime;
     private String status;
@@ -82,6 +84,18 @@ public class Article implements Serializable{
 	}
 	public void setContent(String content) {
 		this.content = content;
+	}
+	public String getTypeName() {
+		return typeName;
+	}
+	public void setTypeName(String typeName) {
+		this.typeName = typeName;
+	}
+	public String getNickname() {
+		return nickname;
+	}
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
 	}
 
 }
