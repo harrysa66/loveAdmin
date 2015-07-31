@@ -83,7 +83,7 @@ Love.blog.board = function(){
 			}
 		},
 		init:function(){
-			editor = CKEDITOR.replace('articleContent');
+			editor = CKEDITOR.replace('replyContentText');
 			_box = new DataGrid(_this.config); 
 			_box.init();
 			
