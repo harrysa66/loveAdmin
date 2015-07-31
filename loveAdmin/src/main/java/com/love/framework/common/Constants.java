@@ -35,5 +35,6 @@ public class Constants {
 	public static String MENU_WEB = "WEB";
 	public static String DELETE_CODE = "_DEL";
 	public static String CODE_RULE_ROLE = "ROLE_";
+	public static String ARTICLE_RULE_ROLE = "ARTICLE_";
 	
 }

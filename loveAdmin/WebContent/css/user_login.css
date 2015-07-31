@@ -1,5 +1,5 @@
 #userlogin_body {
-	padding-right: 0px; padding-left: 0px; background: url(../images/login/user_all_bg.gif) #226cc5 repeat-x 50% top; padding-bottom: 0px; margin: 110px 0px 0px; font: 12px/150% arial, "ËÎÌå" ,helvetica,sans-serif; padding-top: 0px; text-decoration: none
+	padding-right: 0px; padding-left: 0px; background: url(../images/login/user_all_bg.gif) #226cc5 repeat-x 50% top; padding-bottom: 0px; margin: 110px 0px 0px; font: 12px/150% arial, "ï¿½ï¿½ï¿½ï¿½" ,helvetica,sans-serif; padding-top: 0px; text-decoration: none
 }
 #user_login {
 	padding-right: 0px; padding-left: 0px; padding-bottom: 0px; margin: 0px; padding-top: 0px
@@ -185,7 +185,7 @@ user_main_c {
 	width: 60px; color: #000
 }
 .user_main_box .user_main_input img {
-	margin-bottom: -2px; margin-left: -25px
+	margin-bottom: -5px; margin-left: 0px
 }
 .txtusernamecssclass {
 	border-top-width: 0px; padding-left: 25px; border-left-width: 0px; background: url(../images/login/user_login_name.gif) no-repeat; border-bottom-width: 0px; width: 140px; line-height: 20px; height: 21px; border-right-width: 0px

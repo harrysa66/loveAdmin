@@ -224,4 +224,8 @@ public class UserBusiness {
 		}
 		return flag;
 	}
+
+	public List<User> findUserListByMap(Map<String, Object> map) {
+		return userDao.findListByMap("findUserListByMap", map);
+	}
 }

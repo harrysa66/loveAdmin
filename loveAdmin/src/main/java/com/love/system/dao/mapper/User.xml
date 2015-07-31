@@ -153,4 +153,17 @@
             	and o.ID!=#{id}
             </if> 
 	</select>
+	
+	<!-- 根据角色ID查询用户列表 -->
+	<select id="findUserListByMap" parameterType="map" resultType="user">
+		select o.*
+		from love_system_user o
+		where 1=1
+        <if test="status !=null and status != ''"> 
+            and o.status=#{status}
+        </if> 
+        <if test="isvalid !=null and isvalid != ''"> 
+            and o.isvalid=#{isvalid}
+        </if> 
+	</select>
 </mapper>

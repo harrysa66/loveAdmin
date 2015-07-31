@@ -73,8 +73,8 @@ public class AuthBusiness {
 			}
 		}
 		try {
-			authDao.update(auth);
 			auth.setModifyTime(new Date());
+			authDao.update(auth);
 			return Constants.EDIT_SUCCESS;
 		} catch (Exception e) {
 			throw new ApplicationRuntimeException(Constants.EDIT_ERROR, e);
