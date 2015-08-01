@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="MediaType">
+	<sql id="sqlList" >
+    o.id, o.code, o.`name`, o.create_time, o.modify_time, o.`status`, o.isValid
+  	</sql>
+
+  	<insert id="insert" parameterType="mediaType" >
+    insert into love_blog_media_type
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      id,
+      code,
+      `name`,
+      create_time,
+      modify_time,
+      `status`,
+      isValid,
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      #{id,jdbcType=VARCHAR},
+      #{code,jdbcType=VARCHAR},
+      #{name,jdbcType=VARCHAR},
+      #{createTime,jdbcType=TIMESTAMP},
+      #{modifyTime,jdbcType=TIMESTAMP},
+      #{status,jdbcType=VARCHAR},
+      #{isvalid,jdbcType=VARCHAR},
+    </trim>
+  </insert>
+  
+  <update id="update" parameterType="mediaType" >
+    update love_blog_media_type
+    <set >
+      <if test="code != null" >
+        code = #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        `name` = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null" >
+        modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        `status` = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="isvalid != null" >
+        isValid = #{isvalid,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  
+  <!-- 分页查询 -->
+	<select id="queryPage" parameterType="map" resultType="mediaType">
+		select distinct <include refid="sqlList" />
+		FROM love_blog_media_type o
+		WHERE o.STATUS !='DELETED'
+		 	<if test="code !=null and code != ''"> 
+              and  o.CODE like '%${code}%'
+            </if> 
+            <if test="name !=null and name != ''"> 
+              and  o.NAME like '%${name}%'
+            </if>
+            <if test="isvalid !=null and isvalid != ''"> 
+              and  o.isvalid = #{isvalid}
+            </if>
+            order by o.create_time
+       
+	</select>
+	
+	<!-- 统计分页查询的数据条数 -->
+	<select id="queryPageCount" parameterType="map" resultType="int">
+		select count(distinct o.id)
+		FROM love_blog_media_type o
+		WHERE o.STATUS !='DELETED'
+		 	<if test="code !=null and code != ''"> 
+              and  o.CODE like '%${code}%'
+            </if> 
+            <if test="name !=null and name != ''"> 
+              and  o.NAME like '%${name}%'
+            </if>
+            <if test="isvalid !=null and isvalid != ''"> 
+              and  o.isvalid = #{isvalid}
+            </if>
+	</select>
+	
+	<!-- 通过ID查找 -->
+	<select id="selectById" parameterType="String" resultType="mediaType">
+		select <include refid="sqlList" />
+		FROM love_blog_media_type o
+		WHERE o.id=#{id} and o.STATUS !='DELETED'
+	</select>
+	
+	<!-- 逻辑删除 -->
+	<update id="deleteById" parameterType="map">
+		update love_blog_media_type set STATUS=#{status} where ID=#{id}
+	</update>
+	
+	<!-- 启用/禁用 -->
+	<update id="runById" parameterType="map">
+		update love_blog_media_type set ISVALID=#{isvalid} where ID=#{id}
+	</update>
+	
+	<!-- 编号重复 -->
+	<select id="isRepeatCode" parameterType="map" resultType="mediaType">
+		select <include refid="sqlList" />
+		from love_blog_media_type o
+		where o.CODE=#{code} 
+		<if test="id !=null and id != ''"> 
+            	and o.ID!=#{id}
+            </if> 
+	</select>
+	
+	<!-- 名称重复 -->
+	<select id="isRepeatName" parameterType="map" resultType="mediaType">
+		select <include refid="sqlList" />
+		from love_blog_media_type o
+		where o.NAME=#{name} 
+		<if test="id !=null and id != ''"> 
+            	and o.ID!=#{id}
+            </if> 
+	</select>
+	
+	<!-- 通过ID查找 -->
+	<select id="findListByMap" parameterType="map" resultType="mediaType">
+		select <include refid="sqlList" />
+		FROM love_blog_media_type o
+		where 1=1
+        <if test="status !=null and status != ''"> 
+            and o.status=#{status}
+        </if> 
+        <if test="isvalid !=null and isvalid != ''"> 
+            and o.isvalid=#{isvalid}
+        </if> 
+	</select>
+	
+</mapper>

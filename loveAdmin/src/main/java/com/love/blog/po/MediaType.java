@@ -6,11 +6,11 @@ import java.util.Date;
 import org.apache.ibatis.type.Alias;
 import org.springframework.stereotype.Component;
 
-@Alias("articleType")
+@Alias("mediaType")
 @Component
-public class ArticleType implements Serializable {
+public class MediaType implements Serializable {
 
-	private static final long serialVersionUID = 4842386784482001527L;
+	private static final long serialVersionUID = -4248540508969670937L;
 	
 	private String id;
 	private String code;

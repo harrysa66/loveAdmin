@@ -23,6 +23,7 @@
 	
 
 	<context:component-scan base-package="com.love.*.biz" /> 
+	<context:component-scan base-package="com.love.*.dao" /> 
 
 	<!-- 数据源配置,在生产环境使用应用服务器连接池 -->
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
@@ -38,7 +39,6 @@
         <property name="appConfig">
 	        <map>
 	              <entry key="attachmentBase" value="/usr/attachment" />
-	              <entry key="smsBase" value="http://192.168.1.30:8081/CFCSMS/MsgServlet" />
 	        </map>
         </property>
     </bean>

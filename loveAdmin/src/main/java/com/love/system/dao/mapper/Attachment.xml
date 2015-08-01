@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Attachment">
+	<!-- 上传附件 -->
+	<insert id="insert" parameterType="attachment">
+		insert into love_system_file (ID,URL,SAVE_PATH,SAVE_NAME,FILE_NAME,CONTENT_TYPE,ENTITY_ID,ENTITY_TYPE,UPLOAD_USER_ID,UPLOAD_USER_NAME,UPLOAD_TIME)
+    	values (#{id},#{url,jdbcType=VARCHAR},#{savePath,jdbcType=VARCHAR},#{saveName,jdbcType=VARCHAR},#{fileName,jdbcType=VARCHAR},#{contentType,jdbcType=VARCHAR},#{entityId,jdbcType=VARCHAR},#{entityType,jdbcType=VARCHAR},#{uploadUserId,jdbcType=VARCHAR},#{uploadUserName,jdbcType=VARCHAR},#{uploadTime})
+	</insert>
+	
+	<!-- 通过ID查找附件 -->
+	<select id="findAttachmentById" parameterType="String" resultType="attachment">
+		select *
+		from love_system_file f 
+		where f.ID=#{id} 
+	</select>
+	<!-- 通过表单ID和类型查找路径 -->
+	<select id="findPathByEntityId" parameterType="String" resultType="attachment">
+		select *
+		from love_system_file  f 
+		<where>
+		<if test="entityId !=null and entityId != ''"> 
+		 f.ENTITY_ID=#{entityId}  
+		 </if>
+		 <if test="entityType !=null and entityType != ''"> 
+		 and f.ENTITY_TYPE = #{entityType} 
+		 </if>
+		 </where>
+	</select>
+	<!-- -->
+	
+	<select id="findAttachmentByEntityId" parameterType="String" resultType="attachment">
+		select *
+		from love_system_file f 
+		where f.ENTITY_ID=#{entityId}
+		  order by  UPLOAD_TIME  desc
+	</select>
+	<!-- 附件分页查询 -->
+	<select id="queryPage" parameterType="map" resultType="attachment">
+		select *
+		from love_system_file f 
+		where
+		1=1
+			<if test="entityId !=null and entityId != ''"> 
+		 and f.ENTITY_ID=#{entityId} 
+		 </if>
+		 <if test="entityType !=null and entityType != ''"> 
+		 and f.ENTITY_TYPE = #{entityType} 
+		 </if>
+		  order by  f.UPLOAD_TIME  desc
+	</select>
+<!-- 	附件总数-->	
+<select id="queryPageCount" parameterType="map" resultType="int">
+		select count(1)
+		from love_system_file f  
+		where 
+		1=1
+		<if test="entityId !=null and entityId != ''"> 
+		 and f.ENTITY_ID=#{entityId} 
+		 </if>
+		 <if test="entityType !=null and entityType != ''"> 
+		 and f.ENTITY_TYPE = #{entityType} 
+		 </if>
+		  order by  f.UPLOAD_TIME  desc
+	</select>
+	<!-- 删除附件 -->
+	<delete id="deleteAttachmentById" parameterType="String">
+	delete from love_system_file where ID =#{id}
+	
+	</delete>
+	<!-- 更新附件 -->
+	<update id="updateAttachmentById" parameterType="attachment">
+	update love_system_file 
+		<set>  
+		        <if test="entityId!= null">  
+		           ENTITY_ID = #{entityId},  
+		        </if>  
+		        <if test="entityType!= null">  
+		          ENTITY_TYPE = #{entityType},
+		        </if>  
+		    </set>  
+		where ID=#{id}
+	</update>
+</mapper>

@@ -98,11 +98,11 @@ public class Role implements Serializable {
 	}
 
 	public String getCode() {
-		return this.code;
+		return this.code.toUpperCase();
 	}
 
 	public void setCode(String code) {
-		this.code = code;
+		this.code = code.toUpperCase();
 	}
 
 	public Date getCreateTime() {
