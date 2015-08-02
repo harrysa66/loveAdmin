@@ -141,7 +141,7 @@ public class ArticleTypeBusiness {
 		return this.articleTypeDao.findByMap("isRepeatName", map);
 	}
 	
-	public List<ArticleType> findListById(Map<String, Object> map){
+	public List<ArticleType> findListByMap(Map<String, Object> map){
 		return articleTypeDao.findListByMap("findListByMap", map);
 	}
 

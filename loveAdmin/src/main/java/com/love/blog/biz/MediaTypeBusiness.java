@@ -12,7 +12,7 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.love.blog.po.Media;
+import com.love.blog.po.MediaGroup;
 import com.love.blog.po.MediaType;
 import com.love.framework.common.Constants;
 import com.love.framework.dao.jdbc.BaseDao;
@@ -24,7 +24,7 @@ import com.love.util.UUIDGenerator;
 public class MediaTypeBusiness {
 	
 	@Resource
-	private MediaBusiness mediaBusiness;
+	private MediaGroupBusiness mediaGroupBusiness;
 	
 	private BaseDao<MediaType, String> mediaTypeDao;
 
@@ -85,7 +85,7 @@ public class MediaTypeBusiness {
 		for(String id : ids){
 			Map<String, Object> map = new HashMap<String, Object>();
 			map.put("typeId", id);
-			List<Media> mediaList = mediaBusiness.findListByType(map);
+			List<MediaGroup> mediaList = mediaGroupBusiness.findListByType(map);
 			if(mediaList.size() > 0){
 				flag = false;
 				continue;
@@ -123,7 +123,7 @@ public class MediaTypeBusiness {
 			MediaType mediaType = findById(id);
 			Map<String, Object> map = new HashMap<String, Object>();
 			map.put("typeId", id);
-			List<Media> mediaList = mediaBusiness.findListByType(map);
+			List<MediaGroup> mediaList = mediaGroupBusiness.findListByType(map);
 			if(mediaList.size() > 0){
 				flag = false;
 				continue;
@@ -141,7 +141,7 @@ public class MediaTypeBusiness {
 		return this.mediaTypeDao.findByMap("isRepeatName", map);
 	}
 	
-	public List<MediaType> findListById(Map<String, Object> map){
+	public List<MediaType> findListByMap(Map<String, Object> map){
 		return mediaTypeDao.findListByMap("findListByMap", map);
 	}
 

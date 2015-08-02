@@ -139,6 +139,14 @@ public class AttachmentBusiness {
 		return globalBusiness.getValue(Constants.ATTACHMENT_BASE);
 	}
 	
+	  /**
+		 * 返回附件网络根路径
+		 * @return String 根目录
+		 */
+		public String getAttachmentURLBase() {
+			return globalBusiness.getValue(Constants.ATTACHMENT_URL_BASE);
+		}
+	
 	/**
 	 * 依据附件id物理删除附件
 	 * @param id 附件id
@@ -148,8 +156,8 @@ public class AttachmentBusiness {
 		if (id == null) return;
 		Attachment atta = attachmentDao.findAttachmentById(id);
 		deleteById(id);
-		String base = this.getAttachmentBase();
-		String targetFileName = String.format("%s%s/%s", base, atta.getSavePath(), atta.getSaveName());
+		//String base = this.getAttachmentBase();
+		String targetFileName = String.format("%s/%s", atta.getSavePath(), atta.getSaveName());
 		File target = new File(targetFileName);
 		target.delete();
 	}
@@ -192,7 +200,9 @@ public class AttachmentBusiness {
 	private Attachment uploadAttachment(Attachment atta,InputStream fin) {
 		String folder = prepareForSave(atta.getUploadTime());//创建存储目录
 		String base = this.getAttachmentBase();
+		String urlbase = this.getAttachmentURLBase();
 		atta.setSavePath(base+folder.substring(base.length()));
+		atta.setUrl(urlbase+atta.getSavePath());
 		// Use a UUID string as the saved filename to avoid file name encoding problem on UNIX platform
 		String uuidFileName = UUID.randomUUID().toString();
 		String suffix = guessFileSuffix(atta.getFileName());

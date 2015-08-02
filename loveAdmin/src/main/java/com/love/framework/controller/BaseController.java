@@ -1,5 +1,7 @@
 package com.love.framework.controller;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -11,9 +13,12 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.love.framework.common.MyEditor;
+import com.love.system.po.Attachment;
 import com.love.util.HtmlUtil;
 import com.love.util.URLUtils;
 
@@ -100,5 +105,23 @@ public final static String SUCCESS ="success";
 		result.put(SUCCESS, false);
 		result.put(MSG, message);
 		HtmlUtil.writerJson(response, result);
+	}
+	
+	protected Attachment getAttachment(HttpServletRequest request,String fileName) throws IOException{
+		if(!(request instanceof MultipartHttpServletRequest)){
+			return null;
+		}
+		MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
+		MultipartFile file = multipartRequest.getFile(fileName);
+		if(file == null){
+			return null;
+		}
+		InputStream in = (InputStream) file.getInputStream();//定义文件输入流
+		Attachment attachment = new Attachment();
+		attachment.setFileName(file.getOriginalFilename());
+		attachment.setEntityType(fileName);
+		attachment.setContentType(file.getContentType());
+		attachment.setIn(in);
+		return attachment;
 	}
 }

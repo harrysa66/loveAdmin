@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="Media">
+<mapper namespace="MediaGroup">
 	<sql id="sqlList" >
-    	o.id, o.group_id,o.user_id, o.name, o.file_id, o.create_time, o.modify_time, o.`status`, o.isValid
+    	o.id, o.type_id,o.user_id, o.name, o.file_id, o.create_time, o.modify_time, o.`status`, o.isValid
   	</sql>
 
-  	<insert id="insert" parameterType="media" >
-    insert into love_blog_media (id,group_id,user_id, name, 
+  	<insert id="insert" parameterType="mediaGroup" >
+    insert into love_blog_media_group (id,type_id,user_id, name, 
       file_id, create_time, 
       modify_time, `status`, isvalid)
-    values (#{id,jdbcType=VARCHAR},#{groupId,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR},#{name,jdbcType=VARCHAR}, 
+    values (#{id,jdbcType=VARCHAR},#{typeId,jdbcType=VARCHAR},#{userId,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
       #{fileId,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP},#{modifyTime,jdbcType=TIMESTAMP}, 
       #{status,jdbcType=VARCHAR}, #{isvalid,jdbcType=VARCHAR})
   </insert>
   
-  <update id="update" parameterType="media" >
-    update love_blog_media
+  <update id="update" parameterType="mediaGroup" >
+    update love_blog_media_group
     <set >
-      <if test="groupId != null" >
-        group_id = #{groupId,jdbcType=VARCHAR},
+      <if test="typeId != null" >
+        type_id = #{typeId,jdbcType=VARCHAR},
       </if>
       <if test="userId != null" >
         user_id = #{userId,jdbcType=VARCHAR},
@@ -47,18 +47,20 @@
   </update>
   
   <!-- 分页查询 -->
-	<select id="queryPage" parameterType="map" resultType="media">
-		select distinct <include refid="sqlList" /> ,g.name as groupName ,f.file_name as filename,u.nickname as nickname
-		FROM love_blog_media o 
-		left join love_blog_media_group g on o.group_id = g.id 
-		left join love_system_file f on o.file_id = f.id
+	<select id="queryPage" parameterType="map" resultType="mediaGroup">
+		select distinct <include refid="sqlList" /> ,t.name as typeName,u.nickname as nickname
+		FROM love_blog_media_group o 
+		left join love_blog_media_type t on o.type_id = t.id 
 		left join love_system_user u on o.user_id = u.id
 		WHERE o.STATUS !='DELETED'
 		 	<if test="name !=null and name != ''"> 
               and  o.name like '%${name}%'
             </if> 
-            <if test="groupId !=null and groupId != ''"> 
-              and  o.group_id = #{groupId}
+            <if test="typeId !=null and typeId != ''"> 
+              and  o.type_id = #{typeId}
+            </if>
+            <if test="userId !=null and userId != ''"> 
+              and  o.user_id = #{userId}
             </if>
             <if test="isvalid !=null and isvalid != ''"> 
               and  o.isvalid = #{isvalid}
@@ -70,16 +72,18 @@
 	<!-- 统计分页查询的数据条数 -->
 	<select id="queryPageCount" parameterType="map" resultType="int">
 		select count(distinct o.id)
-		FROM love_blog_media o 
-		left join love_blog_media_group g on o.group_id = g.id 
-		left join love_system_file f on o.file_id = f.id
+		FROM love_blog_media_group o 
+		left join love_blog_media_type t on o.type_id = t.id 
 		left join love_system_user u on o.user_id = u.id
 		WHERE o.STATUS !='DELETED'
 		 	<if test="name !=null and name != ''"> 
               and  o.name like '%${name}%'
             </if> 
-            <if test="groupId !=null and groupId != ''"> 
-              and  o.group_id = #{groupId}
+            <if test="typeId !=null and typeId != ''"> 
+              and  o.type_id = #{typeId}
+            </if>
+            <if test="userId !=null and userId != ''"> 
+              and  o.user_id = #{userId}
             </if>
             <if test="isvalid !=null and isvalid != ''"> 
               and  o.isvalid = #{isvalid}
@@ -87,20 +91,43 @@
 	</select>
 	
 	<!-- 通过ID查找 -->
-	<select id="selectById" parameterType="String" resultType="media">
+	<select id="selectById" parameterType="String" resultType="mediaGroup">
 		select <include refid="sqlList" />
-		FROM love_blog_media o
+		FROM love_blog_media_group o
 		WHERE o.id=#{id} and o.STATUS !='DELETED'
+	</select>
+	
+	<!-- 通过类型查找 -->
+	<select id="findListByType" parameterType="map" resultType="mediaGroup">
+		select <include refid="sqlList" />
+		FROM love_blog_media_group o
+		WHERE o.type_id=#{typeId} and o.STATUS !='DELETED'
+		<if test="status !=null and status != ''">
+			and o.STATUS=#{status}
+		</if>
 	</select>
 	
 	<!-- 逻辑删除 -->
 	<update id="deleteById" parameterType="map">
-		update love_blog_media set STATUS=#{status} where ID=#{id}
+		update love_blog_media_group set STATUS=#{status} where ID=#{id}
 	</update>
 	
 	<!-- 启用/禁用 -->
 	<update id="runById" parameterType="map">
-		update love_blog_media set ISVALID=#{isvalid} where ID=#{id}
+		update love_blog_media_group set ISVALID=#{isvalid} where ID=#{id}
 	</update>
+	
+	<!-- 通过ID查找 -->
+	<select id="findListByMap" parameterType="map" resultType="mediaGroup">
+		select <include refid="sqlList" />
+		FROM love_blog_media_group o
+		where 1=1
+        <if test="status !=null and status != ''"> 
+            and o.status=#{status}
+        </if> 
+        <if test="isvalid !=null and isvalid != ''"> 
+            and o.isvalid=#{isvalid}
+        </if> 
+	</select>
 	
 </mapper>

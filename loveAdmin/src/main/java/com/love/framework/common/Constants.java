@@ -40,5 +40,6 @@ public class Constants {
 	public static String ARTICLE_RULE_ROLE = "ARTICLE_";
 	public static String MEDIA_RULE_ROLE = "MEDIA_";
 	public static String ATTACHMENT_BASE = "attachmentBase";
+	public static String ATTACHMENT_URL_BASE = "attachmentURLBase";
 	
 }

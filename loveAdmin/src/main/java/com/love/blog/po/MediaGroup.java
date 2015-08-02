@@ -6,20 +6,19 @@ import java.util.Date;
 import org.apache.ibatis.type.Alias;
 import org.springframework.stereotype.Component;
 
-@Alias("media")
+@Alias("mediaGroup")
 @Component
-public class Media implements Serializable{
+public class MediaGroup implements Serializable{
 
 	private static final long serialVersionUID = -3306167163257583750L;
 	
 	private String id;
-	private String groupId;
-	private String groupName;
+	private String typeId;
+	private String typeName;
 	private String userId;
 	private String nickname;
 	private String name;
 	private String fileId;
-	private String filename;
 	private Date createTime;
 	private Date modifyTime;
 	private String status;
@@ -31,17 +30,17 @@ public class Media implements Serializable{
 	public void setId(String id) {
 		this.id = id;
 	}
-	public String getGroupId() {
-		return groupId;
+	public String getTypeId() {
+		return typeId;
 	}
-	public void setGroupId(String groupId) {
-		this.groupId = groupId;
+	public void setTypeId(String typeId) {
+		this.typeId = typeId;
 	}
-	public String getGroupName() {
-		return groupName;
+	public String getTypeName() {
+		return typeName;
 	}
-	public void setGroupName(String groupName) {
-		this.groupName = groupName;
+	public void setTypeName(String typeName) {
+		this.typeName = typeName;
 	}
 	public String getUserId() {
 		return userId;
@@ -66,12 +65,6 @@ public class Media implements Serializable{
 	}
 	public void setFileId(String fileId) {
 		this.fileId = fileId;
-	}
-	public String getFilename() {
-		return filename;
-	}
-	public void setFilename(String filename) {
-		this.filename = filename;
 	}
 	public Date getCreateTime() {
 		return createTime;
