@@ -1,18 +1,24 @@
 package com.love.blog.controller;
 
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.beanutils.BeanUtils;
+import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.ServletRequestUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.alibaba.fastjson.JSON;
@@ -24,6 +30,7 @@ import com.love.blog.po.MediaGroup;
 import com.love.framework.common.Constants;
 import com.love.framework.controller.BaseController;
 import com.love.framework.dao.jdbc.Page;
+import com.love.system.biz.AttachmentBusiness;
 import com.love.system.biz.UserBusiness;
 import com.love.system.po.Attachment;
 import com.love.system.po.User;
@@ -34,6 +41,8 @@ import com.love.util.PageUtil;
 @RequestMapping("blog/media")
 public class MediaController extends BaseController{
 	
+	static Logger log = Logger.getLogger(MediaGroupController.class.getName());
+	
 	@Resource
 	private MediaBusiness mediaBusiness;
 	
@@ -42,6 +51,9 @@ public class MediaController extends BaseController{
 	
 	@Resource
 	private UserBusiness userBusiness;
+	
+	@Resource
+	private AttachmentBusiness attachmentBusiness;
 	
 	@RequestMapping("/query")
 	public ModelAndView  doQuery(HttpServletRequest request) throws Exception{
@@ -151,6 +163,85 @@ public class MediaController extends BaseController{
 		List<User> userList = userBusiness.findUserListByMap(map);
 		Object context = JSONArray.toJSON(userList);
 		HtmlUtil.writerJson(response, context);
+	}
+	
+	@RequestMapping("/getFileUrl")
+	public void getFileUrl(String id,HttpServletResponse response) throws Exception{
+		Map<String,Object>  context = new HashMap<String,Object> ();
+		Attachment attach = attachmentBusiness.getById(id);
+		if(attach == null){
+			sendFailureMessage(response, "没有找到对应的文件!");
+			return;
+		}
+		File file = new File(attach.getSavePath()+"/"+attach.getSaveName());
+		if(attach.getContentType().indexOf(Constants.IMAGE_TYPE) >= 0){
+			BufferedImage img = null;
+			try {
+				img = ImageIO.read(file);
+			} catch (IOException e1) {
+				log.error(e1.toString());
+				log.error("打开文件失败   ");
+			}
+			if(img != null){
+				int imgwidth = img.getWidth();
+				int imgheight = img.getHeight();
+				context.put("width", imgwidth);
+				context.put("height", imgheight);
+				context.put("fileType", "image");
+			}
+		}else if(attach.getContentType().indexOf(Constants.AUDIO_TYPE) >= 0){
+			context.put("width", 350);
+			context.put("height", 100);
+			context.put("fileType", attach.getContentType());
+		}else if(attach.getContentType().indexOf(Constants.VIDEO_TYPE) >= 0){
+			context.put("width", 600);
+			context.put("height", 400);
+			context.put("fileType", attach.getContentType());
+		}else{
+			context.put("fileType", attach.getContentType());
+		}
+		
+		//将对象转成Map
+		Map<String,Object> data = BeanUtils.describe(attach);
+		context.put(SUCCESS, true);
+		context.put("data", data);
+		HtmlUtil.writerJson(response, context);
+	}
+	
+	@RequestMapping("/fileUpload")
+	public void fileUpload(HttpServletRequest request,HttpServletResponse response) throws IOException, IllegalAccessException, InvocationTargetException, NoSuchMethodException{
+		Map<String,Object>  context = new HashMap<String,Object> ();
+		List<Attachment> files = null;
+		//Attachment attach = getAttachment(request, "files[]");
+		List<Attachment> attachList = getAttachmentList(request, "mediaFile");
+		if(attachList != null && attachList.size() > 0){
+			files = mediaBusiness.fileUpload(attachList);
+		}
+		/*if(attach != null){
+			return attach.getSavePath()+"/"+attach.getSaveName();
+		}
+		return "0";*/
+		//Map<String,Object> data = BeanUtils.describe(attachList);
+		//JSON.parseArray(arg0, arg1)
+		context.put("files", files);
+		HtmlUtil.writerJson(response, context);
+		//return "[{\"fileName\":\"app_engine-85x77.png\",\"fileSize\":\"8 Kb\",\"fileType\":\"image/png\"}]";
+		
+		/*context.put(SUCCESS, true);
+		context.put("result", "done");
+		HtmlUtil.writerJson(response, context);*/
+		/*boolean isSelf = mediaGroupBusiness.isSelf(groupId);
+		if(isSelf){
+			Attachment attach = getAttachment(request, "groupCover");
+			if(attach.getContentType().indexOf("image/") == -1){
+				sendFailureMessage(response, "只能上传图片格式!");
+			}else{
+				mediaGroupBusiness.coverUpload(groupId,attach);
+				sendSuccessMessage(response, "上传成功");
+			}
+		}else{
+			sendFailureMessage(response, "除管理员外，不能设置非本人的封面!");
+		}*/
 	}
 
 }

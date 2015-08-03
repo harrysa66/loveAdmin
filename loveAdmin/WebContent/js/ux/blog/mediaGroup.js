@@ -7,7 +7,21 @@ Love.blog.mediaGroup = function(){
 			return $("#cover-win");
 		},
 		viewFile:function(id){
-			$('#viewFile-win').window('open');
+			$.ajax({
+				type:'POST',
+				async:false,
+				url:'getFileUrl.s',
+				data:{id:id},
+				success:function(result){
+					$('#coverImg').attr('src',result.data.url);
+					if(result.width != '' && result.height != ''){
+						$('#viewFile-win').window({
+							width:result.width+30,    
+  							height:result.height+40
+						}).window('open');
+					}
+				}
+			});
 		},
 		fileClose:function(){
 			$.messager.confirm('确认','确定关闭该窗口?',function(r){  

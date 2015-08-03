@@ -41,5 +41,8 @@ public class Constants {
 	public static String MEDIA_RULE_ROLE = "MEDIA_";
 	public static String ATTACHMENT_BASE = "attachmentBase";
 	public static String ATTACHMENT_URL_BASE = "attachmentURLBase";
+	public static String IMAGE_TYPE = "image/";
+	public static String AUDIO_TYPE = "audio/";
+	public static String VIDEO_TYPE = "video/";
 	
 }

@@ -4,12 +4,115 @@ Love.blog.media = function(){
 	var selectGroup = null;
 	var editIndex = undefined;
 	var mediaGrid= $('#data-list');
+	var showDiv = $('#showDiv');
 	var _this = {
 		setGroupWin:function(){
 			return $("#setGroup-win");
 		},
 		viewFile:function(id){
+			showDiv.empty();
+			$.ajax({
+				type:'POST',
+				async:false,
+				url:'getFileUrl.s',
+				data:{id:id},
+				success:function(result){
+					if(result.fileType == 'image'){
+						var img = $('<img/>');//创建一个img
+    					img.attr("src",result.data.url);//设置图片
+    					img.appendTo(showDiv);//设置图片
+    					if(result.width != '' && result.height != ''){
+							$('#viewFile-win').window({
+								width:result.width+30,    
+  								height:result.height+40,
+  								onClose:function(){showDiv.empty();}
+							}).window('open');
+						}
+					}else if(result.fileType.indexOf('audio') >= 0){
+						var audio = $('<audio>');
+						var audioEnd = $('</audio>');
+						var source = $('<source>');
+    					audio.attr("autoplay",'autoplay');
+    					audio.attr("loop",'loop');
+    					audio.attr("controls",'controls');
+    					source.attr("src",result.data.url);
+    					source.attr("type",result.data.contentType);
+    					audio.appendTo(showDiv);
+    					source.appendTo(audio);
+    					audio.appendTo(audioEnd);
+						$('#viewFile-win').window({
+							width:result.width,    
+  							height:result.height,
+  							onClose:function(){showDiv.empty();}
+						}).window('open');
+					}else if(result.fileType.indexOf('video') >= 0){
+						var video = $('<video>');
+						var videoEnd = $('</video>');
+						var source = $('<source>');
+    					video.attr("autoplay",'autoplay');
+    					video.attr("loop",'loop');
+    					video.attr("controls",'controls');
+    					video.attr("width",result.width);
+    					video.attr("height",result.height);
+    					source.attr("src",result.data.url);
+    					source.attr("type",result.data.contentType);
+    					video.appendTo(showDiv);
+    					source.appendTo(video);
+    					video.appendTo(videoEnd);
+						$('#viewFile-win').window({
+							width:result.width,    
+  							height:result.height,
+  							onClose:function(){showDiv.empty();}
+						}).window('open');
+					}else{
+						$('#viewFile-win').window({
+							width:600,    
+  							height:400,
+  							onClose:function(){showDiv.empty();}
+						}).window('open');
+					}
+				}
+			});
 			$('#viewFile-win').window('open');
+		},
+		GetFrameWindow:function(frame){
+			return frame && typeof(frame)=='object' && frame.tagName == 'IFRAME' && frame.contentWindow;
+		},
+		Uploader:function(callBack){
+			var addWin = $("#uploadfile-win");
+			var upladoer = $('<iframe/>');
+			upladoer.attr({'src':urls['msUrl']+'/upload/upload.jsp',width:'100%',height:'100%',frameborder:'0',scrolling:'no'});
+			addWin.window({
+				title:"上传文件",
+				height:450,
+				width:1000,
+				minimizable:true,
+				modal:true,
+				collapsible:true,
+				maximizable:true,
+				resizable:true,
+				content:upladoer,
+				onClose:function(){
+					var fw = _this.GetFrameWindow(upladoer[0]);
+					var files = fw.files;
+					$(this).window('destroy');
+					callBack.call(this,files);
+				},
+				onOpen:function(){
+					var target = $(this);
+					setTimeout(function(){
+						var fw = _this.GetFrameWindow(upladoer[0]);
+						fw.target = target;
+					},100);
+				}
+			});
+		},
+		makerUpload:function(){
+			_this.Uploader(function(files){
+	 			if(files && files.length>0){
+	 				Love.alert('提示',"成功上传："+files.join(","),'info');
+	 			}
+ 			});
 		},
 		groupClose:function(){
 			$.messager.confirm('确认','确定关闭该窗口?',function(r){  
@@ -114,7 +217,8 @@ Love.blog.media = function(){
 				]],
 				toolbar:[
 					{id:'btnaddfile',text:'批量上传',btnType:'addFile',iconCls:'icon-add',handler:function(){
-						$("#uploadfile-win").window('open');
+						//$("#uploadfile-win").window('open');
+						_this.makerUpload();
 					}},
 					{id:'btnsetname',text:'设置名称',btnType:'setName',iconCls:'icon-edit',handler:function(){
 						var rows = mediaGrid.datagrid('getRows');

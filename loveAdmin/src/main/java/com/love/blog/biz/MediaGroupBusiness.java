@@ -12,6 +12,7 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.love.blog.po.Media;
 import com.love.blog.po.MediaGroup;
 import com.love.framework.common.Constants;
 import com.love.framework.dao.jdbc.BaseDao;
@@ -28,6 +29,9 @@ public class MediaGroupBusiness {
 	
 	@Resource
 	private AttachmentBusiness attachmentBusiness;
+	
+	@Resource
+	private MediaBusiness mediaBusiness;
 	
 	private BaseDao<MediaGroup, String> mediaGroupDao;
 
@@ -75,6 +79,12 @@ public class MediaGroupBusiness {
 	@Transactional
 	public void delete(String id) {
 		try {
+			Map<String,Object> searchKey = new HashMap<String,Object>();
+			searchKey.put("entityId", id);
+			Attachment oldAttach = attachmentBusiness.findAttachmentByEntity(searchKey);
+			if(oldAttach != null){
+				attachmentBusiness.deleteFile(oldAttach.getId());
+			}
 			Map<String, Object> map = new HashMap<String, Object>();
 			map.put("id", id);
 			map.put("status", Constants.STATUS_DELETED);
@@ -89,6 +99,11 @@ public class MediaGroupBusiness {
 		boolean flag = true;
 		for(String id : ids){
 			if(!isSelf(id)){
+				flag = false;
+				continue;
+			}
+			List<Media> mediaList = mediaBusiness.findListByGroup(id);
+			if(mediaList.size() > 0){
 				flag = false;
 				continue;
 			}

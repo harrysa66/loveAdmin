@@ -4,8 +4,8 @@
 <mapper namespace="Attachment">
 	<!-- 上传附件 -->
 	<insert id="insert" parameterType="attachment">
-		insert into love_system_file (ID,URL,SAVE_PATH,SAVE_NAME,FILE_NAME,CONTENT_TYPE,ENTITY_ID,ENTITY_TYPE,UPLOAD_USER_ID,UPLOAD_USER_NAME,UPLOAD_TIME)
-    	values (#{id},#{url,jdbcType=VARCHAR},#{savePath,jdbcType=VARCHAR},#{saveName,jdbcType=VARCHAR},#{fileName,jdbcType=VARCHAR},#{contentType,jdbcType=VARCHAR},#{entityId,jdbcType=VARCHAR},#{entityType,jdbcType=VARCHAR},#{uploadUserId,jdbcType=VARCHAR},#{uploadUserName,jdbcType=VARCHAR},#{uploadTime})
+		insert into love_system_file (ID,URL,SAVE_PATH,SAVE_NAME,FILE_NAME,CONTENT_TYPE,ENTITY_ID,ENTITY_TYPE,UPLOAD_USER_ID,UPLOAD_USER_NAME,UPLOAD_TIME,size)
+    	values (#{id},#{url,jdbcType=VARCHAR},#{savePath,jdbcType=VARCHAR},#{saveName,jdbcType=VARCHAR},#{fileName,jdbcType=VARCHAR},#{contentType,jdbcType=VARCHAR},#{entityId,jdbcType=VARCHAR},#{entityType,jdbcType=VARCHAR},#{uploadUserId,jdbcType=VARCHAR},#{uploadUserName,jdbcType=VARCHAR},#{uploadTime},#{size})
 	</insert>
 	
 	<!-- 通过ID查找附件 -->

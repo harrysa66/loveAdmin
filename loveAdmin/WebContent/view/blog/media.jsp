@@ -49,10 +49,12 @@
 		<a href="#" id="groupSaveBtn" class="easyui-linkbutton" onclick="javascript:Love.blog.media.groupSubmit()">保存</a>
 		<a href="#" id="groupCloseBtn" class="easyui-linkbutton" onclick="javascript:Love.blog.media.groupClose()">关闭</a>
 	</div>
+	
+	<div id="uploadfile-win"></div>
   	 
 	<!-- 查看文件 -->
   	 <div id="viewFile-win" class="easyui-dialog" title="查看文件" data-options="closed:true,modal:true,top:0" style="width:500px;height:400px;"> 
-  	 	
+  	 	<div id="showDiv"></div>
   	 </div>
   
 </div>

@@ -21,6 +21,7 @@ public class Attachment {
 	private String uploadUserId;
 	private String uploadUserName;
 	private Date uploadTime;
+	private String size;
 	private InputStream in;
 	
 private byte[] byt ;
@@ -194,6 +195,14 @@ private byte[] byt ;
 	 */
 	public void setContentType(String contentType) {
 		this.contentType = contentType;
+	}
+
+	public String getSize() {
+		return size;
+	}
+
+	public void setSize(String size) {
+		this.size = size;
 	}
 	
 

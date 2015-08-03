@@ -39,7 +39,7 @@
         <property name="appConfig">
 	        <map>
 	              <entry key="attachmentBase" value="/love_file" />
-	              <entry key="attachmentURLBase" value="http://127.0.0.1" />
+	              <entry key="attachmentURLBase" value="http://127.0.0.1:8080/upload" />
 	        </map>
         </property>
     </bean>

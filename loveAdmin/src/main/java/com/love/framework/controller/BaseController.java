@@ -3,8 +3,11 @@ package com.love.framework.controller;
 import java.io.IOException;
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -19,6 +22,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.love.framework.common.MyEditor;
 import com.love.system.po.Attachment;
+import com.love.util.FileUtil;
 import com.love.util.HtmlUtil;
 import com.love.util.URLUtils;
 
@@ -118,10 +122,37 @@ public final static String SUCCESS ="success";
 		}
 		InputStream in = (InputStream) file.getInputStream();//定义文件输入流
 		Attachment attachment = new Attachment();
+		attachment.setSize(FileUtil.FormetFileSize(file.getSize()));
 		attachment.setFileName(file.getOriginalFilename());
 		attachment.setEntityType(fileName);
 		attachment.setContentType(file.getContentType());
 		attachment.setIn(in);
 		return attachment;
+	}
+	
+	protected List<Attachment> getAttachmentList(HttpServletRequest request,String fileName) throws IOException{
+		List<Attachment> attachList = new ArrayList<Attachment>();
+		if(!(request instanceof MultipartHttpServletRequest)){
+			return null;
+		}
+		MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
+		Iterator<String> itr =  multipartRequest.getFileNames();
+		MultipartFile file = null;
+		Attachment attachment = null;
+		while(itr.hasNext()){
+			file = multipartRequest.getFile(itr.next());
+			if(file == null){
+				return null;
+			}
+			InputStream in = (InputStream) file.getInputStream();//定义文件输入流
+			attachment = new Attachment();
+			attachment.setFileName(file.getOriginalFilename());
+			attachment.setSize(FileUtil.FormetFileSize(file.getSize()));
+			attachment.setEntityType(fileName);
+			attachment.setContentType(file.getContentType());
+			attachment.setIn(in);
+			attachList.add(attachment);
+		}
+		return attachList;
 	}
 }

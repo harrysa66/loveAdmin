@@ -68,8 +68,8 @@
 	</div>
 	
 	<!-- 查看封面 -->
-  	 <div id="viewFile-win" class="easyui-dialog" title="查看封面" data-options="closed:true,modal:true,top:0" style="width:500px;height:400px;"> 
-  	 <img alt="" src="">
+  	 <div id="viewFile-win" class="easyui-dialog" title="查看封面" data-options="closed:true,modal:true,top:0"> 
+  	 <img id="coverImg" alt="" src="" >
   	 </div>
   
 </div>

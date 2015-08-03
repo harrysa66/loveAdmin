@@ -58,6 +58,9 @@ public class AttachmentBusiness {
 		else{
 			attachmentObject.setUploadUserName(SpringSecurityUtils.getCurrentUserName());		
 		}
+		if(StringUtils.isNotEmpty(att.getSize())){
+			attachmentObject.setSize(att.getSize());
+		}
 		if(att.getUrl()==null){//本地上传附件,url置为空
 			attachmentObject.setFileName(att.getFileName());
 			attachmentObject.setContentType(att.getContentType());
@@ -202,12 +205,12 @@ public class AttachmentBusiness {
 		String base = this.getAttachmentBase();
 		String urlbase = this.getAttachmentURLBase();
 		atta.setSavePath(base+folder.substring(base.length()));
-		atta.setUrl(urlbase+atta.getSavePath());
 		// Use a UUID string as the saved filename to avoid file name encoding problem on UNIX platform
 		String uuidFileName = UUID.randomUUID().toString();
 		String suffix = guessFileSuffix(atta.getFileName());
 		if (suffix == null || suffix.length() == 0) suffix = "unknown";
 		atta.setSaveName(String.format("%s.%s", uuidFileName, suffix));
+		atta.setUrl(urlbase+folder.substring(base.length())+"/"+atta.getSaveName());
 		
 		String targetFileName = String.format("%s/%s", atta.getSavePath(), atta.getSaveName());
 		File target = new File(targetFileName);

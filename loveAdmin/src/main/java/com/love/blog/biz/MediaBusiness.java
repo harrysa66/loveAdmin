@@ -1,5 +1,6 @@
 package com.love.blog.biz;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -70,6 +71,12 @@ public class MediaBusiness {
 	@Transactional
 	public void delete(String id) {
 		try {
+			Map<String,Object> searchKey = new HashMap<String,Object>();
+			searchKey.put("entityId", id);
+			Attachment oldAttach = attachmentBusiness.findAttachmentByEntity(searchKey);
+			if(oldAttach != null){
+				attachmentBusiness.deleteFile(oldAttach.getId());
+			}
 			Map<String, Object> map = new HashMap<String, Object>();
 			map.put("id", id);
 			map.put("status", Constants.STATUS_DELETED);
@@ -172,6 +179,48 @@ public class MediaBusiness {
 			mediaDao.update(media);
 		}
 		return message;
+	}
+
+	@Transactional
+	public List<Attachment> fileUpload(List<Attachment> attachList) {
+		List<Attachment> result = new ArrayList<Attachment>();
+		Media media = null;
+		User user = SpringSecurityUtils.getCurrentUser();
+		for(Attachment attach: attachList){
+			media = new Media();
+			media.setId(UUIDGenerator.getUUID());
+			media.setUserId(user.getId());
+			media.setCreateTime(new Date());
+			media.setStatus(Constants.STATUS_DEFAULT);
+			media.setIsvalid(Constants.ISVALIAD_HIDDEN);
+			
+			Map<String,Object> searchKey = new HashMap<String,Object>();
+			searchKey.put("entityId", media.getId());
+			searchKey.put("entityType", attach.getEntityType());
+			Attachment oldAttach = attachmentBusiness.findAttachmentByEntity(searchKey);
+			if(oldAttach != null){
+				attachmentBusiness.deleteFile(oldAttach.getId());
+			}
+			attach.setEntityId(media.getId());
+			attach.setUploadTime(new Date());
+			attach.setUploadUserId(user.getId());
+			attach.setUploadUserName(user.getUsername());
+			Attachment att = attachmentBusiness.upload(attach);
+			media.setFileId(att.getId());
+			mediaDao.insert(media);
+			result.add(att);
+			/*Media media = new Media();
+			media.setId(mediaId);
+			media.setFileId(att.getId());
+			mediaDao.update(media);*/
+		}
+		
+		
+		return result;
+	}
+	
+	public List<Media> findListByGroup(String groupId){
+		return mediaDao.findListByProperty("findListByGroup", groupId);
 	}
 
 }

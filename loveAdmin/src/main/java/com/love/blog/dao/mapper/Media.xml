@@ -103,4 +103,10 @@
 		update love_blog_media set ISVALID=#{isvalid} where ID=#{id}
 	</update>
 	
+	<select id="findListByGroup" parameterType="String" resultType="media">
+		select <include refid="sqlList" />
+		FROM love_blog_media o
+		WHERE o.group_id=#{groupId} and o.STATUS !='DELETED'
+	</select>
+	
 </mapper>
