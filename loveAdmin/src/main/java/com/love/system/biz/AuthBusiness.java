@@ -252,7 +252,11 @@ public class AuthBusiness {
 			menuId = menuBtn.getMenuId().toString();
 			menuName = menuBtn.getName();
 		}else if(menu != null){
-			menuId = menu.getId().toString();
+			String parentId = "";
+			if(menu.getParentId() != null){
+				parentId = menu.getParentId().toString();
+			}
+			menuId = parentId;
 			menuName = menu.getName();
 		}
 		while(menuId != ""){

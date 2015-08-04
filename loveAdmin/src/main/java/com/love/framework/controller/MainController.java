@@ -147,7 +147,7 @@ public class MainController extends BaseController{
    			    {  
    				  	String key = attribute.getAuthority();
    				  	String code=menuList.get(i).getCode().trim();
-		   	   		if(key.startsWith(code))
+		   	   		if(key.equals(code))
 		   	   		{
 		   	   			flag=true;
 		   	   			break;
@@ -187,7 +187,7 @@ public class MainController extends BaseController{
    			    {  
    				  	String key = attribute.getAuthority();
    				  	String code=childBtnList.get(i).getCode().trim();
-		   	   		if(key.startsWith(code))
+		   	   		if(key.equals(code))
 		   	   		{
 		   	   			flag=true;
 		   	   			break;

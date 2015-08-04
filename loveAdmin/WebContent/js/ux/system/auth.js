@@ -46,6 +46,7 @@ Love.system.auth = function(){
 		},
 		clearTreeData:function(){
 			$(".tree-node-selected",_this.menu).removeClass("tree-node-selected");
+			$("#menuFullName").text('');
 			$('.c_menus').remove();
 		},
 		config:{
@@ -132,8 +133,17 @@ Love.system.auth = function(){
 			
 			_this.menu.tree({
 				url:urls['msUrl']+'/system/menu/getMenuTree.s',
-				checkbox:false
+				checkbox:false,
+				onClick:function(node){
+					$("#menuFullName").text(node.attributes.fullName);
+				}
 			});
+			
+			$('#combMenu').combotree({    
+    			url:urls['msUrl']+'/system/menu/getMenuTreeNoBtn.s',
+    			checkbox:false
+			});  
+
 		}
 	}
 	return _this;

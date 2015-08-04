@@ -29,7 +29,7 @@
 										用户名：
 									</li>
 									<li class=user_main_input>
-										<input class="txtusernamecssclass easyui-validatebox"  data-options="required:true,missingMessage:'用户名不能为空.'" name="j_username" id="j_username"  value="admin" maxlength="20">
+										<input class="txtusernamecssclass easyui-validatebox"  data-options="required:true,missingMessage:'用户名不能为空.'" name="j_username" id="j_username"  value="" maxlength="20">
 									</li>
 								</ul>
 								<ul>
@@ -37,7 +37,7 @@
 										密 码：
 									</li>
 									<li class=user_main_input>
-										<input class="txtpasswordcssclass easyui-validatebox"   data-options="required:true,missingMessage:'密码不能为空.'" type="password" name="j_password" id="j_password" value="123456">
+										<input class="txtpasswordcssclass easyui-validatebox"   data-options="required:true,missingMessage:'密码不能为空.'" type="password" name="j_password" id="j_password" value="">
 									</li>
 								</ul>
 								<ul>
@@ -48,6 +48,13 @@
 										<input class="vc-text easyui-validatebox" data-options="required:true,missingMessage:'验证码不能为空.'" maxlength="4" type="text" name="vercode" id="vercode">
 										<img src="${msUrl}/verifyCode.s?time=new Date().getTime()" style="cursor:pointer" id="verifyImg" width="65" height="23" title="看不清点击切换验证码" alt="看不清点击切换验证码" onClick="this.src='${msUrl}/verifyCode.s?time='+new Date().getTime()" />
 										<!-- <img class="vc-pic" width="65" height="23" title="点击刷新验证码" src="ImageServlet?time=new Date().getTime()"> -->
+									</li>
+								</ul>
+								<ul>
+									<li class=user_main_text>
+									</li>
+									<li class=user_main_input>
+										<span style="color: red">${sessionScope['SPRING_SECURITY_LAST_EXCEPTION'].message}</span>
 									</li>
 								</ul>
 							</div>

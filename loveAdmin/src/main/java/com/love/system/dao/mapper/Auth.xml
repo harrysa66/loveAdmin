@@ -60,9 +60,13 @@
             <if test="isvalid !=null and isvalid != ''"> 
               and  o.isvalid = #{isvalid}
             </if>
-            <if test="menuId !=null and menuId != ''"> 
-				and m.id in <foreach collection="menuId" item="item" index="index" 
+            <if test="menuIds !=null and menuIds != ''"> 
+				and (
+				mb.menu_id in <foreach collection="menuIds" item="item" index="index" 
 				open="(" separator="," close=")">#{item}</foreach>
+				or m.id in <foreach collection="menuIds" item="item" index="index" 
+				open="(" separator="," close=")">#{item}</foreach>
+				)
             </if>  
             order by o.CODE
        
@@ -87,10 +91,14 @@
             <if test="isvalid !=null and isvalid != ''"> 
               and  o.isvalid = #{isvalid}
             </if>
-            <if test="menuId !=null and menuId != ''"> 
-				and m.id in <foreach collection="menuId" item="item" index="index" 
+           <if test="menuIds !=null and menuIds != ''"> 
+				and (
+				mb.menu_id in <foreach collection="menuIds" item="item" index="index" 
 				open="(" separator="," close=")">#{item}</foreach>
-            </if>  
+				or m.id in <foreach collection="menuIds" item="item" index="index" 
+				open="(" separator="," close=")">#{item}</foreach>
+				)
+            </if> 
 	</select>
 	
 	<!-- 通过ID查找权限 -->

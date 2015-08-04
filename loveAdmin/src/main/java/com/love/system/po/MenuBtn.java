@@ -23,6 +23,7 @@ public class MenuBtn implements Serializable{
 	private String status;
 	private String isvalid;
 	private String authId;
+	private String menuFullName;
 	
 	public Integer getId() {
 		return id;
@@ -89,5 +90,11 @@ public class MenuBtn implements Serializable{
 	}
 	public void setAuthId(String authId) {
 		this.authId = authId;
+	}
+	public String getMenuFullName() {
+		return menuFullName;
+	}
+	public void setMenuFullName(String menuFullName) {
+		this.menuFullName = menuFullName;
 	}
 }

@@ -43,6 +43,7 @@ public class TreeUtil {
 		node.setParentId(menu.getParentId());
 		node.getAttributes().put("type", "0");
 		node.getAttributes().put("id", menu.getId());
+		node.getAttributes().put("fullName", menu.getMenuFullName());
 		return node;
 	}
 	
@@ -62,6 +63,7 @@ public class TreeUtil {
 		node.setParentId(btn.getMenuId());
 		node.getAttributes().put("type", "1");
 		node.getAttributes().put("id", btn.getId());
+		node.getAttributes().put("fullName", btn.getMenuFullName());
 		return node;
 	}
 	

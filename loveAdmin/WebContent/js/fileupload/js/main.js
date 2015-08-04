@@ -18,18 +18,25 @@ $(function () {
     $('#fileupload').fileupload({
         // Uncomment the following to send cross-domain cookies:
         //xhrFields: {withCredentials: true},
-        url: '/loveAdmin/blog/media/fileUpload.s'
+        url: '/loveAdmin/blog/media/fileUpload.s',
+        acceptFileTypes : /(\.|\/)(gif|jpe?g|png|ogg|mp4|mpe?g|webm|mp3|wav)$/i,
+        maxFileSize : 100000000 // 100 MB
     });
 
- /*   // Enable iframe cross-domain access via redirect option:
-    $('#fileupload').fileupload(
+    // Enable iframe cross-domain access via redirect option:
+  /*  $('#fileupload').fileupload(
         'option',
-        'redirect',
-        window.location.href.replace(
-            /\/[^\/]*$/,
-            '/cors/result.html?%s'
-        )
+    		{
+        		pasteZone: $(document),
+        		limitMultiFileUploads : 2
+   			}
     );*/
+    
+ /*  $('#fileupload').fileupload({maxChunkSize: 1000000})
+    .on('fileuploadchunksend', function (e, data) {debugger;})
+    .on('fileuploadchunkdone', function (e, data) {debugger;})
+    .on('fileuploadchunkfail', function (e, data) {debugger;})
+    .on('fileuploadchunkalways', function (e, data) {debugger;});*/
     
     // Load existing files:
         $('#fileupload').addClass('fileupload-processing');

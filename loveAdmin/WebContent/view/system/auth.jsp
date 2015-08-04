@@ -20,6 +20,8 @@
 	        	<option value="MENU_">菜单权限</option>
                 <option value="BTN_">按钮权限</option>
             </select>
+            <label>所属菜单:</label>  
+            <input id="combMenu" name="menuCode" value="">  
             <label>状态:</label>  
 	        <select class="easyui-combobox" name="isvalid" style="width:100px;" editable="false" panelHeight="80">
 	        	<option value="" selected="selected">全部</option>

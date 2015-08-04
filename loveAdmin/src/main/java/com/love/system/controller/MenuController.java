@@ -36,6 +36,12 @@ public class MenuController extends BaseController{
 		HtmlUtil.writerJson(response, menuTree);
 	}
 	
+	@RequestMapping("/getMenuTreeNoBtn")
+	public void getMenuTreeNoBtn(Integer id,HttpServletResponse response) throws Exception{
+		List<TreeNode> menuTree = treeMenuNoBtn();
+		HtmlUtil.writerJson(response, menuTree);
+	}
+	
 	/**
 	 * 构建树形菜单
 	 * @return
@@ -49,6 +55,21 @@ public class MenuController extends BaseController{
 		List<Menu> childMenus = menuBusiness.selectListByNotNull(parements);
 		List<MenuBtn> childBtns = menuBtnBusiness.selectList(parements);
 		TreeUtil util = new TreeUtil(rootMenus,childMenus,childBtns);
+		return util.getTreeNode();
+	}
+	
+	/**
+	 * 构建树形菜单(不带按钮)
+	 * @return
+	 */
+	public List<TreeNode> treeMenuNoBtn(){
+		Map<String,Object> parements=new HashMap<String,Object>();
+   		parements.put("status",Constants.STATUS_DEFAULT);
+   		parements.put("isvalid",Constants.ISVALIAD_SHOW);
+   		parements.put("type",Constants.MENU_ADMIN);
+		List<Menu> rootMenus = menuBusiness.selectListByNull(parements);
+		List<Menu> childMenus = menuBusiness.selectListByNotNull(parements);
+		TreeUtil util = new TreeUtil(rootMenus,childMenus);
 		return util.getTreeNode();
 	}
 

@@ -100,6 +100,9 @@ Love.system.role = function(){
 					{id:'btndelete',text:'删除',btnType:'remove'},
 					{id:'btnrun',text:'启停',btnType:'run'},
 					{id:'btngrant',text:'分配权限',btnType:'grantAutn',iconCls:'icon-edit',handler:function(){
+						$('#authSearchForm')[0].reset();
+						var param = $('#authSearchForm').serializeObject();
+						authGrid.datagrid('load',param);
 						var selected = _box.utils.getCheckedRows();
 						if ( _box.utils.checkSelectOne(selected)){
 							var code = selected[0].code;
@@ -222,6 +225,11 @@ Love.system.role = function(){
 				var param = authSearchForm.serializeObject();
 				authGrid.datagrid('reload',param);
 			});
+			
+			$('#combMenu').combotree({    
+    			url:urls['msUrl']+'/system/menu/getMenuTreeNoBtn.s',
+    			checkbox:false
+			});  
 			
 			
 			_box = new DataGrid(_this.config); 

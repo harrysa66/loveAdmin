@@ -19,9 +19,11 @@ import com.love.framework.common.Constants;
 import com.love.framework.controller.BaseController;
 import com.love.framework.dao.jdbc.Page;
 import com.love.system.biz.AuthBusiness;
+import com.love.system.biz.MenuBusiness;
 import com.love.system.biz.RoleBusiness;
 import com.love.system.biz.UserBusiness;
 import com.love.system.po.Auth;
+import com.love.system.po.Menu;
 import com.love.system.po.Role;
 import com.love.system.po.User;
 import com.love.util.HtmlUtil;
@@ -39,6 +41,9 @@ public class UserController extends BaseController{
 	
 	@Resource
 	private AuthBusiness authBusiness;
+	
+	@Resource
+	private MenuBusiness menuBusiness;
 	
 	@RequestMapping("/query")
 	public ModelAndView  doQuery(HttpServletRequest request) throws Exception{
@@ -166,6 +171,15 @@ public class UserController extends BaseController{
 		map.put("name", ServletRequestUtils.getStringParameter(request, "name", "").trim());
 		map.put("authType", ServletRequestUtils.getStringParameter(request, "authType", "").trim());
 		map.put("isvalid", Constants.ISVALIAD_SHOW);
+		String menuCode = ServletRequestUtils.getStringParameter(request, "menuCode", "").trim();
+		List<String> menuIds = new ArrayList<String>();
+		List<Menu> menuList = menuBusiness.findListByCode(menuCode);
+		for(Menu menu : menuList){
+			menuIds.add(menu.getId().toString());
+		}
+		if(menuIds.size() > 0){
+			map.put("menuIds", menuIds);
+		}
 		Page<Auth> page = PageUtil.getPageObj(request);
 		page = authBusiness.queryPage(map, page);
 		List<Auth> authList= new ArrayList<Auth>();

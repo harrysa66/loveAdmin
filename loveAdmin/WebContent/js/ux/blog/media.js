@@ -45,10 +45,11 @@ Love.blog.media = function(){
   							height:result.height,
   							onClose:function(){showDiv.empty();}
 						}).window('open');
-					}else if(result.fileType.indexOf('video') >= 0){
+					}else if(result.fileType.indexOf('video') >= 0 || result.fileType.indexOf('/ogg') >=0){
 						var video = $('<video>');
 						var videoEnd = $('</video>');
 						var source = $('<source>');
+						var content = $('浏览器不支持该视频');
     					video.attr("autoplay",'autoplay');
     					video.attr("loop",'loop');
     					video.attr("controls",'controls');
@@ -58,10 +59,11 @@ Love.blog.media = function(){
     					source.attr("type",result.data.contentType);
     					video.appendTo(showDiv);
     					source.appendTo(video);
+    					content.appendTo(video);
     					video.appendTo(videoEnd);
 						$('#viewFile-win').window({
-							width:result.width,    
-  							height:result.height,
+							width:result.width+200,    
+  							height:result.height+100,
   							onClose:function(){showDiv.empty();}
 						}).window('open');
 					}else{
@@ -81,12 +83,12 @@ Love.blog.media = function(){
 		Uploader:function(callBack){
 			var addWin = $("#uploadfile-win");
 			var upladoer = $('<iframe/>');
-			upladoer.attr({'src':urls['msUrl']+'/upload/upload.jsp',width:'100%',height:'100%',frameborder:'0',scrolling:'no'});
+			upladoer.attr({'src':urls['msUrl']+'/upload/upload.jsp',width:'100%',height:'100%',frameborder:'0',scrolling:'yes'});
 			addWin.window({
 				title:"上传文件",
 				height:450,
 				width:1000,
-				minimizable:true,
+				minimizable:false,
 				modal:true,
 				collapsible:true,
 				maximizable:true,
@@ -95,7 +97,9 @@ Love.blog.media = function(){
 				onClose:function(){
 					var fw = _this.GetFrameWindow(upladoer[0]);
 					var files = fw.files;
-					$(this).window('destroy');
+					//$(this).window('destroy');
+					var param = $('#searchForm').serializeObject();
+					$('#data-list').datagrid('reload',param);
 					callBack.call(this,files);
 				},
 				onOpen:function(){
@@ -216,7 +220,7 @@ Love.blog.media = function(){
 						
 				]],
 				toolbar:[
-					{id:'btnaddfile',text:'批量上传',btnType:'addFile',iconCls:'icon-add',handler:function(){
+					{id:'btnaddfile',text:'上传',btnType:'addFile',iconCls:'icon-add',handler:function(){
 						//$("#uploadfile-win").window('open');
 						_this.makerUpload();
 					}},

@@ -63,6 +63,8 @@
 	        	<option value="MENU_">菜单权限</option>
                 <option value="BTN_">按钮权限</option>
             </select>
+            <label>所属菜单:</label>  
+            <input id="combMenu" name="menuCode" value=""> 
         </p>  
         <a href="#" id="btn-search" class="easyui-linkbutton" iconCls="icon-search">查询</a>
       </form>  

@@ -212,36 +212,12 @@ public class MediaController extends BaseController{
 	public void fileUpload(HttpServletRequest request,HttpServletResponse response) throws IOException, IllegalAccessException, InvocationTargetException, NoSuchMethodException{
 		Map<String,Object>  context = new HashMap<String,Object> ();
 		List<Attachment> files = null;
-		//Attachment attach = getAttachment(request, "files[]");
 		List<Attachment> attachList = getAttachmentList(request, "mediaFile");
 		if(attachList != null && attachList.size() > 0){
 			files = mediaBusiness.fileUpload(attachList);
 		}
-		/*if(attach != null){
-			return attach.getSavePath()+"/"+attach.getSaveName();
-		}
-		return "0";*/
-		//Map<String,Object> data = BeanUtils.describe(attachList);
-		//JSON.parseArray(arg0, arg1)
 		context.put("files", files);
 		HtmlUtil.writerJson(response, context);
-		//return "[{\"fileName\":\"app_engine-85x77.png\",\"fileSize\":\"8 Kb\",\"fileType\":\"image/png\"}]";
-		
-		/*context.put(SUCCESS, true);
-		context.put("result", "done");
-		HtmlUtil.writerJson(response, context);*/
-		/*boolean isSelf = mediaGroupBusiness.isSelf(groupId);
-		if(isSelf){
-			Attachment attach = getAttachment(request, "groupCover");
-			if(attach.getContentType().indexOf("image/") == -1){
-				sendFailureMessage(response, "只能上传图片格式!");
-			}else{
-				mediaGroupBusiness.coverUpload(groupId,attach);
-				sendSuccessMessage(response, "上传成功");
-			}
-		}else{
-			sendFailureMessage(response, "除管理员外，不能设置非本人的封面!");
-		}*/
 	}
 
 }

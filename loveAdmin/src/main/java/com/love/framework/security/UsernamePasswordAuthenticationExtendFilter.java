@@ -37,7 +37,7 @@ public class UsernamePasswordAuthenticationExtendFilter extends
 		String checkCode = request.getSession().getAttribute("rand_verifyCode")
 				.toString().toUpperCase();
 		if ((jcaptchaCode == null) || ("".equals(jcaptchaCode)))
-			throw new ValidateCodeException("验证码超时,请重新获取!");
+			throw new ValidateCodeException("请输入验证码!");
 		if (!(checkCode.equals(jcaptchaCode)))
 			throw new ValidateCodeException("验证码不正确,请重新输入!");
 	}

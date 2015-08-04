@@ -53,6 +53,15 @@ public class AuthController extends BaseController{
 		map.put("name", ServletRequestUtils.getStringParameter(request, "name", "").trim());
 		map.put("authType", ServletRequestUtils.getStringParameter(request, "authType", "").trim());
 		map.put("isvalid", ServletRequestUtils.getStringParameter(request, "isvalid", "").trim());
+		String menuCode = ServletRequestUtils.getStringParameter(request, "menuCode", "").trim();
+		List<String> menuIds = new ArrayList<String>();
+		List<Menu> menuList = menuBusiness.findListByCode(menuCode);
+		for(Menu menu : menuList){
+			menuIds.add(menu.getId().toString());
+		}
+		if(menuIds.size() > 0){
+			map.put("menuIds", menuIds);
+		}
 		Page<Auth> page = PageUtil.getPageObj(request);
 		page = authBusiness.queryPage(map, page);
 		List<Auth> authList= new ArrayList<Auth>();

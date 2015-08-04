@@ -26,20 +26,20 @@
                 <!-- The fileinput-button span is used to style the file input field as button -->
                 <span class="btn btn-success fileinput-button">
                     <i class="glyphicon glyphicon-plus"></i>
-                    <span>Add files...</span>
+                    <span>添加文件</span>
                     <input type="file" name="files[]" multiple>
                 </span>
                 <button type="submit" class="btn btn-primary start">
                     <i class="glyphicon glyphicon-upload"></i>
-                    <span>Start upload</span>
+                    <span>开始上传</span>
                 </button>
                 <button type="reset" class="btn btn-warning cancel">
                     <i class="glyphicon glyphicon-ban-circle"></i>
-                    <span>Cancel upload</span>
+                    <span>取消上传</span>
                 </button>
                 <button type="button" class="btn btn-danger delete">
                     <i class="glyphicon glyphicon-trash"></i>
-                    <span>Delete</span>
+                    <span>删除</span>
                 </button>
                 <input type="checkbox" class="toggle">
                 <!-- The global file processing state -->
@@ -81,20 +81,20 @@
             <strong class="error text-danger"></strong>
         </td>
         <td>
-            <p class="size">Processing...</p>
+            <p class="size">上传中...</p>
             <div class="progress progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div class="progress-bar progress-bar-success" style="width:0%;"></div></div>
         </td>
         <td>
             {% if (!i && !o.options.autoUpload) { %}
                 <button class="btn btn-primary start" disabled>
                     <i class="glyphicon glyphicon-upload"></i>
-                    <span>Start</span>
+                    <span>开始</span>
                 </button>
             {% } %}
             {% if (!i) { %}
                 <button class="btn btn-warning cancel">
                     <i class="glyphicon glyphicon-ban-circle"></i>
-                    <span>Cancel</span>
+                    <span>取消</span>
                 </button>
             {% } %}
         </td>
@@ -131,13 +131,13 @@
             {% if (file.entityId) { %}
                 <button class="btn btn-danger delete" data-type="get" data-url="/loveAdmin/blog/media/remove.s?id={%=file.entityId%}"{% if (file.deleteWithCredentials) { %} data-xhr-fields='{"withCredentials":true}'{% } %}>
                     <i class="glyphicon glyphicon-trash"></i>
-                    <span>Delete</span>
+                    <span>删除</span>
                 </button>
                 <input type="checkbox" name="delete" value="1" class="toggle">
             {% } else { %}
                 <button class="btn btn-warning cancel">
                     <i class="glyphicon glyphicon-ban-circle"></i>
-                    <span>Cancel</span>
+                    <span>取消</span>
                 </button>
             {% } %}
         </td>
