@@ -91,14 +91,18 @@
 	<!-- 定义错误显示页面 -->
 	<error-page>
 		<exception-type>java.lang.Exception</exception-type>
-		<location>/view/404.jsp</location>
+		<location>/view/error/404.jsp</location>
 	</error-page>
 	<error-page>
 		<error-code>403</error-code>
-		<location>/view/403.jsp</location>
+		<location>/view/error/403.jsp</location>
 	</error-page>
 	<error-page>
 		<error-code>404</error-code>
-		<location>/view/404.jsp</location>
+		<location>/view/error/404.jsp</location>
+	</error-page>
+	<error-page>
+		<error-code>500</error-code>
+		<location>/view/error/500.jsp</location>
 	</error-page>
 </web-app>
