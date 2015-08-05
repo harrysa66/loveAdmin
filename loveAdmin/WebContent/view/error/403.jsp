@@ -45,7 +45,7 @@ A:hover {
           <TD height=8></TD>
         <TR>
           <TD>
-            <P><FONT color=#000000><BR>　　您所请求的页面不存在</FONT>! 
+            <P><FONT color=#000000><BR>　　您的请求拒绝访问</FONT>! 
       　</P></TD></TR></TBODY></TABLE></DIV></TD></TR>
   <TR>
     <TD height=5></TD>
@@ -59,9 +59,8 @@ A:hover {
 width=7></TD>
           <TD background=bg.gif>
             <DIV align=center><FONT class=p6><A 
-            href="${msUrl}">返回首页</A>　 　|　　 <A 
-            href="javascript:history.go(-1)">返回出错页</A>　 　|　　 <A 
-            href="javascript:window.opener=null;window.close();">关闭本页</A></FONT> </DIV></TD>
+            href="/loveAdmin/index.s">返回首页</A>　 　|　　 <A 
+            href="javascript:history.go(-1)">返回出错页</A></FONT> </DIV></TD>
           <TD width=7><IMG 
       src="right.gif"></TD></TR></TBODY></TABLE></CENTER></TD></TR></TBODY></TABLE>
 <P align=center>　</P>

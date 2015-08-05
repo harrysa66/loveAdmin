@@ -99,7 +99,7 @@ Love.system.role = function(){
 					{id:'btnedit',text:'修改',btnType:'edit'},
 					{id:'btndelete',text:'删除',btnType:'remove'},
 					{id:'btnrun',text:'启停',btnType:'run'},
-					{id:'btngrant',text:'分配权限',btnType:'grantAutn',iconCls:'icon-edit',handler:function(){
+					{id:'btngrant',text:'分配权限',btnType:'grantAutn',iconCls:'icon-setting',handler:function(){
 						$('#authSearchForm')[0].reset();
 						var param = $('#authSearchForm').serializeObject();
 						authGrid.datagrid('load',param);
@@ -135,6 +135,7 @@ Love.system.role = function(){
 			authGrid.datagrid({ 
 				title: '权限列表',
    				url:'authDataList.s',   
+   				iconCls:'icon-data',
    				view:fileview,
     			columns:[[
 						{field:'id',checkbox:true},
@@ -212,7 +213,7 @@ Love.system.role = function(){
 						});
 					}
 				},'-',{
-					iconCls: 'icon-cancel',
+					iconCls: 'icon-clear',
 					text:'清空',
 					handler: function(){
 						authGrid.datagrid('uncheckAll');

@@ -66,6 +66,7 @@ Love.main = function(){
 			 }
 		},
 		init:function(){
+			
 			this.treeInit();
 			this.menuHover();
 			
@@ -78,6 +79,71 @@ Love.main = function(){
 				$('#modify-pwd-win').dialog('close');
 			});
 			$('#btn-pwd-submit').click(this.modifyPwd);
+			
+			$('#tab-box').tabs({    
+    			onSelect:function(title){    
+        			  
+    			},
+    			onContextMenu:function(e, title,index){
+    				e.preventDefault();
+        			$('#tabs-menu').menu('show', {
+            			left: e.pageX,
+            			top: e.pageY
+        			});
+        			$('#tabs-menu').data("currtab",title);
+    			}
+			}); 
+			
+    		//关闭当前标签页
+    		$("#closecur").bind("click",function(){
+    			var currtab_title = $('#tabs-menu').data("currtab");
+        		var tab = $('#tab-box').tabs('getTab',currtab_title);
+        		var index = $('#tab-box').tabs('getTabIndex',tab);
+        		if(index != 0){
+        			$('#tab-box').tabs('close',index);
+        		}
+    		});
+    		//关闭所有标签页
+    		$("#closeall").bind("click",function(){
+        		var tablist = $('#tab-box').tabs('tabs');
+        		for(var i=tablist.length-1;i>=1;i--){
+            		$('#tab-box').tabs('close',i);
+        		}
+    		});
+    		//关闭非当前标签页（先关闭右侧，再关闭左侧）
+    		$("#closeother").bind("click",function(){
+        		var tablist = $('#tab-box').tabs('tabs');
+        		var currtab_title = $('#tabs-menu').data("currtab");
+        		var tab = $('#tab-box').tabs('getTab',currtab_title);
+        		var index = $('#tab-box').tabs('getTabIndex',tab);
+        		for(var i=tablist.length-1;i>index;i--){
+           			$('#tab-box').tabs('close',i);
+        		}
+        		var num = index-1;
+        		for(var i=num;i>=1;i--){
+            		$('#tab-box').tabs('close',1);
+        		}
+    		});
+    		//关闭当前标签页右侧标签页
+    		$("#closeright").bind("click",function(){
+        		var tablist = $('#tab-box').tabs('tabs');
+        		var currtab_title = $('#tabs-menu').data("currtab");
+        		var tab = $('#tab-box').tabs('getTab',currtab_title);
+        		var index = $('#tab-box').tabs('getTabIndex',tab);
+        		for(var i=tablist.length-1;i>index;i--){
+            		$('#tab-box').tabs('close',i);
+        		}
+    		});
+    		//关闭当前标签页左侧标签页
+    		$("#closeleft").bind("click",function(){
+        		var currtab_title = $('#tabs-menu').data("currtab");
+        		var tab = $('#tab-box').tabs('getTab',currtab_title);
+        		var index = $('#tab-box').tabs('getTabIndex',tab);
+        		var num = index-1;
+        		for(var i=1;i<=num;i++){
+            		$('#tab-box').tabs('close',1);
+        		}
+    		});
 			
 		}
 	};

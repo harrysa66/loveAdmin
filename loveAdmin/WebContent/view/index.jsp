@@ -4,7 +4,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
   <head>
-    <title>情侣博客后台管理系统</title>
+    <title>LOVE博客后台管理系统</title>
     <%@include file="/view/resource.jsp" %>
     <link rel="stylesheet" type="text/css" href="${msUrl}/css/main.css">
     <script type="text/javascript" src="${msUrl}/js/ux/main/main.js"></script>
@@ -12,7 +12,7 @@
   <body class="easyui-layout">
   	
  	<div class="ui-header" data-options="region:'north',split:true,border:false" style="height:40px;overflow: hidden;">
- 	<h1>情侣博客后台管理系统</h1>
+ 	<h1>LOVE博客后台管理系统</h1>
  	<div  class="ui-login">
  		<div class="ui-login-info">
 	 		欢迎 <span class="orange">${user.nickname}</span> [<span class="orange">${userIp}</span>]登录系统 
@@ -45,8 +45,19 @@
 			</div>
 		</div>	
 	</div>
+	
+	<!-- 右键菜单 -->
+	<div id="tabs-menu" class="easyui-menu" style="width:150px;">
+        <div id="closecur" class="context-menu-item" data-options="iconCls:'icon-close'">关闭</div>
+    	<div id="closeall" class="context-menu-item" data-options="iconCls:'icon-close'">关闭全部</div>
+    	<div id="closeother" class="context-menu-item" data-options="iconCls:'icon-close'">关闭其他</div>
+    	<div class="menu-sep" class="context-menu-item"></div>
+    	<div id="closeright" class="context-menu-item" data-options="iconCls:'icon-close'">关闭右侧标签页</div>
+    	<div id="closeleft" class="context-menu-item" data-options="iconCls:'icon-close'">关闭左侧标签页</div> 
+	</div>
+
 	<!--  modify password start -->
-	<div id="modify-pwd-win"  class="easyui-dialog" buttons="#editPwdbtn" title="修改用户密码" data-options="closed:true,iconCls:'icon-save',modal:true" style="width:350px;height:200px;">
+	<div id="modify-pwd-win"  class="easyui-dialog" buttons="#editPwdbtn" title="修改用户密码" data-options="closed:true,modal:true" style="width:350px;height:200px;">
 		<form id="pwdForm" action="modifyPassword.s" class="ui-form" method="post">
      		 <input class="hidden" name="id" value="${user.id}">
      		 <input class="hidden" name="username" value="${user.username}">

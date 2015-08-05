@@ -7,7 +7,7 @@
 	<body>
 <div class="warp easyui-panel" data-options="border:false">
 	<!-- Search panel start -->
- 	 <div class="easyui-panel ui-search-panel" title="查询项" data-options="striped: true,collapsible:true,iconCls:'icon-search'">  
+ 	 <div class="easyui-panel ui-search-panel" title="查询项" data-options="striped: true,collapsible:true,iconCls:'icon-searchfile'">  
  	 <form id="searchForm">
  	 	<p class="ui-fields">
             <label class="ui-label">用户名:</label> 
@@ -31,7 +31,7 @@
      <table id="data-list"></table>
 	 </form> 
      <!-- Edit Form -->
-     <div id="edit-win" class="easyui-dialog" title="修改" data-options="closed:true,iconCls:'icon-save',modal:true" style="width:400px;height:210px;">  
+     <div id="edit-win" class="easyui-dialog" title="修改" data-options="closed:true,modal:true" style="width:400px;height:210px;">  
      	<form id="editForm" class="ui-form" method="post">  
      		 <input class="hidden" type="text" name="id">
      		 <div class="ui-edit">
@@ -50,7 +50,7 @@
   	 
   	 <!-- 分配角色 -->
   	 <div id="roleList-win" class="easyui-dialog" title="分配角色" data-options="closed:true,modal:true,top:0" style="width:900px;height:520px;"> 
-  	 	<div class="easyui-panel ui-search-panel" title="查询项" data-options="striped: true,collapsible:true,iconCls:'icon-search'">  
+  	 	<div class="easyui-panel ui-search-panel" title="查询项" data-options="striped: true,collapsible:true,iconCls:'icon-searchfile'">  
  	 <form id="roleSearchForm">
  	 	<p class="ui-fields">
             <label class="ui-label">角色编号:</label> 
@@ -68,7 +68,7 @@
   	 
   	 <!-- 分配权限 -->
   	 <div id="authList-win" class="easyui-dialog" title="分配权限" data-options="closed:true,modal:true,top:0" style="width:900px;height:520px;"> 
-  	 	<div class="easyui-panel ui-search-panel" title="查询项" data-options="striped: true,collapsible:true,iconCls:'icon-search'">  
+  	 	<div class="easyui-panel ui-search-panel" title="查询项" data-options="striped: true,collapsible:true,iconCls:'icon-searchfile'">  
  	 <form id="authSearchForm">
  	 	<p class="ui-fields">
             <label class="ui-label">权限编号:</label> 

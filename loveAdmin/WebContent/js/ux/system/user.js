@@ -136,7 +136,7 @@ Love.system.user = function(){
 					{id:'btnedit',text:'修改',btnType:'edit'},
 					{id:'btndelete',text:'删除',btnType:'remove'},
 					{id:'btnrun',text:'启停',btnType:'run'},
-					{id:'btngrantRole',text:'分配角色',btnType:'grantRole',iconCls:'icon-edit',handler:function(){
+					{id:'btngrantRole',text:'分配角色',btnType:'grantRole',iconCls:'icon-setting',handler:function(){
 						$('#roleSearchForm')[0].reset();
 						var param = $('#roleSearchForm').serializeObject();
 						roleGrid.datagrid('load',param);
@@ -164,7 +164,7 @@ Love.system.user = function(){
 							}
 						}
 					}},
-					{id:'btngrantAuth',text:'分配权限',btnType:'grantAutn',iconCls:'icon-edit',handler:function(){
+					{id:'btngrantAuth',text:'分配权限',btnType:'grantAutn',iconCls:'icon-setting',handler:function(){
 						$('#authSearchForm')[0].reset();
 						var param = $('#authSearchForm').serializeObject();
 						authGrid.datagrid('load',param);
@@ -192,7 +192,7 @@ Love.system.user = function(){
 							}
 						}
 					}},
-					{id:'btnresetPassword',text:'重置密码',btnType:'resetPassword',iconCls:'icon-reload',handler:function(){
+					{id:'btnresetPassword',text:'重置密码',btnType:'resetPassword',iconCls:'icon-reset',handler:function(){
 						var records =  _box.utils.getCheckedRows();
 							if (_box.utils.checkSelect(records)){
 								$.messager.confirm('确认','确定重置密码?',function(r){  
@@ -220,6 +220,7 @@ Love.system.user = function(){
 			roleGrid.datagrid({ 
 				title: '角色列表',
    				url:'roleDataList.s',   
+   				iconCls:'icon-data',
    				view:fileview,
     			columns:[[
 						{field:'id',checkbox:true},
@@ -288,7 +289,7 @@ Love.system.user = function(){
 						});
 					}
 				},'-',{
-					iconCls: 'icon-cancel',
+					iconCls: 'icon-clear',
 					text:'清空',
 					handler: function(){
 						roleGrid.datagrid('uncheckAll');
@@ -308,6 +309,7 @@ Love.system.user = function(){
 			authGrid.datagrid({ 
 				title: '权限列表',
    				url:'authDataList.s',   
+   				iconCls:'icon-data',
    				view:fileview,
     			columns:[[
 						{field:'id',checkbox:true},
@@ -385,7 +387,7 @@ Love.system.user = function(){
 						});
 					}
 				},'-',{
-					iconCls: 'icon-cancel',
+					iconCls: 'icon-clear',
 					text:'清空',
 					handler: function(){
 						authGrid.datagrid('uncheckAll');

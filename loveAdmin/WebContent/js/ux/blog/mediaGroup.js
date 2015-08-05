@@ -109,7 +109,7 @@ Love.blog.mediaGroup = function(){
 					{id:'btnedit',text:'修改',btnType:'edit'},
 					{id:'btndelete',text:'删除',btnType:'remove'},
 					{id:'btnrun',text:'启停',btnType:'run'},
-					{id:'btncover',text:'设置封面',btnType:'setCover',iconCls:'icon-edit',handler:function(){
+					{id:'btncover',text:'设置封面',btnType:'setCover',iconCls:'icon-upload',handler:function(){
 						var selected = _box.utils.getCheckedRows();
 						if ( _box.utils.checkSelectOne(selected)){
 							$('#groupId').val(selected[0].id);

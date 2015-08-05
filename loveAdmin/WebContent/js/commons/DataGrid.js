@@ -33,7 +33,7 @@ var DataGrid = function(config){
 			},
 			//add按钮事件
 			add: function(callback){
-				Win.edit.dialog('open');
+				Win.edit.dialog('setTitle','添加').dialog('open');
 				Form.edit.resetForm();
 				//回调函数
 				if(jQuery.isFunction(callback)){
@@ -49,7 +49,7 @@ var DataGrid = function(config){
  					data[idKey] = (record[0][idKey]);
 					Love.getById(Action.view,data,function(result){
 						Form.edit.form('load',result.data);
-						Win.edit.dialog('open'); 
+						Win.edit.dialog('setTitle','修改').dialog('open'); 
 						//回调函数
 						if(jQuery.isFunction(callback)){
 							callback(result);
@@ -213,7 +213,7 @@ var DataGrid = function(config){
 					   };
 		var bar_run = { id:'btnrun',
 						text:'启停',
-						iconCls:'icon-edit',
+						iconCls:'icon-run',
 						btnType:'run',
 						handler:Events.run
 					   };
@@ -254,7 +254,7 @@ var DataGrid = function(config){
 		var initGrid = function(){
 			var dataconfig = {
 				title: dataGrid.title || '数据列表',
-				iconCls: dataGrid.iconCls || 'icon-save',
+				iconCls: dataGrid.iconCls || 'icon-data',
 				height: dataGrid.height || 365,
 				nowrap: true,
 				autoRowHeight: false,

@@ -220,11 +220,11 @@ Love.blog.media = function(){
 						
 				]],
 				toolbar:[
-					{id:'btnaddfile',text:'上传',btnType:'addFile',iconCls:'icon-add',handler:function(){
+					{id:'btnaddfile',text:'上传',btnType:'addFile',iconCls:'icon-upload',handler:function(){
 						//$("#uploadfile-win").window('open');
 						_this.makerUpload();
 					}},
-					{id:'btnsetname',text:'设置名称',btnType:'setName',iconCls:'icon-edit',handler:function(){
+					{id:'btnsetname',text:'设置名称',btnType:'setName',iconCls:'icon-save-as',handler:function(){
 						var rows = mediaGrid.datagrid('getRows');
 						for ( var i = 0; i < rows.length; i++) {
 							mediaGrid.datagrid('endEdit', i);
@@ -244,7 +244,7 @@ Love.blog.media = function(){
 								}
 							});
 					}},
-					{id:'btnsetgroup',text:'设置分组',btnType:'setGroup',iconCls:'icon-edit',handler:function(){
+					{id:'btnsetgroup',text:'设置分组',btnType:'setGroup',iconCls:'icon-group',handler:function(){
 						var selected = _box.utils.getCheckedRows();
 						var idArray = new Array();
 						for(var i = 0; i < selected.length; i++){

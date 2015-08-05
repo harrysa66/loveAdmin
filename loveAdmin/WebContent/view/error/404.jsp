@@ -59,9 +59,8 @@ A:hover {
 width=7></TD>
           <TD background=/loveAdmin/view/error/bg.gif>
             <DIV align=center><FONT class=p6><A 
-            href="${msUrl}">返回首页</A>　 　|　　 <A 
-            href="javascript:history.go(-1)">返回出错页</A>　 　|　　 <A 
-            href="javascript:window.opener=null;window.close();">关闭本页</A></FONT> </DIV></TD>
+            href="/loveAdmin/index.s">返回首页</A>　 　|　　 <A 
+            href="javascript:history.go(-1)">返回上一页</A></FONT> </DIV></TD>
           <TD width=7><IMG 
       src="/loveAdmin/view/error/right.gif"></TD></TR></TBODY></TABLE></CENTER></TD></TR></TBODY></TABLE>
 <P align=center>　</P>

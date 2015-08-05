@@ -7,3 +7,6 @@
 
 .menu-item{display:block;color:black;text-decoration: none;	border-bottom :1px dotted #D8D8D8;padding:5px 5px 5px 15px;}
 .menu-item:hover{background: #E0ECFF;}
+
+.context-menu-item{display:block;color:black;text-decoration: none;	border-bottom :0px dotted #D8D8D8;padding:0px 0px 0px 0px;}
+.context-menu-item:hover{background: #E0ECFF;}

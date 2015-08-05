@@ -7,7 +7,7 @@
 	<body>
 <div class="warp easyui-panel" data-options="border:false">
 	<!-- Search panel start -->
- 	 <div class="easyui-panel ui-search-panel" title="查询项" data-options="striped: true,collapsible:true,iconCls:'icon-search'">  
+ 	 <div class="easyui-panel ui-search-panel" title="查询项" data-options="striped: true,collapsible:true,iconCls:'icon-searchfile'">  
  	 <form id="searchForm">
  	 	<p class="ui-fields">
             <label class="ui-label">名称:</label> 
@@ -33,7 +33,7 @@
      <table id="data-list"></table>
 	 </form> 
      <!-- setGroup Form -->
-     <div id="setGroup-win" class="easyui-dialog" title="分组" data-options="closed:true,iconCls:'icon-save',modal:true,buttons:'#groupBtn'" style="width:400px;height:200px;">  
+     <div id="setGroup-win" class="easyui-dialog" title="分组" data-options="closed:true,modal:true,buttons:'#groupBtn'" style="width:400px;height:200px;">  
      	<form id="setGroupForm" class="ui-form" method="post" action="setGroup.s">  
      		 <input id="groupIds" class="hidden" type="text" name="ids">
      		 <div class="ui-edit">

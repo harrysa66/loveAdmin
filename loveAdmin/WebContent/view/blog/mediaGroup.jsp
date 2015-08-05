@@ -7,7 +7,7 @@
 	<body>
 <div class="warp easyui-panel" data-options="border:false">
 	<!-- Search panel start -->
- 	 <div class="easyui-panel ui-search-panel" title="查询项" data-options="striped: true,collapsible:true,iconCls:'icon-search'">  
+ 	 <div class="easyui-panel ui-search-panel" title="查询项" data-options="striped: true,collapsible:true,iconCls:'icon-searchfile'">  
  	 <form id="searchForm">
  	 	<p class="ui-fields">
             <label class="ui-label">名称:</label> 
@@ -33,7 +33,7 @@
      <table id="data-list"></table>
 	 </form> 
      <!-- Edit Form -->
-     <div id="edit-win" class="easyui-dialog" title="修改" data-options="closed:true,iconCls:'icon-save',modal:true" style="width:400px;height:410px;">  
+     <div id="edit-win" class="easyui-dialog" title="修改" data-options="closed:true,modal:true" style="width:400px;height:210px;">  
      	<form id="editForm" class="ui-form" method="post">  
      		 <input class="hidden" type="text" name="id">
      		 <div class="ui-edit">
@@ -51,7 +51,7 @@
   	 </div> 
   	 
   	 <!-- cover Form -->
-     <div id="cover-win" class="easyui-dialog" title="设置封面" data-options="closed:true,iconCls:'icon-save',modal:true,top:0,buttons:'#fileBtn'" style="width:400px;height:150px;">  
+     <div id="cover-win" class="easyui-dialog" title="设置封面" data-options="closed:true,modal:true,top:0,buttons:'#fileBtn'" style="width:400px;height:150px;">  
      	<form id="coverForm" class="ui-form" method="post" enctype="multipart/form-data" action="coverUpload.s">  
      		 <input id="groupId" class="hidden" type="text" name="groupId">
      		 <div class="ui-edit">

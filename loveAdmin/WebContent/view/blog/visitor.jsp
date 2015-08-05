@@ -7,7 +7,7 @@
 	<body>
 <div class="warp easyui-panel" data-options="border:false">
 	<!-- Search panel start -->
- 	 <div class="easyui-panel ui-search-panel" title="查询项" data-options="striped: true,collapsible:true,iconCls:'icon-search'">  
+ 	 <div class="easyui-panel ui-search-panel" title="查询项" data-options="striped: true,collapsible:true,iconCls:'icon-searchfile'">  
  	 <form id="searchForm">
  	 	<p class="ui-fields">
             <label class="ui-label">IP:</label> 
@@ -32,7 +32,7 @@
      <table id="data-list"></table>
 	 </form> 
      <!-- Edit Form -->
-     <div id="edit-win" class="easyui-dialog" title="禁言" data-options="closed:true,iconCls:'icon-save',modal:true" style="width:300px;height:200px;">  
+     <div id="edit-win" class="easyui-dialog" title="禁言" data-options="closed:true,modal:true" style="width:300px;height:200px;">  
      	<form id="editForm" class="ui-form" method="post">  
      		 <input class="hidden" type="text" name="id">
      		 <div class="ui-edit">

@@ -145,8 +145,8 @@ Love.blog.visitor = function(){
 						
 				]],
 				toolbar:[
-					{id:'btnedit',text:'禁言',btnType:'edit'},
-					{id:'btnoutforbid',text:'解除禁言',btnType:'outforbid',iconCls:'icon-edit',handler:function(){
+					{id:'btnedit',text:'禁言',btnType:'edit',iconCls:'icon-user-remove'},
+					{id:'btnoutforbid',text:'解除禁言',btnType:'outforbid',iconCls:'icon-user-refresh',handler:function(){
 						var selected = _box.utils.getCheckedRows();
 						if ( _box.utils.checkSelectOne(selected)){
 							if(selected[0].status == 'DEFAULT'){
@@ -175,7 +175,7 @@ Love.blog.visitor = function(){
 					{id:'btnviewforbid',text:'查看禁言名单',btnType:'viewforbid',iconCls:'icon-search',handler:function(){
 						Love.blog.visitor.viewForbid('FORBID');
 					}},
-					{id:'btninblack',text:'拉黑',btnType:'inblack',iconCls:'icon-edit',handler:function(){
+					{id:'btninblack',text:'拉黑',btnType:'inblack',iconCls:'icon-user-remove',handler:function(){
 						var selected = _box.utils.getCheckedRows();
 						if ( _box.utils.checkSelectOne(selected)){
 							if(selected[0].status == 'BLACK'){
@@ -197,7 +197,7 @@ Love.blog.visitor = function(){
 							}
 						}
 					}},
-					{id:'btnoutblack',text:'移出黑名单',btnType:'outblack',iconCls:'icon-edit',handler:function(){
+					{id:'btnoutblack',text:'移出黑名单',btnType:'outblack',iconCls:'icon-user-refresh',handler:function(){
 						var selected = _box.utils.getCheckedRows();
 						if ( _box.utils.checkSelectOne(selected)){
 							if(selected[0].status == 'DEFAULT'){
