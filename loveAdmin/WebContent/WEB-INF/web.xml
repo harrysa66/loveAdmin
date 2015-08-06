@@ -13,6 +13,7 @@
 		<param-value>
 			classpath*:/applicationContext.xml
 		 	classpath*:/spring-security.xml
+		 	classpath*:/spring-rest-servlet-framework.xml
 		</param-value>
 	</context-param>
 	<context-param>   
@@ -80,6 +81,21 @@
 		<servlet-name>dispatcher</servlet-name>
 		<url-pattern>*.s</url-pattern>
 	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>rest</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<init-param>  
+			<param-name>contextConfigLocation</param-name>  
+			<param-value>classpath*:/spring-rest-servlet-framework.xml</param-value>  
+		</init-param>
+		<load-on-startup>2</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>rest</servlet-name>
+		<url-pattern>*.rest</url-pattern>
+	</servlet-mapping>
+	
 	<!-- 定义会话超时时间，单位分钟 -->
 	<session-config>
 		<session-timeout>120</session-timeout>

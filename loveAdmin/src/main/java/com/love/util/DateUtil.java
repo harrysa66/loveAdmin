@@ -8,15 +8,6 @@ import java.util.Date;
 
 import com.love.framework.exception.ApplicationRuntimeException;
 
-/**
- * 
- * @author 黄海
- * @history
- * <TABLE id="HistoryTable" border="1">
- * 	<TR><TD>时间</TD><TD>描述</TD><TD>作者</TD></TR>
- *	<TR><TD>2014-5-21</TD><TD>创建初始版本</TD><TD>黄海</TD></TR>
- * </TABLE>
- */
 public class DateUtil {
 	
 	public final static String TYPE_YEAR = "YEAR";
@@ -387,7 +378,3 @@ public class DateUtil {
     } 
     
 }
-
-/**
- * Copyright © 2014,中汇联   All rights reserved.
- */

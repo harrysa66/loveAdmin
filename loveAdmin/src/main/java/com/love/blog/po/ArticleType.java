@@ -3,10 +3,13 @@ package com.love.blog.po;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
 import org.apache.ibatis.type.Alias;
 import org.springframework.stereotype.Component;
 
 @Alias("articleType")
+@XmlRootElement(name="articleType")
 @Component
 public class ArticleType implements Serializable {
 
@@ -27,10 +30,18 @@ public class ArticleType implements Serializable {
 		this.id = id;
 	}
 	public String getCode() {
-		return code.toUpperCase();
+		if(code != null){
+			return code.toUpperCase();
+		}else{
+			return code;
+		}
 	}
 	public void setCode(String code) {
-		this.code = code.toUpperCase();
+		if(code != null){
+			this.code = code.toUpperCase();
+		}else{
+			this.code = code;
+		}
 	}
 	public String getName() {
 		return name;

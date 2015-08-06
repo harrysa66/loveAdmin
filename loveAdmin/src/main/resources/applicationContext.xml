@@ -67,9 +67,6 @@
 		
 	</bean>
 	
-	<!-- SpringMVC对上传的支持 -->
-	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"/>
-	
 	<!-- 防止sql注入的拦截器 -->
 	<!-- <bean id="SqlInjectionAttackInterceptor" class="com.cfc.creditor.asset.controller.SqlInjectionAttackInterceptor">
 	</bean> -->

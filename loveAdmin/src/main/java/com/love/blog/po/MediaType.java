@@ -27,10 +27,18 @@ public class MediaType implements Serializable {
 		this.id = id;
 	}
 	public String getCode() {
-		return code.toUpperCase();
+		if(code != null){
+			return code.toUpperCase();
+		}else{
+			return code;
+		}
 	}
 	public void setCode(String code) {
-		this.code = code.toUpperCase();
+		if(code != null){
+			this.code = code.toUpperCase();
+		}else{
+			this.code = code;
+		}
 	}
 	public String getName() {
 		return name;

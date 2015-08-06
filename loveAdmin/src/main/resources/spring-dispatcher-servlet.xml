@@ -55,5 +55,6 @@
 		</property>
 	</bean>
 	
+	<!-- SpringMVC对上传的支持 -->
 	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver" />
 </beans>

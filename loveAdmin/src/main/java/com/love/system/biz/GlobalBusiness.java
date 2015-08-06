@@ -10,15 +10,6 @@ import org.springframework.stereotype.Service;
 
 import com.love.framework.common.GlobalBean;
 
-/**
- * 
- * @author 李斌
- * @history
- * <TABLE id="HistoryTable" border="1">
- * 	<TR><TD>时间</TD><TD>描述</TD><TD>作者</TD></TR>
- *	<TR><TD>2014-4-8</TD><TD>创建初始版本</TD><TD>张军伟</TD></TR>
- * </TABLE>
- */
 @Service
 public class GlobalBusiness {
 	
@@ -52,7 +43,3 @@ public class GlobalBusiness {
 	  return null;
 	} 
 }
-
-/**
- * Copyright ? 2014,中汇联   All rights reserved.
- */

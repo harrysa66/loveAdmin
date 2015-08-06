@@ -20,7 +20,3 @@ public class InitParams implements ServletContextAware {
 		globalBusiness.init(sc);
 	}
 }
-
-/**
- * Copyright ? 2014,中汇联   All rights reserved.
- */

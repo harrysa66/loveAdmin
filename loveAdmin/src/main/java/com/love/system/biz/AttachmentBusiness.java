@@ -16,11 +16,9 @@ import java.util.UUID;
 import javax.annotation.Resource;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.ibatis.session.SqlSessionFactory;
 import org.springframework.stereotype.Service;
 
 import com.love.framework.common.Constants;
-import com.love.framework.dao.jdbc.BaseDao;
 import com.love.framework.dao.jdbc.Page;
 import com.love.framework.exception.ApplicationRuntimeException;
 import com.love.framework.security.SpringSecurityUtils;
