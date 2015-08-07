@@ -3,10 +3,13 @@ package com.love.blog.po;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
 import org.apache.ibatis.type.Alias;
 import org.springframework.stereotype.Component;
 
 @Alias("article")
+@XmlRootElement(name="article")
 @Component
 public class Article implements Serializable{
 
@@ -24,6 +27,7 @@ public class Article implements Serializable{
     private String status;
     private String isvalid;
     private String content;
+    private String fileId;
     
 	public String getId() {
 		return id;
@@ -96,6 +100,12 @@ public class Article implements Serializable{
 	}
 	public void setNickname(String nickname) {
 		this.nickname = nickname;
+	}
+	public String getFileId() {
+		return fileId;
+	}
+	public void setFileId(String fileId) {
+		this.fileId = fileId;
 	}
 
 }

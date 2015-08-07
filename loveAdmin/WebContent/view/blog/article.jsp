@@ -63,6 +63,28 @@
   	 </div> 
   	 
   	 <div id="viewContent-win"></div>
+  	 
+  	  <!-- cover Form -->
+     <div id="cover-win" class="easyui-dialog" title="设置封面" data-options="closed:true,modal:true,top:0,buttons:'#fileBtn'" style="width:400px;height:150px;">  
+     	<form id="coverForm" class="ui-form" method="post" enctype="multipart/form-data" action="coverUpload.s">  
+     		 <input id="articleId" class="hidden" type="text" name="articleId">
+     		 <div class="ui-edit">
+	           <div class="fitem">  
+	               <label>封面:</label>  
+	               <input class="easyui-validatebox" type="file" name="groupCover" data-options="required:true">
+	           </div> 
+	         </div>
+     	</form>
+  	 </div> 
+  	 <div id="fileBtn">
+		<a href="#" id="fileSaveBtn" class="easyui-linkbutton" onclick="javascript:Love.blog.article.fileSubmit()">保存</a>
+		<a href="#" id="fileCloseBtn" class="easyui-linkbutton" onclick="javascript:Love.blog.article.fileClose()">关闭</a>
+	</div>
+	
+	<!-- 查看封面 -->
+  	 <div id="viewFile-win" class="easyui-dialog" title="查看封面" data-options="closed:true,modal:true,top:0"> 
+  	 <img id="coverImg" alt="" src="" >
+  	 </div>
   
 </div>
 

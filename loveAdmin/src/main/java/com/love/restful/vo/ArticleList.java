@@ -7,7 +7,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import com.love.blog.po.Article;
 
 @XmlRootElement(name="articleListVo")
-public class ArticleListVo {
+public class ArticleList {
 	
 	private List<Article> articleList;
 

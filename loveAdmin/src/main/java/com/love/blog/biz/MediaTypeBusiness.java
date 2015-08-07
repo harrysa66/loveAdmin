@@ -48,6 +48,7 @@ public class MediaTypeBusiness {
 			try {
 				mediaType.setStatus(Constants.STATUS_DEFAULT);
 				mediaType.setIsvalid(Constants.ISVALIAD_HIDDEN);
+				mediaType.setIsshow(Constants.ISSHOW_HIDDEN);
 				mediaType.setCreateTime(new Date());
 				mediaTypeDao.insert(mediaType);
 				return Constants.ADD_SUCCESS;
@@ -117,7 +118,28 @@ public class MediaTypeBusiness {
 	}
 	
 	@Transactional
-	public boolean runAuths(String[] ids) {
+	public void show(String id, String isshow) {
+		try {
+			if ((isshow == Constants.ISSHOW_SHOW)
+					|| (Constants.ISSHOW_SHOW.equals(isshow))) {
+				isshow = Constants.ISSHOW_HIDDEN;
+			} else if ((isshow == Constants.ISSHOW_HIDDEN)
+					|| (Constants.ISSHOW_HIDDEN.equals(isshow))) {
+				isshow = Constants.ISSHOW_SHOW;
+			}else {
+				throw new Exception();
+			}
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("id", id);
+			map.put("isshow", isshow);
+			mediaTypeDao.updateObject("showById", map);
+		} catch (Exception e) {
+			throw new ApplicationRuntimeException(Constants.DO_ERROR, e);
+		}
+	}
+	
+	@Transactional
+	public boolean runMediaTypes(String[] ids) {
 		boolean flag = true;
 		for(String id : ids){
 			MediaType mediaType = findById(id);
@@ -133,6 +155,14 @@ public class MediaTypeBusiness {
 		return flag;
 	}
 	
+	@Transactional
+	public void showMediaType(String[] ids) {
+		for(String id : ids){
+			MediaType mediaType = findById(id);
+			show(id,mediaType.getIsshow());
+		}
+	}
+	
 	public MediaType isRepeatCode(Map<String, String> map) {
 		return this.mediaTypeDao.findByMap("isRepeatCode", map);
 	}
@@ -141,8 +171,16 @@ public class MediaTypeBusiness {
 		return this.mediaTypeDao.findByMap("isRepeatName", map);
 	}
 	
+	public MediaType isRepeatDisplay(Map<String, String> map) {
+		return this.mediaTypeDao.findByMap("isRepeatDisplay", map);
+	}
+	
 	public List<MediaType> findListByMap(Map<String, Object> map){
 		return mediaTypeDao.findListByMap("findListByMap", map);
+	}
+
+	public List<MediaType> findListByShow(Map<String, Object> map) {
+		return mediaTypeDao.findListByMap("findListByShow", map);
 	}
 
 }

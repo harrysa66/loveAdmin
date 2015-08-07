@@ -19,12 +19,17 @@
 			<list>
 				<value>com.love.restful.vo.CodeMessgae</value>
 				<value>com.love.blog.po.ArticleType</value>
-				<value>com.love.restful.vo.ArticleListVo</value>
+				<value>com.love.restful.vo.ArticleList</value>
+				<value>com.love.restful.vo.ArticleTypeList</value>
+				<value>com.love.restful.vo.MediaTypeList</value>
 			</list>
 		</property> 
 	</bean>
 	
 	<bean id="article" class="org.springframework.web.servlet.view.xml.MarshallingView">
+		<constructor-arg ref="jaxbMarshaller" />
+	</bean>
+	<bean id="media" class="org.springframework.web.servlet.view.xml.MarshallingView">
 		<constructor-arg ref="jaxbMarshaller" />
 	</bean>
 	<bean id="viewResolver" class="org.springframework.web.servlet.view.BeanNameViewResolver" />

@@ -48,6 +48,7 @@ public class ArticleTypeBusiness {
 			try {
 				articleType.setStatus(Constants.STATUS_DEFAULT);
 				articleType.setIsvalid(Constants.ISVALIAD_HIDDEN);
+				articleType.setIsshow(Constants.ISSHOW_HIDDEN);
 				articleType.setCreateTime(new Date());
 				articleTypeDao.insert(articleType);
 				return Constants.ADD_SUCCESS;
@@ -117,7 +118,28 @@ public class ArticleTypeBusiness {
 	}
 	
 	@Transactional
-	public boolean runAuths(String[] ids) {
+	public void show(String id, String isshow) {
+		try {
+			if ((isshow == Constants.ISSHOW_SHOW)
+					|| (Constants.ISSHOW_SHOW.equals(isshow))) {
+				isshow = Constants.ISSHOW_HIDDEN;
+			} else if ((isshow == Constants.ISSHOW_HIDDEN)
+					|| (Constants.ISSHOW_HIDDEN.equals(isshow))) {
+				isshow = Constants.ISSHOW_SHOW;
+			}else {
+				throw new Exception();
+			}
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("id", id);
+			map.put("isshow", isshow);
+			articleTypeDao.updateObject("showById", map);
+		} catch (Exception e) {
+			throw new ApplicationRuntimeException(Constants.DO_ERROR, e);
+		}
+	}
+	
+	@Transactional
+	public boolean runArticles(String[] ids) {
 		boolean flag = true;
 		for(String id : ids){
 			ArticleType articleType = findById(id);
@@ -133,6 +155,14 @@ public class ArticleTypeBusiness {
 		return flag;
 	}
 	
+	@Transactional
+	public void showArticles(String[] ids) {
+		for(String id : ids){
+			ArticleType articleType = findById(id);
+			show(id,articleType.getIsshow());
+		}
+	}
+	
 	public ArticleType isRepeatCode(Map<String, String> map) {
 		return this.articleTypeDao.findByMap("isRepeatCode", map);
 	}
@@ -141,8 +171,16 @@ public class ArticleTypeBusiness {
 		return this.articleTypeDao.findByMap("isRepeatName", map);
 	}
 	
+	public ArticleType isRepeatDisplay(Map<String, String> map) {
+		return this.articleTypeDao.findByMap("isRepeatDisplay", map);
+	}
+	
 	public List<ArticleType> findListByMap(Map<String, Object> map){
 		return articleTypeDao.findListByMap("findListByMap", map);
+	}
+
+	public List<ArticleType> findListByShow(Map<String, Object> map) {
+		return articleTypeDao.findListByMap("findListByShow", map);
 	}
 
 }

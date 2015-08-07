@@ -40,6 +40,7 @@ public class ArticleTypeController extends BaseController{
 		map.put("code", ServletRequestUtils.getStringParameter(request, "code", "").trim());
 		map.put("name", ServletRequestUtils.getStringParameter(request, "name", "").trim());
 		map.put("isvalid", ServletRequestUtils.getStringParameter(request, "isvalid", "").trim());
+		map.put("isshow", ServletRequestUtils.getStringParameter(request, "isshow", "").trim());
 		Page<ArticleType> page = PageUtil.getPageObj(request);
 		page = articleTypeBusiness.queryPage(map, page);
 		
@@ -63,12 +64,16 @@ public class ArticleTypeController extends BaseController{
 		map.put("id", articleType.getId());
 		map.put("code", articleType.getCode());
 		map.put("name", articleType.getName());
+		map.put("display", articleType.getDisplay().toString());
 		ArticleType vaCode = articleTypeBusiness.isRepeatCode(map);
 		ArticleType vaName = articleTypeBusiness.isRepeatName(map);
+		ArticleType vaDisplay = articleTypeBusiness.isRepeatDisplay(map);
 		if(vaCode != null){
 			sendFailureMessage(response, "类型编号已存在，请重新填写!");
 		}else if(vaName != null){
 			sendFailureMessage(response, "类型名称已存在，请重新填写!");
+		}else if(vaDisplay != null){
+			sendFailureMessage(response, "排序已存在，请重新填写!");
 		}else{
 			String message = articleTypeBusiness.save(articleType);
 			sendSuccessMessage(response, message);
@@ -109,12 +114,21 @@ public class ArticleTypeController extends BaseController{
 		if(null == id || "".equals(id) || id.length<1){
 			sendFailureMessage(response, Constants.DO_ERROR);
 		}
-		boolean isAllow = articleTypeBusiness.runAuths(id);
+		boolean isAllow = articleTypeBusiness.runArticles(id);
 		if(isAllow){
 			sendSuccessMessage(response, Constants.DO_SUCCESS);
 		}else{
 			sendSuccessMessage(response, "不能操作拥有文章的类型!");
 		}
+	}
+	
+	@RequestMapping("/show")
+	public void show(String[] id,HttpServletResponse response) throws Exception{
+		if(null == id || "".equals(id) || id.length<1){
+			sendFailureMessage(response, Constants.DO_ERROR);
+		}
+		articleTypeBusiness.showArticles(id);;
+		sendSuccessMessage(response, Constants.DO_SUCCESS);
 	}
 
 }

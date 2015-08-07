@@ -3,18 +3,18 @@
 
 <mapper namespace="Article">
 	<sql id="sqlList" >
-    	o.id, o.type_id, o.title, o.subtitle, o.user_id,o.content, o.create_time, o.modify_time, o.`status`, o.isValid
+    	o.id, o.type_id, o.title, o.subtitle, o.user_id,o.content, o.create_time, o.modify_time, o.`status`, o.isValid,o.file_id
   	</sql>
 
   	<insert id="insert" parameterType="article" >
     insert into love_blog_article (id, type_id, title, 
       subtitle, user_id, create_time, 
       modify_time, `status`, isValid, 
-      content)
+      content,file_id)
     values (#{id,jdbcType=VARCHAR}, #{typeId,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, 
       #{subtitle,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
       #{modifyTime,jdbcType=TIMESTAMP}, #{status,jdbcType=VARCHAR}, #{isvalid,jdbcType=VARCHAR}, 
-      #{content,jdbcType=LONGVARCHAR})
+      #{content,jdbcType=LONGVARCHAR},#{fileId,jdbcType=VARCHAR})
   </insert>
   
   <update id="update" parameterType="article" >
@@ -46,6 +46,9 @@
       </if>
       <if test="content != null" >
         content = #{content,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="fileId != null" >
+        file_id = #{fileId,jdbcType=VARCHAR},
       </if>
     </set>
     where id = #{id,jdbcType=VARCHAR}

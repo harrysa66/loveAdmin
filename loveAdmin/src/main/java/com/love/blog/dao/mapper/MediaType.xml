@@ -3,7 +3,7 @@
 
 <mapper namespace="MediaType">
 	<sql id="sqlList" >
-    o.id, o.code, o.`name`, o.create_time, o.modify_time, o.`status`, o.isValid
+    o.id, o.code, o.`name`, o.create_time, o.modify_time, o.`status`, o.isValid,o.isshow,o.display
   	</sql>
 
   	<insert id="insert" parameterType="mediaType" >
@@ -16,6 +16,8 @@
       modify_time,
       `status`,
       isValid,
+      isshow,
+      display,
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       #{id,jdbcType=VARCHAR},
@@ -25,6 +27,8 @@
       #{modifyTime,jdbcType=TIMESTAMP},
       #{status,jdbcType=VARCHAR},
       #{isvalid,jdbcType=VARCHAR},
+      #{isshow,jdbcType=VARCHAR},
+      #{display},
     </trim>
   </insert>
   
@@ -49,6 +53,12 @@
       <if test="isvalid != null" >
         isValid = #{isvalid,jdbcType=VARCHAR},
       </if>
+      <if test="isshow != null" >
+        isshow = #{isshow,jdbcType=VARCHAR},
+      </if>
+      <if test="display != null" >
+        display = #{display},
+      </if>
     </set>
     where id = #{id,jdbcType=VARCHAR}
   </update>
@@ -67,7 +77,10 @@
             <if test="isvalid !=null and isvalid != ''"> 
               and  o.isvalid = #{isvalid}
             </if>
-            order by o.create_time
+            <if test="isshow !=null and isshow != ''"> 
+              and  o.isshow = #{isshow}
+            </if>
+            order by o.display asc
        
 	</select>
 	
@@ -84,6 +97,9 @@
             </if>
             <if test="isvalid !=null and isvalid != ''"> 
               and  o.isvalid = #{isvalid}
+            </if>
+            <if test="isshow !=null and isshow != ''"> 
+              and  o.isshow = #{isshow}
             </if>
 	</select>
 	
@@ -102,6 +118,11 @@
 	<!-- 启用/禁用 -->
 	<update id="runById" parameterType="map">
 		update love_blog_media_type set ISVALID=#{isvalid} where ID=#{id}
+	</update>
+	
+	<!-- 显示/隐藏 -->
+	<update id="showById" parameterType="map">
+		update love_blog_media_type set isshow=#{isshow} where ID=#{id}
 	</update>
 	
 	<!-- 编号重复 -->
@@ -124,6 +145,16 @@
             </if> 
 	</select>
 	
+	<!-- 排序重复 -->
+	<select id="isRepeatDisplay" parameterType="map" resultType="mediaType">
+		select <include refid="sqlList" />
+		from love_blog_media_type o
+		where o.display=#{display} 
+		<if test="id !=null and id != ''"> 
+            	and o.ID!=#{id}
+            </if> 
+	</select>
+	
 	<!-- 通过ID查找 -->
 	<select id="findListByMap" parameterType="map" resultType="mediaType">
 		select <include refid="sqlList" />
@@ -135,6 +166,16 @@
         <if test="isvalid !=null and isvalid != ''"> 
             and o.isvalid=#{isvalid}
         </if> 
+	</select>
+	
+	<select id="findListByShow" parameterType="map" resultType="mediaType">
+		select <include refid="sqlList" />
+		FROM love_blog_media_type o
+		where o.status='DEFAULT' and o.isvalid='Y'
+        <if test="isshow !=null and isshow != ''"> 
+            and o.isshow=#{isshow}
+        </if> 
+        order by o.display asc
 	</select>
 	
 </mapper>

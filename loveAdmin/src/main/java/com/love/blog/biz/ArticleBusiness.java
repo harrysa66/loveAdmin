@@ -18,11 +18,16 @@ import com.love.framework.dao.jdbc.BaseDao;
 import com.love.framework.dao.jdbc.Page;
 import com.love.framework.exception.ApplicationRuntimeException;
 import com.love.framework.security.SpringSecurityUtils;
+import com.love.system.biz.AttachmentBusiness;
+import com.love.system.po.Attachment;
 import com.love.system.po.User;
 import com.love.util.UUIDGenerator;
 
 @Service
 public class ArticleBusiness {
+	
+	@Resource
+	private AttachmentBusiness attachmentBusiness;
 	
 	private BaseDao<Article, String> articleDao;
 
@@ -132,6 +137,37 @@ public class ArticleBusiness {
 	
 	public Article isRepeatTitle(Map<String, String> map) {
 		return this.articleDao.findByMap("isRepeatTitle", map);
+	}
+	
+	public boolean isSelf(String id){
+		boolean flag = true;
+		Article article = findById(id);
+		User user = SpringSecurityUtils.getCurrentUser();
+		if(!article.getUserId().equals(user.getId()) && !user.getUsername().equals(Constants.USER_ADMIN_CODE)){
+			flag = false;
+		}
+		return flag;
+	}
+	
+	@Transactional
+	public void coverUpload(String articleId, Attachment attach) {
+		User user = SpringSecurityUtils.getCurrentUser();
+		Map<String,Object> searchKey = new HashMap<String,Object>();
+		searchKey.put("entityId", articleId);
+		searchKey.put("entityType", attach.getEntityType());
+		Attachment oldAttach = attachmentBusiness.findAttachmentByEntity(searchKey);
+		if(oldAttach != null){
+			attachmentBusiness.deleteFile(oldAttach.getId());
+		}
+		attach.setEntityId(articleId);
+		attach.setUploadTime(new Date());
+		attach.setUploadUserId(user.getId());
+		attach.setUploadUserName(user.getUsername());
+		Attachment att = attachmentBusiness.upload(attach);
+		Article article = new Article();
+		article.setId(articleId);
+		article.setFileId(att.getId());
+		articleDao.update(article);
 	}
 
 }

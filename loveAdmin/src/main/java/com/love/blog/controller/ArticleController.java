@@ -1,14 +1,19 @@
 package com.love.blog.controller;
 
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.beanutils.BeanUtils;
+import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.ServletRequestUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,7 +27,9 @@ import com.love.blog.po.ArticleType;
 import com.love.framework.common.Constants;
 import com.love.framework.controller.BaseController;
 import com.love.framework.dao.jdbc.Page;
+import com.love.system.biz.AttachmentBusiness;
 import com.love.system.biz.UserBusiness;
+import com.love.system.po.Attachment;
 import com.love.system.po.User;
 import com.love.util.HtmlUtil;
 import com.love.util.PageUtil;
@@ -30,6 +37,8 @@ import com.love.util.PageUtil;
 @Controller
 @RequestMapping("blog/article")
 public class ArticleController extends BaseController{
+	
+	static Logger log = Logger.getLogger(MediaGroupController.class.getName());
 	
 	@Resource
 	private ArticleBusiness articleBusiness;
@@ -39,6 +48,9 @@ public class ArticleController extends BaseController{
 	
 	@Resource
 	private UserBusiness userBusiness;
+	
+	@Resource
+	private AttachmentBusiness attachmentBusiness;
 	
 	@RequestMapping("/query")
 	public ModelAndView  doQuery(HttpServletRequest request) throws Exception{
@@ -137,6 +149,53 @@ public class ArticleController extends BaseController{
 		map.put("isvalid", Constants.ISVALIAD_SHOW);
 		List<User> userList = userBusiness.findUserListByMap(map);
 		Object context = JSONArray.toJSON(userList);
+		HtmlUtil.writerJson(response, context);
+	}
+	
+	@RequestMapping("/coverUpload")
+	public void coverUpload(String articleId,HttpServletRequest request,HttpServletResponse response) throws IOException{
+		boolean isSelf = articleBusiness.isSelf(articleId);
+		if(isSelf){
+			Attachment attach = getAttachment(request, "groupCover");
+			if(attach.getContentType().indexOf("image/") == -1){
+				sendFailureMessage(response, "只能上传图片格式!");
+			}else{
+				articleBusiness.coverUpload(articleId,attach);
+				sendSuccessMessage(response, "上传成功");
+			}
+		}else{
+			sendFailureMessage(response, "除管理员外，不能设置非本人的封面!");
+		}
+	}
+	
+	@RequestMapping("/getFileUrl")
+	public void getFileUrl(String id,HttpServletResponse response) throws Exception{
+		Map<String,Object>  context = new HashMap<String,Object> ();
+		Attachment attach = attachmentBusiness.getById(id);
+		if(attach == null){
+			sendFailureMessage(response, "没有找到对应的文件!");
+			return;
+		}
+		
+		File file = new File(attach.getSavePath()+"/"+attach.getSaveName());
+		BufferedImage img = null;
+		try {
+			img = ImageIO.read(file);
+		} catch (IOException e1) {
+			log.error(e1.toString());
+			log.error("打开文件失败   ");
+		}
+		if(img != null){
+			int imgwidth = img.getWidth();
+			int imgheight = img.getHeight();
+			context.put("width", imgwidth);
+			context.put("height", imgheight);
+		}
+		
+		//将对象转成Map
+		Map<String,Object> data = BeanUtils.describe(attach);
+		context.put(SUCCESS, true);
+		context.put("data", data);
 		HtmlUtil.writerJson(response, context);
 	}
 	

@@ -19,6 +19,8 @@ public class MediaType implements Serializable {
 	private Date modifyTime;
 	private String status;
 	private String isvalid;
+	private String isshow;
+	private Integer display;
 	
 	public String getId() {
 		return id;
@@ -69,6 +71,18 @@ public class MediaType implements Serializable {
 	}
 	public void setIsvalid(String isvalid) {
 		this.isvalid = isvalid;
+	}
+	public String getIsshow() {
+		return isshow;
+	}
+	public void setIsshow(String isshow) {
+		this.isshow = isshow;
+	}
+	public Integer getDisplay() {
+		return display;
+	}
+	public void setDisplay(Integer display) {
+		this.display = display;
 	}
 
 }

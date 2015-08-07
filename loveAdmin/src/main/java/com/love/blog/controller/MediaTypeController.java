@@ -40,6 +40,7 @@ public class MediaTypeController extends BaseController{
 		map.put("code", ServletRequestUtils.getStringParameter(request, "code", "").trim());
 		map.put("name", ServletRequestUtils.getStringParameter(request, "name", "").trim());
 		map.put("isvalid", ServletRequestUtils.getStringParameter(request, "isvalid", "").trim());
+		map.put("isshow", ServletRequestUtils.getStringParameter(request, "isshow", "").trim());
 		Page<MediaType> page = PageUtil.getPageObj(request);
 		page = mediaTypeBusiness.queryPage(map, page);
 		
@@ -63,12 +64,16 @@ public class MediaTypeController extends BaseController{
 		map.put("id", mediaType.getId());
 		map.put("code", mediaType.getCode());
 		map.put("name", mediaType.getName());
+		map.put("display", mediaType.getDisplay().toString());
 		MediaType vaCode = mediaTypeBusiness.isRepeatCode(map);
 		MediaType vaName = mediaTypeBusiness.isRepeatName(map);
+		MediaType vaDisplay = mediaTypeBusiness.isRepeatDisplay(map);
 		if(vaCode != null){
 			sendFailureMessage(response, "类型编号已存在，请重新填写!");
 		}else if(vaName != null){
 			sendFailureMessage(response, "类型名称已存在，请重新填写!");
+		}else if(vaDisplay != null){
+			sendFailureMessage(response, "排序已存在，请重新填写!");
 		}else{
 			String message = mediaTypeBusiness.save(mediaType);
 			sendSuccessMessage(response, message);
@@ -109,12 +114,21 @@ public class MediaTypeController extends BaseController{
 		if(null == id || "".equals(id) || id.length<1){
 			sendFailureMessage(response, Constants.DO_ERROR);
 		}
-		boolean isAllow = mediaTypeBusiness.runAuths(id);
+		boolean isAllow = mediaTypeBusiness.runMediaTypes(id);
 		if(isAllow){
 			sendSuccessMessage(response, Constants.DO_SUCCESS);
 		}else{
 			sendSuccessMessage(response, "不能操作拥有文章的类型!");
 		}
+	}
+	
+	@RequestMapping("/show")
+	public void show(String[] id,HttpServletResponse response) throws Exception{
+		if(null == id || "".equals(id) || id.length<1){
+			sendFailureMessage(response, Constants.DO_ERROR);
+		}
+		mediaTypeBusiness.showMediaType(id);
+		sendSuccessMessage(response, Constants.DO_SUCCESS);
 	}
 
 }

@@ -20,6 +20,12 @@
 	        	<option value="Y">可用</option>
                 <option value="N">禁用</option>
             </select>
+            <label>展示:</label> 
+            <select class="easyui-combobox" name="isshow" style="width:100px;" editable="false" panelHeight="80">
+	        	<option value="" selected="selected">全部</option>
+	        	<option value="Y">显示</option>
+                <option value="N">隐藏</option>
+            </select>
         </p>  
         <a href="#" id="btn-search" class="easyui-linkbutton" iconCls="icon-search">查询</a>
       </form>  
@@ -43,6 +49,10 @@
 	           <div class="fitem">  
 	               <label>类型名称:</label>  
 	               <input class="easyui-validatebox" type="text" name="name" data-options="required:true">
+	           </div> 
+	           <div class="fitem">  
+	               <label>展示顺序:</label>  
+	               <input class="easyui-numberbox" type="text" name="display" data-options="min:1,required:true">
 	           </div> 
 	         </div>
      	</form>

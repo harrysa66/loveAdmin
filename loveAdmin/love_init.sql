@@ -30,6 +30,7 @@ CREATE TABLE `love_blog_article` (
   `modify_time` datetime DEFAULT NULL,
   `status` varchar(10) DEFAULT NULL,
   `isValid` varchar(10) DEFAULT NULL,
+  `file_id` varchar(32) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -49,6 +50,8 @@ CREATE TABLE `love_blog_article_type` (
   `modify_time` datetime DEFAULT NULL,
   `status` varchar(10) DEFAULT NULL,
   `isValid` varchar(10) DEFAULT NULL,
+  `isshow` varchar(10) DEFAULT NULL,
+  `display` int(5) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -131,6 +134,8 @@ CREATE TABLE `love_blog_media_type` (
   `modify_time` datetime DEFAULT NULL,
   `status` varchar(10) DEFAULT NULL,
   `isValid` varchar(10) DEFAULT NULL,
+  `isshow` varchar(10) DEFAULT NULL,
+  `display` int(5) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 

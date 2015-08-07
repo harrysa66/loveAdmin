@@ -30,6 +30,8 @@ public class Constants {
 	public static String STATUS_FORBID = "FORBID";
 	public static String ISVALIAD_SHOW = "Y";
 	public static String ISVALIAD_HIDDEN = "N";
+	public static String ISSHOW_SHOW = "Y";
+	public static String ISSHOW_HIDDEN = "N";
 	public static String INIT_PASSWORD = "123456";
 	public static String ROLE_ADMIN_CODE = "ROLE_ADMIN";
 	public static String USER_ADMIN_CODE = "admin";
