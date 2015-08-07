@@ -3,10 +3,13 @@ package com.love.blog.po;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
 import org.apache.ibatis.type.Alias;
 import org.springframework.stereotype.Component;
 
 @Alias("mediaType")
+@XmlRootElement(name="mediaType")
 @Component
 public class MediaType implements Serializable {
 

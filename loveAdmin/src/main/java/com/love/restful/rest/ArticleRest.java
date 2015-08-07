@@ -15,7 +15,6 @@ import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 
 import org.apache.log4j.Logger;
-import org.springframework.oxm.XmlMappingException;
 import org.springframework.oxm.jaxb.Jaxb2Marshaller;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -50,6 +49,11 @@ public class ArticleRest {
 	@Resource
 	private ArticleTypeBusiness articleTypeBusiness;
 	
+	/**
+	 * 根据是否显示,查询文章类型集合
+	 * @param body
+	 * @return
+	 */
 	@RequestMapping(method=RequestMethod.POST, value="/article/queryArticleType.rest")
 	public ModelAndView queryArticleType(@RequestBody String body) {
 		//输入参数日志

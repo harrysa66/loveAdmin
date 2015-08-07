@@ -37,7 +37,7 @@
      <table id="data-list"></table>
 	 </form> 
      <!-- Edit Form -->
-     <div id="edit-win" class="easyui-dialog" title="修改" data-options="closed:true,modal:true" style="width:400px;height:210px;">  
+     <div id="edit-win" class="easyui-dialog" title="修改" data-options="closed:true,modal:true" style="width:400px;height:250px;">  
      	<form id="editForm" class="ui-form" method="post">  
      		 <input class="hidden" type="text" name="id">
      		 <div class="ui-edit">

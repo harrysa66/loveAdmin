@@ -21,6 +21,7 @@
 				<value>com.love.blog.po.ArticleType</value>
 				<value>com.love.restful.vo.ArticleList</value>
 				<value>com.love.restful.vo.ArticleTypeList</value>
+				<value>com.love.blog.po.MediaType</value>
 				<value>com.love.restful.vo.MediaTypeList</value>
 			</list>
 		</property> 
