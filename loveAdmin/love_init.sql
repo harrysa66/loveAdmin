@@ -16,6 +16,17 @@ Date: 2015-08-04 12:10:58
 SET FOREIGN_KEY_CHECKS=0;
 
 -- ----------------------------
+-- Table structure for love_blog_index
+-- ----------------------------
+DROP TABLE IF EXISTS `love_blog_index_page`;
+CREATE TABLE `love_blog_index` (
+  `id` varchar(32) NOT NULL,
+  `title` varchar(50) DEFAULT NULL,
+  `subtitle` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
 -- Table structure for love_blog_article
 -- ----------------------------
 DROP TABLE IF EXISTS `love_blog_article`;
@@ -234,6 +245,7 @@ INSERT INTO `love_system_auth` VALUES ('d39f3069ea1246059aa01491c11e46fc', '解�
 INSERT INTO `love_system_auth` VALUES ('d7b1e792413b4382b44237d6b9e9572b', '留言板管理', 'MENU_BLOG_BOARD', '2015-07-31 09:18:07', null, 'DEFAULT', 'Y');
 INSERT INTO `love_system_auth` VALUES ('d7e2285d81304d75b7e168644e85c2c4', '查看黑名单', 'BTN__BLOG_VISITOR_VIEWBLACK', '2015-08-04 11:20:26', null, 'DEFAULT', 'Y');
 INSERT INTO `love_system_auth` VALUES ('dfd8c30d5b7348be91d03ae76e01539d', '添加媒体类型', 'BTN_BLOG_MEDIA_TYPE_ADD', '2015-08-04 11:15:44', null, 'DEFAULT', 'Y');
+INSERT INTO `love_system_auth` VALUES ('ed7aec5ab0014a20a2b30339302e8470', '首页管理', 'MENU_BLOG_INDEX_PAGE', '2015-08-10 14:13:42', null, 'DEFAULT', 'Y');
 INSERT INTO `love_system_auth` VALUES ('f34bff06caaf48a48965eafce9807289', '用户分配权限', 'BTN_SYSTEM_USER_GRANT_AUTH', '2015-07-30 15:41:32', null, 'DEFAULT', 'Y');
 INSERT INTO `love_system_auth` VALUES ('f3e3e297187b4e8eb8b5ff1d36f4227c', '回复留言', 'BTN__BLOG_BOARD_REPLY', '2015-08-04 11:19:05', null, 'DEFAULT', 'Y');
 INSERT INTO `love_system_auth` VALUES ('f84c9ea0dd8741019591a410bac15602', '删除权限', 'BTN_SYSTEM_AUTH_REMOVE', '2015-07-28 10:01:02', null, 'DEFAULT', 'Y');
@@ -301,6 +313,7 @@ INSERT INTO `love_system_menu` VALUES ('9', '5', 'MENU_BLOG_MEDIA_GROUP', '媒�
 INSERT INTO `love_system_menu` VALUES ('10', '5', 'MENU_BLOG_MEDIA', '媒体文件管理', '/blog/media/query.s', '2015-07-31 09:09:58', null, 'DEFAULT', 'Y', 'ADMIN', 'dataList.s', '0aaa42214eff4ed59886f7b523f1905e');
 INSERT INTO `love_system_menu` VALUES ('11', '5', 'MENU_BLOG_BOARD', '留言板管理', '/blog/board/query.s', '2015-07-31 09:12:58', null, 'DEFAULT', 'Y', 'ADMIN', 'dataList.s', 'd7b1e792413b4382b44237d6b9e9572b');
 INSERT INTO `love_system_menu` VALUES ('12', '5', 'MENU_BLOG_VISITOR', '访客管理', '/blog/visitor/query.s', '2015-07-31 09:14:55', null, 'DEFAULT', 'Y', 'ADMIN', 'dataList.s', '861a2361699e4e93a35d374600741040');
+INSERT INTO `love_system_menu` VALUES ('13', '5', 'MENU_BLOG_INDEX_PAGE', '首页管理', '/blog/indexPage/query.s', '2015-07-31 09:14:55', null, 'DEFAULT', 'Y', 'ADMIN', 'dataList.s', 'ed7aec5ab0014a20a2b30339302e8470');
 
 -- ----------------------------
 -- Table structure for love_system_menu_btn

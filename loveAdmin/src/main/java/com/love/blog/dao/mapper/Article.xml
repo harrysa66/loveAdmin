@@ -104,16 +104,32 @@
 	
 	<!-- 通过ID查找 -->
 	<select id="selectById" parameterType="String" resultType="article">
-		select <include refid="sqlList" />
-		FROM love_blog_article o
+		select <include refid="sqlList" />,f.url as imgUrl
+		FROM love_blog_article o 
+		left join love_system_file f on o.file_id = f.id
 		WHERE o.id=#{id} and o.STATUS !='DELETED'
 	</select>
 	
 	<!-- 通过类型查找 -->
 	<select id="findListByType" parameterType="map" resultType="article">
-		select <include refid="sqlList" />
-		FROM love_blog_article o
-		WHERE o.type_id=#{typeId} and o.STATUS !='DELETED'
+		select <include refid="sqlList" />,f.url as imgUrl
+		FROM love_blog_article o 
+		left join love_system_file f on o.file_id = f.id
+		WHERE o.STATUS !='DELETED'
+		<if test="typeId !=null and typeId != ''">
+			and o.type_id=#{typeId}
+		</if>
+		<if test="status !=null and status != ''">
+			and o.STATUS=#{status}
+		</if>
+	</select>
+	
+	<!-- 查找 -->
+	<select id="findListByMap" parameterType="map" resultType="article">
+		select <include refid="sqlList" />,f.url as imgUrl
+		FROM love_blog_article o 
+		left join love_system_file f on o.file_id = f.id
+		WHERE o.STATUS !='DELETED'
 		<if test="status !=null and status != ''">
 			and o.STATUS=#{status}
 		</if>

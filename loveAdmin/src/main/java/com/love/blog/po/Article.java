@@ -28,6 +28,7 @@ public class Article implements Serializable{
     private String isvalid;
     private String content;
     private String fileId;
+    private String imgUrl;
     
 	public String getId() {
 		return id;
@@ -106,6 +107,12 @@ public class Article implements Serializable{
 	}
 	public void setFileId(String fileId) {
 		this.fileId = fileId;
+	}
+	public String getImgUrl() {
+		return imgUrl;
+	}
+	public void setImgUrl(String imgUrl) {
+		this.imgUrl = imgUrl;
 	}
 
 }

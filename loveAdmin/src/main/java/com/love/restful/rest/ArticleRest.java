@@ -121,22 +121,53 @@ public class ArticleRest {
 		return new ModelAndView(XML_VIEW_NAME, XML_MODEL_NAME, articleListVo);
 	}
 	
+	@RequestMapping(method=RequestMethod.POST, value="/article/queryByDisplay.rest")
+	public ModelAndView queryByDisplay(@RequestBody String body) {
+		//输入参数日志
+		log.info("RESTFUL interface name queryByDisplay in!");
+		log.info(body);
+		Source source = new StreamSource(new StringReader(body));
+		ArticleType articleType = (ArticleType) jaxb2Mashaller.unmarshal(source);
+		List<Article> articleList = articleBusiness.findListByDisplay(articleType);
+		ArticleList articleListVo = new ArticleList();
+		articleListVo.setArticleList(articleList);
+		//输出参数日志
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+	    Result result = new StreamResult(baos);
+	    jaxb2Mashaller.marshal(articleListVo, result);
+		String outXml="";
+		try {
+			outXml = new String(baos.toString().getBytes("GBK"), "UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			throw new ApplicationRuntimeException("字符串编码转换失败",e);
+		} finally {
+			try {
+				baos.close();
+			} catch (IOException e) {
+				throw new ApplicationRuntimeException("关闭失败",e);
+			}
+		}
+		log.info(outXml);
+		log.info("RESTFUL interface name queryByDisplay out!");
+		return new ModelAndView(XML_VIEW_NAME, XML_MODEL_NAME, articleListVo);
+	}
+	
 	public static void main(String[] args) {
 		RestTemplate restTemplate = new RestTemplate(); 
-		/*ArticleType articleType = new ArticleType();
-		articleType.setId("d963a7f734424f0d89f895665681d953");
-		String url="http://127.0.0.1:8080/loveAdmin/services/article/queryByType.rest";//请求路径
+		ArticleType articleType = new ArticleType();
+		articleType.setDisplay(1);
+		String url="http://127.0.0.1:8080/loveAdmin/services/article/queryByDisplay.rest";//请求路径
 		ArticleList listVo = restTemplate.postForObject(url, articleType, ArticleList.class);
 		for(Article article : listVo.getArticleList()){
 			System.out.println(article.getContent());
-		}*/
-		ArticleType articleType = new ArticleType();
+		}
+		/*ArticleType articleType = new ArticleType();
 		articleType.setIsshow(null);
 		String url="http://127.0.0.1:8080/loveAdmin/services/article/queryArticleType.rest";//请求路径
 		ArticleTypeList list = restTemplate.postForObject(url, articleType, ArticleTypeList.class);
 		for(ArticleType type : list.getArticleTypeList()){
 			System.out.println(type.getName());
-		}
+		}*/
 		
 	}
 

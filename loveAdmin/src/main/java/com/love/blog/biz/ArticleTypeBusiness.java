@@ -41,6 +41,10 @@ public class ArticleTypeBusiness {
 		return articleTypeDao.findById(id);
 	}
 	
+	public ArticleType findByDisplay(String display) {
+		return articleTypeDao.findByProperty("findByDisplay", display);
+	}
+	
 	@Transactional
 	public String save(ArticleType articleType) {
 		if (StringUtils.isEmpty(articleType.getId())) {

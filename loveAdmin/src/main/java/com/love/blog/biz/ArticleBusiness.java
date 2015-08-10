@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.love.blog.po.Article;
+import com.love.blog.po.ArticleType;
 import com.love.framework.common.Constants;
 import com.love.framework.dao.jdbc.BaseDao;
 import com.love.framework.dao.jdbc.Page;
@@ -28,6 +29,9 @@ public class ArticleBusiness {
 	
 	@Resource
 	private AttachmentBusiness attachmentBusiness;
+	
+	@Resource
+	private ArticleTypeBusiness articleTypeBusiness;
 	
 	private BaseDao<Article, String> articleDao;
 
@@ -168,6 +172,15 @@ public class ArticleBusiness {
 		article.setId(articleId);
 		article.setFileId(att.getId());
 		articleDao.update(article);
+	}
+	
+	public List<Article> findListByDisplay(ArticleType type){
+		ArticleType articleType = articleTypeBusiness.findByDisplay(type.getDisplay().toString());
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("typeId", articleType.getId());
+		param.put("status", Constants.STATUS_DEFAULT);
+		List<Article> articleList = findListByType(param);
+		return articleList;
 	}
 
 }
