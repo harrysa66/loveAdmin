@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.love.blog.po.Media;
 import com.love.blog.po.MediaGroup;
+import com.love.blog.po.MediaType;
 import com.love.framework.common.Constants;
 import com.love.framework.dao.jdbc.BaseDao;
 import com.love.framework.dao.jdbc.Page;
@@ -32,6 +33,9 @@ public class MediaGroupBusiness {
 	
 	@Resource
 	private MediaBusiness mediaBusiness;
+	
+	@Resource
+	private MediaTypeBusiness mediaTypeBusiness;
 	
 	private BaseDao<MediaGroup, String> mediaGroupDao;
 
@@ -180,6 +184,15 @@ public class MediaGroupBusiness {
 
 	public List<MediaGroup> findListByMap(Map<String, Object> map) {
 		return mediaGroupDao.findListByMap("findListByMap", map);
+	}
+	
+	public List<MediaGroup> findListByDisplay(MediaType type){
+		MediaType mediaType = mediaTypeBusiness.findByDisplay(type.getDisplay().toString());
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("typeId", mediaType.getId());
+		param.put("status", Constants.STATUS_DEFAULT);
+		List<MediaGroup> mediaGroupList = findListByType(param);
+		return mediaGroupList;
 	}
 
 }

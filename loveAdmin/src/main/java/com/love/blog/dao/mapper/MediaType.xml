@@ -107,7 +107,14 @@
 	<select id="selectById" parameterType="String" resultType="mediaType">
 		select <include refid="sqlList" />
 		FROM love_blog_media_type o
-		WHERE o.id=#{id} and o.STATUS !='DELETED'
+		WHERE o.id=#{id} and o.STATUS !='DELETED' and o.isvalid = 'Y'
+	</select>
+	
+	<!-- 通过display查找 -->
+	<select id="findByDisplay" parameterType="String" resultType="mediaType">
+		select <include refid="sqlList" />
+		FROM love_blog_media_type o
+		WHERE o.display=#{display} and o.STATUS !='DELETED'
 	</select>
 	
 	<!-- 逻辑删除 -->

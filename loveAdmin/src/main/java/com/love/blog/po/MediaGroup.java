@@ -23,6 +23,7 @@ public class MediaGroup implements Serializable{
 	private Date modifyTime;
 	private String status;
 	private String isvalid;
+	private String imgUrl;
 	
 	public String getId() {
 		return id;
@@ -89,6 +90,12 @@ public class MediaGroup implements Serializable{
 	}
 	public void setIsvalid(String isvalid) {
 		this.isvalid = isvalid;
+	}
+	public String getImgUrl() {
+		return imgUrl;
+	}
+	public void setImgUrl(String imgUrl) {
+		this.imgUrl = imgUrl;
 	}
 	
 }

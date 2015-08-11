@@ -41,6 +41,10 @@ public class MediaTypeBusiness {
 		return mediaTypeDao.findById(id);
 	}
 	
+	public MediaType findByDisplay(String display) {
+		return mediaTypeDao.findByProperty("findByDisplay", display);
+	}
+	
 	@Transactional
 	public String save(MediaType mediaType) {
 		if (StringUtils.isEmpty(mediaType.getId())) {

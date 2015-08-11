@@ -115,5 +115,36 @@ static Logger log = Logger.getLogger(ArticleRest.class.getName());
 		log.info("RESTFUL interface name queryGroupByType out!");
 		return new ModelAndView(XML_VIEW_NAME, XML_MODEL_NAME, listVo);
 	}
+	
+	@RequestMapping(method=RequestMethod.POST, value="/media/queryGroupByDisplay.rest")
+	public ModelAndView queryGroupByDisplay(@RequestBody String body) {
+		//输入参数日志
+		log.info("RESTFUL interface name queryGroupByDisplay in!");
+		log.info(body);
+		Source source = new StreamSource(new StringReader(body));
+		MediaType mediaType = (MediaType)jaxb2Mashaller.unmarshal(source);
+		List<MediaGroup> mediaGroupList = mediaGroupBusiness.findListByDisplay(mediaType);
+		MediaGroupList listVo = new MediaGroupList();
+		listVo.setMediaGroupList(mediaGroupList);
+		//输出参数日志
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+	    Result result = new StreamResult(baos);
+	    jaxb2Mashaller.marshal(listVo, result);
+		String outXml="";
+		try {
+			outXml = new String(baos.toString().getBytes("GBK"), "UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			throw new ApplicationRuntimeException("字符串编码转换失败",e);
+		} finally {
+			try {
+				baos.close();
+			} catch (IOException e) {
+				throw new ApplicationRuntimeException("关闭失败",e);
+			}
+		}
+		log.info(outXml);
+		log.info("RESTFUL interface name queryGroupByDisplay out!");
+		return new ModelAndView(XML_VIEW_NAME, XML_MODEL_NAME, listVo);
+	}
 
 }
