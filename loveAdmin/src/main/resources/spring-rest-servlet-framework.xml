@@ -19,6 +19,7 @@
 			<list>
 				<value>com.love.restful.vo.CodeMessgae</value>
 				<value>com.love.blog.po.IndexPage</value>
+				<value>com.love.blog.po.Article</value>
 				<value>com.love.blog.po.ArticleType</value>
 				<value>com.love.restful.vo.ArticleList</value>
 				<value>com.love.restful.vo.ArticleTypeList</value>
