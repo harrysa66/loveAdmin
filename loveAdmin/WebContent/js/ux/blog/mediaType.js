@@ -26,6 +26,17 @@ Love.blog.mediaType = function(){
 								} 
                          	}
                         },
+                        {field:'types',title:'类别',width:80,align:'center',sortable:true,formatter:function(value,row,index){
+								if(value == 'IMAGE'){
+									return "图像";
+								}
+								if(value == 'VIDEO'){
+									return "视频";
+								}
+								if(value == 'AUDIO'){
+									return "音频";
+								}
+							}},
 						{field:'isvalid',title:'状态',width:80,align:'center',sortable:true,styler:function(value,row,index){
 								if(value == 'N'){
 								  return 'color:red;';  

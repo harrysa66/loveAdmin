@@ -86,6 +86,7 @@ Love.blog.article = function(){
   			dataGrid:{
   				title:'文章列表',
 	   			url:'dataList.s',
+	   			height:385,
 	   			columns:[[
 						{field:'id',checkbox:true},
 						{field:'title',title:'标题',width:100,sortable:true},

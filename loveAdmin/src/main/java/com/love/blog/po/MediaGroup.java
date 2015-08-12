@@ -3,10 +3,13 @@ package com.love.blog.po;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
 import org.apache.ibatis.type.Alias;
 import org.springframework.stereotype.Component;
 
 @Alias("mediaGroup")
+@XmlRootElement(name="mediaGroup")
 @Component
 public class MediaGroup implements Serializable{
 
@@ -24,6 +27,7 @@ public class MediaGroup implements Serializable{
 	private String status;
 	private String isvalid;
 	private String imgUrl;
+	private String types;
 	
 	public String getId() {
 		return id;
@@ -96,6 +100,12 @@ public class MediaGroup implements Serializable{
 	}
 	public void setImgUrl(String imgUrl) {
 		this.imgUrl = imgUrl;
+	}
+	public String getTypes() {
+		return types;
+	}
+	public void setTypes(String types) {
+		this.types = types;
 	}
 	
 }

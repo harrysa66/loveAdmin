@@ -63,7 +63,7 @@
             <if test="isvalid !=null and isvalid != ''"> 
               and  o.isvalid = #{isvalid}
             </if>
-            order by o.create_time
+            order by o.create_time desc
        
 	</select>
 	
@@ -88,8 +88,9 @@
 	
 	<!-- 通过ID查找 -->
 	<select id="selectById" parameterType="String" resultType="media">
-		select <include refid="sqlList" />
+		select <include refid="sqlList" />,f.url as imgUrl
 		FROM love_blog_media o
+		left join love_system_file f on o.file_id = f.id
 		WHERE o.id=#{id} and o.STATUS !='DELETED'
 	</select>
 	
@@ -104,8 +105,9 @@
 	</update>
 	
 	<select id="findListByGroup" parameterType="String" resultType="media">
-		select <include refid="sqlList" />
+		select <include refid="sqlList" />,f.url as imgUrl
 		FROM love_blog_media o
+		left join love_system_file f on o.file_id = f.id
 		WHERE o.group_id=#{groupId} and o.STATUS !='DELETED'
 	</select>
 	

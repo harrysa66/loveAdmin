@@ -3,10 +3,13 @@ package com.love.blog.po;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
 import org.apache.ibatis.type.Alias;
 import org.springframework.stereotype.Component;
 
 @Alias("board")
+@XmlRootElement(name="board")
 @Component
 public class Board implements Serializable{
 	

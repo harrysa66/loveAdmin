@@ -62,6 +62,7 @@
             <if test="isvalid !=null and isvalid != ''"> 
               and  o.isvalid = #{isvalid}
             </if>
+            order by o.create_time desc
 	</select>
 	
 	<!-- 统计分页查询的数据条数 -->
@@ -93,5 +94,11 @@
 	<update id="deleteById" parameterType="map">
 		update love_blog_board set STATUS=#{status} where ID=#{id}
 	</update>
+	
+	<select id="findListByStatus" parameterType="map" resultType="board">
+		select <include refid="sqlList" />
+		FROM love_blog_board o
+		WHERE o.status = #{status} and o.isvalid = #{isvalid}
+	</select>
 	
 </mapper>

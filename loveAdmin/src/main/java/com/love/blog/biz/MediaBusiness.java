@@ -30,6 +30,12 @@ public class MediaBusiness {
 	@Resource
 	private AttachmentBusiness attachmentBusiness;
 	
+	@Resource
+	private MediaGroupBusiness mediaGroupBusiness;
+	
+	@Resource
+	private MediaTypeBusiness mediaTypeBusiness;
+	
 	private BaseDao<Media, String> mediaDao;
 
 	@Resource
@@ -167,18 +173,46 @@ public class MediaBusiness {
 
 	@Transactional
 	public String setGroup(String groupId, String[] ids) {
-		String message = "设置成功";
+		String message = "设置成功!";
 		Media media = null;
+		boolean is_self = true;
+		boolean is_sameType = true;
 		for(String id : ids){
 			if(!isSelf(id)){
-				message = "除了非本人上传的文件以外，其他文件设置成功(管理员除外)!";
+				message = "除了非本人上传的文件以外(管理员除外)，其他文件设置成功!";
+				is_self = false;
+				continue;
+			}
+			if(!isSameType(id,groupId)){
+				is_sameType = false;
+				continue;
 			}
 			media = new Media();
 			media.setId(id);
 			media.setGroupId(groupId);
 			mediaDao.update(media);
 		}
+		if(!is_self && !is_sameType){
+			message = "除了非本人(管理员除外)上传的文件和分组错误的文件以外，其他文件设置成功!";
+		}
+		if(is_self && !is_sameType){
+			message = "除了分组错误的文件以外，其他文件设置成功!";
+		}
 		return message;
+	}
+
+	private boolean isSameType(String id, String groupId) {
+		boolean flag = true;
+		String fileId = findById(id).getFileId();
+		Attachment attach = attachmentBusiness.getById(fileId);
+		String contentType = attach.getContentType();
+		String contentTypeSub = contentType.substring(0, contentType.lastIndexOf("/"));
+		String typeId = mediaGroupBusiness.findById(groupId).getTypeId();
+		String types = mediaTypeBusiness.findById(typeId).getTypes();
+		if(!contentTypeSub.equals(types.toLowerCase())){
+			flag = false;
+		}
+		return flag;
 	}
 
 	@Transactional

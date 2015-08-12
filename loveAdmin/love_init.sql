@@ -147,6 +147,7 @@ CREATE TABLE `love_blog_media_type` (
   `isValid` varchar(10) DEFAULT NULL,
   `isshow` varchar(10) DEFAULT NULL,
   `display` int(5) DEFAULT NULL,
+  `types` varchar(10) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 

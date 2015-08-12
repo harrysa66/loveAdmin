@@ -65,7 +65,7 @@
             <if test="isvalid !=null and isvalid != ''"> 
               and  o.isvalid = #{isvalid}
             </if>
-            order by o.create_time
+            order by o.create_time desc
        
 	</select>
 	
@@ -92,17 +92,19 @@
 	
 	<!-- 通过ID查找 -->
 	<select id="selectById" parameterType="String" resultType="mediaGroup">
-		select <include refid="sqlList" />,f.url as imgUrl
+		select <include refid="sqlList" />,f.url as imgUrl,t.types as types
 		FROM love_blog_media_group o
 		left join love_system_file f on o.file_id = f.id
+		left join love_blog_media_type t on o.type_id = t.id
 		WHERE o.id=#{id} and o.STATUS !='DELETED'
 	</select>
 	
 	<!-- 通过类型查找 -->
 	<select id="findListByType" parameterType="map" resultType="mediaGroup">
-		select <include refid="sqlList" />,f.url as imgUrl
+		select <include refid="sqlList" />,f.url as imgUrl,t.types as types
 		FROM love_blog_media_group o
 		left join love_system_file f on o.file_id = f.id 
+		left join love_blog_media_type t on o.type_id = t.id
 		WHERE o.type_id=#{typeId} and o.STATUS !='DELETED'
 		<if test="status !=null and status != ''">
 			and o.STATUS=#{status}
@@ -121,8 +123,10 @@
 	
 	<!-- 通过ID查找 -->
 	<select id="findListByMap" parameterType="map" resultType="mediaGroup">
-		select <include refid="sqlList" />
+		select <include refid="sqlList" />,f.url as imgUrl,t.types as types
 		FROM love_blog_media_group o
+		left join love_system_file f on o.file_id = f.id 
+		left join love_blog_media_type t on o.type_id = t.id
 		where 1=1
         <if test="status !=null and status != ''"> 
             and o.status=#{status}

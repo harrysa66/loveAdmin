@@ -149,6 +149,7 @@ public class MediaController extends BaseController{
 		for(Media media : mediaList){
 			if(!mediaBusiness.isSelf(media.getId())){
 				message = "除了非本人上传的文件以外，其他文件设置成功(管理员除外)!";
+				continue;
 			}
 			mediaBusiness.save(media);
 		}

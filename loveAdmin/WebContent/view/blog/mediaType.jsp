@@ -14,6 +14,13 @@
             <input name="code" class="easyui-box ui-text" style="width:100px;">
             <label class="ui-label">类型名称:</label> 
             <input name="name" class="easyui-box ui-text" style="width:100px;">
+            <label>类别:</label>  
+	        <select class="easyui-combobox" name="types" style="width:100px;" editable="false" panelHeight="110">
+	        	<option value="" selected="selected">全部</option>
+	        	<option value="IMAGE">图像</option>
+                <option value="VIDEO">视频</option>
+                <option value="AUDIO">音频</option>
+            </select>
             <label>状态:</label>  
 	        <select class="easyui-combobox" name="isvalid" style="width:100px;" editable="false" panelHeight="80">
 	        	<option value="" selected="selected">全部</option>
@@ -50,6 +57,14 @@
 	               <label>类型名称:</label>  
 	               <input class="easyui-validatebox" type="text" name="name" data-options="required:true">
 	           </div> 
+	           <div class="fitem">  
+	               <label>类别:</label>  
+	        		<select class="easyui-combobox" name="types" style="width:100px;" editable="false" panelHeight="110" data-options="required:true">
+	        			<option value="IMAGE" selected="selected">图像</option>
+                		<option value="VIDEO">视频</option>
+                		<option value="AUDIO">音频</option>
+            		</select>
+	           </div>
 	           <div class="fitem">  
 	               <label>展示顺序:</label>  
 	               <input class="easyui-numberbox" type="text" name="display" data-options="min:1,required:true">

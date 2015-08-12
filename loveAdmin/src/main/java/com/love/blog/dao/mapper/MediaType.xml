@@ -3,7 +3,7 @@
 
 <mapper namespace="MediaType">
 	<sql id="sqlList" >
-    o.id, o.code, o.`name`, o.create_time, o.modify_time, o.`status`, o.isValid,o.isshow,o.display
+    o.id, o.code, o.`name`, o.create_time, o.modify_time, o.`status`, o.isValid,o.isshow,o.display,o.types
   	</sql>
 
   	<insert id="insert" parameterType="mediaType" >
@@ -18,6 +18,7 @@
       isValid,
       isshow,
       display,
+      types,
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       #{id,jdbcType=VARCHAR},
@@ -29,6 +30,7 @@
       #{isvalid,jdbcType=VARCHAR},
       #{isshow,jdbcType=VARCHAR},
       #{display},
+      #{types},
     </trim>
   </insert>
   
@@ -59,6 +61,9 @@
       <if test="display != null" >
         display = #{display},
       </if>
+      <if test="types != null" >
+        types = #{types},
+      </if>
     </set>
     where id = #{id,jdbcType=VARCHAR}
   </update>
@@ -79,6 +84,9 @@
             </if>
             <if test="isshow !=null and isshow != ''"> 
               and  o.isshow = #{isshow}
+            </if>
+            <if test="types !=null and types != ''"> 
+              and  o.types = #{types}
             </if>
             order by o.display asc
        
@@ -101,13 +109,16 @@
             <if test="isshow !=null and isshow != ''"> 
               and  o.isshow = #{isshow}
             </if>
+            <if test="types !=null and types != ''"> 
+              and  o.types = #{types}
+            </if>
 	</select>
 	
 	<!-- 通过ID查找 -->
 	<select id="selectById" parameterType="String" resultType="mediaType">
 		select <include refid="sqlList" />
 		FROM love_blog_media_type o
-		WHERE o.id=#{id} and o.STATUS !='DELETED' and o.isvalid = 'Y'
+		WHERE o.id=#{id} and o.STATUS !='DELETED'
 	</select>
 	
 	<!-- 通过display查找 -->

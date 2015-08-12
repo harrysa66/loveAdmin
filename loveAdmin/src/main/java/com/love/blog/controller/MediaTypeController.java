@@ -41,6 +41,7 @@ public class MediaTypeController extends BaseController{
 		map.put("name", ServletRequestUtils.getStringParameter(request, "name", "").trim());
 		map.put("isvalid", ServletRequestUtils.getStringParameter(request, "isvalid", "").trim());
 		map.put("isshow", ServletRequestUtils.getStringParameter(request, "isshow", "").trim());
+		map.put("types", ServletRequestUtils.getStringParameter(request, "types", "").trim());
 		Page<MediaType> page = PageUtil.getPageObj(request);
 		page = mediaTypeBusiness.queryPage(map, page);
 		

@@ -62,5 +62,9 @@ public class BoardBusiness {
 			delete(id);
 		}
 	}
+	
+	public List<Board> findListByStatus(Map<String, Object> map){
+		return boardDao.findListByMap("findListByStatus",map);
+	}
 
 }
