@@ -1,7 +1,7 @@
 $package('Love.blog.media');
 Love.blog.media = function(){
 	var _box = null;
-	var selectGroup = null;
+	//var selectGroup = null;
 	var editIndex = undefined;
 	var mediaGrid= $('#data-list');
 	var showDiv = $('#showDiv');
@@ -272,13 +272,13 @@ Love.blog.media = function(){
     			textField:'nickname',
     			editable:false
 			});
-			selectGroup = $('#selectGroup');
+			/*selectGroup = $('#selectGroup');
 			selectGroup.combobox({    
     			url:'selectGroup.s',    
     			valueField:'id',    
     			textField:'name',
     			editable:false
-			});
+			});*/
 			
 			mediaGrid.datagrid({
 				onDblClickCell: function(index,field,value){

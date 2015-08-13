@@ -18,15 +18,16 @@ import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.ServletRequestUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.love.blog.biz.MediaBusiness;
 import com.love.blog.biz.MediaGroupBusiness;
+import com.love.blog.biz.MediaTypeBusiness;
 import com.love.blog.po.Media;
 import com.love.blog.po.MediaGroup;
+import com.love.blog.po.MediaType;
 import com.love.framework.common.Constants;
 import com.love.framework.controller.BaseController;
 import com.love.framework.dao.jdbc.Page;
@@ -41,13 +42,16 @@ import com.love.util.PageUtil;
 @RequestMapping("blog/media")
 public class MediaController extends BaseController{
 	
-	static Logger log = Logger.getLogger(MediaGroupController.class.getName());
+	static Logger log = Logger.getLogger(MediaController.class.getName());
 	
 	@Resource
 	private MediaBusiness mediaBusiness;
 	
 	@Resource
 	private MediaGroupBusiness mediaGroupBusiness;
+	
+	@Resource
+	private MediaTypeBusiness mediaTypeBusiness;
 	
 	@Resource
 	private UserBusiness userBusiness;
@@ -126,13 +130,23 @@ public class MediaController extends BaseController{
 		}
 	}
 	
-	@RequestMapping("/selectGroup")
-	public void selectGroup(HttpServletResponse response) throws Exception{
+	@RequestMapping("/selectType")
+	public void selectType(HttpServletResponse response) throws Exception{
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("status", Constants.STATUS_DEFAULT);
 		map.put("isvalid", Constants.ISVALIAD_SHOW);
-		List<MediaGroup> typeList = mediaGroupBusiness.findListByMap(map);
+		List<MediaType> typeList = mediaTypeBusiness.findListByMap(map);
 		Object context = JSONArray.toJSON(typeList);
+		HtmlUtil.writerJson(response, context);
+	}
+	
+	@RequestMapping("/selectGroup")
+	public void selectGroup(String typeId,HttpServletResponse response) throws Exception{
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("status", Constants.STATUS_DEFAULT);
+		map.put("typeId", typeId);
+		List<MediaGroup> groupList = mediaGroupBusiness.findListByType(map);
+		Object context = JSONArray.toJSON(groupList);
 		HtmlUtil.writerJson(response, context);
 	}
 	

@@ -38,7 +38,7 @@ import com.love.util.PageUtil;
 @RequestMapping("blog/article")
 public class ArticleController extends BaseController{
 	
-	static Logger log = Logger.getLogger(MediaGroupController.class.getName());
+	static Logger log = Logger.getLogger(ArticleController.class.getName());
 	
 	@Resource
 	private ArticleBusiness articleBusiness;

@@ -38,7 +38,7 @@ import com.love.restful.vo.MediaTypeList;
 @RequestMapping("services")
 public class MediaRest {
 	
-static Logger log = Logger.getLogger(ArticleRest.class.getName());
+static Logger log = Logger.getLogger(MediaRest.class.getName());
 	
 	@Resource
 	private Jaxb2Marshaller jaxb2Mashaller;

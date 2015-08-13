@@ -48,7 +48,7 @@
   
   <!-- 分页查询 -->
 	<select id="queryPage" parameterType="map" resultType="board">
-		select distinct <include refid="sqlList" /> ,v.ip as ip,u.nickname as nickname
+		select distinct <include refid="sqlList" /> ,v.ip as ip,v.ip_address as ipAddress,u.nickname as nickname
 		FROM love_blog_board o 
 		left join love_blog_visitor v on o.visitor_id=v.id
 		left join love_system_user u on o.user_id=u.id
@@ -96,9 +96,15 @@
 	</update>
 	
 	<select id="findListByStatus" parameterType="map" resultType="board">
-		select <include refid="sqlList" />
+		select <include refid="sqlList" />,v.ip as ip,v.ip_address as ipAddress,u.nickname as nickname
 		FROM love_blog_board o
-		WHERE o.status = #{status} and o.isvalid = #{isvalid}
+		left join love_blog_visitor v on o.visitor_id=v.id
+		left join love_system_user u on o.user_id=u.id
+		WHERE o.status = #{status}
+		<if test="isvalid !=null and isvalid != ''"> 
+               and o.isvalid = #{isvalid}
+        </if>
+		order by o.create_time desc
 	</select>
 	
 </mapper>

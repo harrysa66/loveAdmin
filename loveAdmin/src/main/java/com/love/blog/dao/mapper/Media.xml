@@ -109,6 +109,7 @@
 		FROM love_blog_media o
 		left join love_system_file f on o.file_id = f.id
 		WHERE o.group_id=#{groupId} and o.STATUS !='DELETED'
+		order by o.create_time desc
 	</select>
 	
 </mapper>

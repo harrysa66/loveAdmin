@@ -224,6 +224,7 @@ public class MediaBusiness {
 			media = new Media();
 			media.setId(UUIDGenerator.getUUID());
 			media.setUserId(user.getId());
+			media.setName(attach.getFileName());
 			media.setCreateTime(new Date());
 			media.setStatus(Constants.STATUS_DEFAULT);
 			media.setIsvalid(Constants.ISVALIAD_HIDDEN);

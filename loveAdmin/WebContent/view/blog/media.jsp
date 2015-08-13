@@ -39,9 +39,22 @@
      		 <div class="ui-edit">
 	     	   <div class="ftitle">设置分组</div>    
 	           <div class="fitem">  
-	               <label>分组:</label>  
-					<input id="selectGroup" name="groupId" value="">
+	               <label>类型:</label>  
+					<input id="selectType" class="easyui-combobox" data-options="    
+        				valueField: 'id',    
+        				textField: 'name',    
+        				editable:false,
+        				url: 'selectType.s',    
+        				onSelect: function(rec){   
+        					$('#selectGroup').combobox('clear'); 
+            				var url = 'selectGroup.s?typeId='+rec.id;    
+            				$('#selectGroup').combobox('reload', url);    
+        				}" />
 	           </div>  
+	           <div class="fitem">  
+	               <label>分组:</label>  
+					<input id="selectGroup" name="groupId" value="" class="easyui-combobox" data-options="valueField:'id',textField:'name',editable:false,required:true">
+	           </div> 
 	         </div>
      	</form>
   	 </div> 

@@ -108,7 +108,16 @@
         <td>
             <span class="preview">
                 {% if (file) { %}
-                    <a href="{%=file.url%}" title="{%=file.fileName%}" download="{%=file.fileName%}" data-gallery><img src="{%=file.url%}"></a>
+					{% if(file.contentType.indexOf("image") >= 0){ %}
+					<a href="{%=file.url%}" title="{%=file.fileName%}" download="{%=file.fileName%}" data-gallery>
+					<img src="{%=file.url%}" width="80px" height="80px"></a>
+					{% }else if(file.contentType.indexOf("video") >= 0){ %}
+					<a href="../images/video.png" title="{%=file.fileName%}" download="{%=file.fileName%}" data-gallery>
+					<img src="../images/video.png" width="80px" height="80px"></a>
+					{% }else if(file.contentType.indexOf("audio") >= 0){ %}
+					<a href="../images/audio.png" title="{%=file.fileName%}" download="{%=file.fileName%}" data-gallery>
+					<img src="../images/audio.png" width="80px" height="80px"></a>
+					{% } %}
                 {% } %}
             </span>
         </td>

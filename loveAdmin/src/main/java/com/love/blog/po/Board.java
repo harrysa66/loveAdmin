@@ -26,6 +26,7 @@ public class Board implements Serializable{
     private Date replyTime;
     private String status;
     private String isvalid;
+    private String ipAddress;
     
 	public String getId() {
 		return id;
@@ -92,6 +93,12 @@ public class Board implements Serializable{
 	}
 	public void setIsvalid(String isvalid) {
 		this.isvalid = isvalid;
+	}
+	public String getIpAddress() {
+		return ipAddress;
+	}
+	public void setIpAddress(String ipAddress) {
+		this.ipAddress = ipAddress;
 	}
     
 }

@@ -19,7 +19,7 @@ $(function () {
         // Uncomment the following to send cross-domain cookies:
         //xhrFields: {withCredentials: true},
         url: '/loveAdmin/blog/media/fileUpload.s',
-        acceptFileTypes : /(\.|\/)(gif|jpe?g|png|ogg|mp4|mpe?g|webm|mp3|wav)$/i,
+        acceptFileTypes : /(\.|\/)(gif|jpe?g|png|ogg|ogv|mp4|webm|mp3|wav)$/i,
         maxFileSize : 100000000 // 100 MB
     });
 
