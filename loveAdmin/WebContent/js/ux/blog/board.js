@@ -1,7 +1,8 @@
 $package('Love.blog.board');
 Love.blog.board = function(){
 	var _box = null;
-	var editor = null;
+	//var editor = null;
+	var um = null;
 	var _this = {
 		viewContent : function(id){
 			$.ajax({
@@ -58,7 +59,8 @@ Love.blog.board = function(){
 						}
 				},
 				save:function(){
-					$("#replyContent").val(editor.getData());
+					//$("#replyContent").val(editor.getData());
+					$("#replyContent").val(um.getContent());
 					_box.handler.save();
 				}
 			},
@@ -115,7 +117,16 @@ Love.blog.board = function(){
 			}
 		},
 		init:function(){
-			editor = CKEDITOR.replace('replyContentText');
+			//editor = CKEDITOR.replace('replyContentText');
+			um = UM.getEditor('myEditor',{
+ 							toolbar:[
+ 				            		'source | undo redo | bold italic underline strikethrough | superscript subscript | forecolor backcolor | removeformat |',
+ 				            		'insertorderedlist insertunorderedlist | selectall cleardoc paragraph | fontfamily fontsize' ,
+ 				            		'| justifyleft justifycenter justifyright justifyjustify |',
+ 				            		'link unlink | horizontal ',
+ 				            		'| emotion print preview fullscreen', 'drafts', 'formula'
+ 				        		]
+ 						});
 			_box = new DataGrid(_this.config); 
 			_box.init();
 			

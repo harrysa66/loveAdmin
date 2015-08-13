@@ -2,7 +2,8 @@ $package('Love.blog.article');
 Love.blog.article = function(){
 	var _box = null;
 	var selectType = null;
-	var editor = null;
+	//var editor = null;
+	var um = null;
 	var _this = {
 		coverWin:function(){
 			return $("#cover-win");
@@ -74,12 +75,13 @@ Love.blog.article = function(){
 				edit:function(){
 					var selected = _box.utils.getCheckedRows();
 						if ( _box.utils.checkSelectOne(selected)){
-								editor.setData(selected[0].content);
+							um.setContent(selected[0].content);
+								//editor.setData(selected[0].content);
 							_box.handler.edit();
 						}
 				},
 				save:function(){
-					$("#content").val(editor.getData());
+					$("#content").val(um.getContent());
 					_box.handler.save();
 				}
 			},
@@ -180,7 +182,16 @@ Love.blog.article = function(){
     			textField:'name',
     			editable:false
 			});
-			editor = CKEDITOR.replace('articleContent');
+			//editor = CKEDITOR.replace('articleContent');
+			um = UM.getEditor('myEditor',{
+ 							toolbar:[
+ 				            		'source | undo redo | bold italic underline strikethrough | superscript subscript | forecolor backcolor | removeformat |',
+ 				            		'insertorderedlist insertunorderedlist | selectall cleardoc paragraph | fontfamily fontsize' ,
+ 				            		'| justifyleft justifycenter justifyright justifyjustify |',
+ 				            		'link unlink | horizontal ',
+ 				            		'| emotion print preview fullscreen', 'drafts', 'formula'
+ 				        		]
+ 						});
 			_box = new DataGrid(_this.config); 
 			_box.init();
 			

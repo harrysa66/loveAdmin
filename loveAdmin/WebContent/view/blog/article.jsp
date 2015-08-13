@@ -35,7 +35,7 @@
      <table id="data-list"></table>
 	 </form> 
      <!-- Edit Form -->
-     <div id="edit-win" class="easyui-dialog" title="修改" data-options="closed:true,modal:true" style="width:1000px;height:450px;">  
+     <div id="edit-win" class="easyui-dialog" title="修改" data-options="closed:true,modal:true" style="width:1000px;height:500px;">  
      	<form id="editForm" class="ui-form" method="post">  
      		 <input class="hidden" type="text" name="id">
      		 <div class="ui-edit">
@@ -54,7 +54,8 @@
 	           </div> 
 	           <div class="fitem">  
 	               <label>内容:</label>  
-	               <textarea id="articleContent" cols="20" rows="2" class="ckeditor" data-options="required:true"></textarea>
+	               <script id="myEditor" type="text/plain" style="width:940px;height:400px;"></script>
+	               <!-- <textarea id="articleContent" cols="20" rows="2" class="ckeditor" data-options="required:true"></textarea> -->
 	               <input id="content" type="hidden" name="content">
 	               <!-- <input class="easyui-validatebox" type="text" name="content" data-options="required:true"> -->
 	           </div> 

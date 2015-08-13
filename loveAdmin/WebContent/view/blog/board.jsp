@@ -37,7 +37,8 @@
      		 <div class="ui-edit">
 	     	   <div class="ftitle">回复信息</div>    
 	           <div class="fitem">  
-	               <textarea id="replyContentText" cols="20" rows="2" class="ckeditor" data-options="required:true"></textarea>
+	           		<script id="myEditor" type="text/plain" style="width:940px;height:400px;"></script>
+	               <!-- <textarea id="replyContentText" cols="20" rows="2" class="ckeditor" data-options="required:true"></textarea> -->
 	               <input id="replyContent" type="hidden" name="replyContent">
 	               <!-- <input class="easyui-validatebox" type="text" name="content" data-options="required:true"> -->
 	           </div> 

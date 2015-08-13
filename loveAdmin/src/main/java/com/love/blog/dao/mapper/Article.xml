@@ -122,6 +122,7 @@
 		<if test="status !=null and status != ''">
 			and o.STATUS=#{status}
 		</if>
+		order by o.create_time desc
 	</select>
 	
 	<!-- 查找 -->
@@ -133,6 +134,7 @@
 		<if test="status !=null and status != ''">
 			and o.STATUS=#{status}
 		</if>
+		order by o.create_time desc
 	</select>
 	
 	<!-- 逻辑删除 -->
