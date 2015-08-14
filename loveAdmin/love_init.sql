@@ -16,15 +16,20 @@ Date: 2015-08-04 12:10:58
 SET FOREIGN_KEY_CHECKS=0;
 
 -- ----------------------------
--- Table structure for love_blog_index
+-- Table structure for love_blog_index_page
 -- ----------------------------
 DROP TABLE IF EXISTS `love_blog_index_page`;
-CREATE TABLE `love_blog_index` (
+CREATE TABLE `love_blog_index_page` (
   `id` varchar(32) NOT NULL,
   `title` varchar(50) DEFAULT NULL,
   `subtitle` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of love_blog_index_page
+-- ----------------------------
+INSERT INTO `love_blog_index_page` VALUES ('fdff17af8b65455fb83909fc378d1f37', '陌上花开淡香随', '如果没有为陌上悄然伫立并为陌上风情所陶醉的人，那么花开也寂寞,风情也苍白...');
 
 -- ----------------------------
 -- Table structure for love_blog_article
