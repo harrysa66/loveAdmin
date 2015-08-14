@@ -29,6 +29,7 @@ import com.love.system.po.MenuBtn;
 import com.love.system.po.Role;
 import com.love.system.po.User;
 import com.love.util.HtmlUtil;
+import com.love.util.IPUtil;
 import com.love.util.MD5Util;
 import com.love.util.SessionUtils;
 import com.love.util.TreeUtil;
@@ -75,7 +76,7 @@ public class MainController extends BaseController{
 	public ModelAndView  main(HttpServletRequest request){
 		Map<String,Object>  context = getRootMap();
 		User user = SpringSecurityUtils.getCurrentUser();
-		String userIp = SpringSecurityUtils.getCurrentUserIp();
+		//String userIp = SpringSecurityUtils.getCurrentUserIp();
 		Map<String,Object> parements=new HashMap<String,Object>();
    		parements.put("status",Constants.STATUS_DEFAULT);
    		parements.put("isvalid",Constants.ISVALIAD_SHOW);
@@ -87,6 +88,7 @@ public class MainController extends BaseController{
 		List<Menu> childMenus = initMenu(childMenuList, user);
 		List<MenuBtn> childBtns = initBtn(childBtnList,user);
 		buildData(childMenus,childBtns,request); //构建必要的数据
+		String userIp = IPUtil.getIpAddr(request);
 		context.put("user", user);
 		context.put("userIp", userIp);
 		context.put("menuList", treeMenu(rootMenus, childMenus));

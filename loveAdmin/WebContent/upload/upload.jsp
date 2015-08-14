@@ -112,11 +112,11 @@
 					<a href="{%=file.url%}" title="{%=file.fileName%}" download="{%=file.fileName%}" data-gallery>
 					<img src="{%=file.url%}" width="80px" height="80px"></a>
 					{% }else if(file.contentType.indexOf("video") >= 0){ %}
-					<a href="../images/video.png" title="{%=file.fileName%}" download="{%=file.fileName%}" data-gallery>
-					<img src="../images/video.png" width="80px" height="80px"></a>
+					<a href="../images/video.jpg" title="{%=file.fileName%}" download="{%=file.fileName%}" data-gallery>
+					<img src="../images/video.jpg" width="80px" height="80px"></a>
 					{% }else if(file.contentType.indexOf("audio") >= 0){ %}
-					<a href="../images/audio.png" title="{%=file.fileName%}" download="{%=file.fileName%}" data-gallery>
-					<img src="../images/audio.png" width="80px" height="80px"></a>
+					<a href="../images/audio.jpg" title="{%=file.fileName%}" download="{%=file.fileName%}" data-gallery>
+					<img src="../images/audio.jpg" width="80px" height="80px"></a>
 					{% } %}
                 {% } %}
             </span>

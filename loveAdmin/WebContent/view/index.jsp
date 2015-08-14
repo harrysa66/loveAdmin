@@ -41,7 +41,7 @@
 	<div data-options="region:'center'" >
 		<div class="easyui-tabs" id="tab-box" data-options="fit:true,border:false">
 			<div title="欢迎" style="padding:20px;overflow:hidden;"> 
-				
+				<iframe src="${webUrl}" width="1130" height="520" frameborder="no" border="0" marginwidth="0" marginheight="0" scrolling="yes" allowtransparency="yes"></iframe>
 			</div>
 		</div>	
 	</div>
