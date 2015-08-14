@@ -90,6 +90,13 @@
 		WHERE o.id=#{id}
 	</select>
 	
+	<!-- 通过ip查找 -->
+	<select id="findByIp" parameterType="String" resultType="visitor">
+		select <include refid="sqlList" />
+		FROM love_blog_visitor o
+		WHERE o.ip=#{ip}
+	</select>
+	
 	<!-- 通过类型查找 -->
 	<select id="findListByStatus" parameterType="String" resultType="visitor">
 		select <include refid="sqlList" />

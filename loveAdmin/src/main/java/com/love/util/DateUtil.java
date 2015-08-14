@@ -5,6 +5,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.TimeZone;
 
 import com.love.framework.exception.ApplicationRuntimeException;
 
@@ -199,7 +200,7 @@ public class DateUtil {
      * @param bdate  较大的时间 
      * @return 相差分钟数 
      * @throws ParseException  
-     *//*    
+     */
     public static int minsBetween(Date smdate,Date bdate) throws ParseException    
     {    
         SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");  
@@ -218,7 +219,7 @@ public class DateUtil {
        return Integer.parseInt(String.valueOf(mins));           
     } 
     
-    *//**  
+    /**  
      * 计算两个日期之间相差的秒数  
      * @param smdate 较小的时间 
      * @param bdate  较大的时间 
@@ -376,5 +377,16 @@ public class DateUtil {
         SimpleDateFormat simple = new SimpleDateFormat("yyyy-MM-dd");  
         return simple.format(date);  
     } 
+    
+    /**
+	 * 获取当前时间(北京时间)
+	 * @return
+	 */
+	public static Date getCurrentBJDate(){
+		TimeZone.setDefault(TimeZone.getTimeZone("GMT+8"));
+		Calendar cal = Calendar.getInstance();
+		Date date = cal.getTime();
+		return date;
+	}
     
 }

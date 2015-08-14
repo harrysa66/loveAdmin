@@ -107,4 +107,10 @@
 		order by o.create_time desc
 	</select>
 	
+	<select id="queryMaxCreate" parameterType="String" resultType="board">
+		SELECT max(o.create_time) AS createTime
+		FROM love_blog_board o
+		WHERE o.visitor_id = #{visitorId}
+	</select>
+	
 </mapper>
