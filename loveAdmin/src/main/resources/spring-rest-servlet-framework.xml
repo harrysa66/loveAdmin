@@ -27,10 +27,13 @@
 				<value>com.love.blog.po.MediaGroup</value>
 				<value>com.love.blog.po.Media</value>
 				<value>com.love.blog.po.Board</value>
+				<value>com.love.blog.po.Days</value>
+				<value>com.love.blog.po.DaysIndex</value>
 				<value>com.love.restful.vo.MediaTypeList</value>
 				<value>com.love.restful.vo.MediaGroupList</value>
 				<value>com.love.restful.vo.MediaList</value>
 				<value>com.love.restful.vo.BoardList</value>
+				<value>com.love.restful.vo.DaysList</value>
 			</list>
 		</property> 
 	</bean>
@@ -48,6 +51,12 @@
 		<constructor-arg ref="jaxbMarshaller" />
 	</bean>
 	<bean id="visitor" class="org.springframework.web.servlet.view.xml.MarshallingView">
+		<constructor-arg ref="jaxbMarshaller" />
+	</bean>
+	<bean id="daysIndex" class="org.springframework.web.servlet.view.xml.MarshallingView">
+		<constructor-arg ref="jaxbMarshaller" />
+	</bean>
+	<bean id="days" class="org.springframework.web.servlet.view.xml.MarshallingView">
 		<constructor-arg ref="jaxbMarshaller" />
 	</bean>
 	<bean id="viewResolver" class="org.springframework.web.servlet.view.BeanNameViewResolver" />

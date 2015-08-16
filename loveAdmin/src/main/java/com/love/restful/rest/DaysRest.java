@@ -4,6 +4,9 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.StringReader;
 import java.io.UnsupportedEncodingException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.xml.transform.Result;
@@ -19,41 +22,41 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.love.blog.biz.IndexPageBusiness;
-import com.love.blog.po.IndexPage;
+import com.love.blog.biz.DaysBusiness;
+import com.love.blog.po.Days;
 import com.love.framework.exception.ApplicationRuntimeException;
+import com.love.restful.vo.DaysList;
 
 @Controller
 @RequestMapping("services")
-public class IndexPageRest {
+public class DaysRest {
 	
-	static Logger log = Logger.getLogger(IndexPageRest.class.getName());
+static Logger log = Logger.getLogger(DaysRest.class.getName());
 	
 	@Resource
 	private Jaxb2Marshaller jaxb2Mashaller;
-	private static final String XML_VIEW_NAME = "indexPage";//对应rest-servelt.xml文件
-	private static final String XML_MODEL_NAME = "indexPage";
+	private static final String XML_VIEW_NAME = "daysIndex";//对应rest-servelt.xml文件
+	private static final String XML_MODEL_NAME = "daysIndex";
 	
 	@Resource
-	private IndexPageBusiness indexPageBusiness;
+	private DaysBusiness daysBusiness;
 	
-	/**
-	 * 根据是否显示,查询文章类型集合
-	 * @param body
-	 * @return
-	 */
-	@RequestMapping(method=RequestMethod.POST, value="/indexPage/queryIndex.rest")
-	public ModelAndView queryIndex(@RequestBody String body) {
+	@RequestMapping(method=RequestMethod.POST, value="/days/queryDays.rest")
+	public ModelAndView queryDays(@RequestBody String body) {
 		//输入参数日志
-		log.info("RESTFUL interface name queryIndex in!");
+		log.info("RESTFUL interface name queryDays in!");
 		log.info(body);
 		Source source = new StreamSource(new StringReader(body));
-		IndexPage indexPage = (IndexPage)jaxb2Mashaller.unmarshal(source);
-		IndexPage info = indexPageBusiness.findById(indexPage.getId());
+		Days days = (Days)jaxb2Mashaller.unmarshal(source);
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("status", days.getStatus());
+		List<Days> daysList = daysBusiness.findListByMap(map);
+		DaysList listVo = new DaysList();
+		listVo.setDaysList(daysList);
 		//输出参数日志
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
 	    Result result = new StreamResult(baos);
-		jaxb2Mashaller.marshal(info, result);
+		jaxb2Mashaller.marshal(listVo, result);
 		String outXml="";
 		try {
 			outXml = new String(baos.toString().getBytes("GBK"), "UTF-8");
@@ -67,8 +70,8 @@ public class IndexPageRest {
 			}
 		}
 		log.info(outXml);
-		log.info("RESTFUL interface name queryIndex out!");
-		return new ModelAndView(XML_VIEW_NAME, XML_MODEL_NAME, info);
+		log.info("RESTFUL interface name queryDays out!");
+		return new ModelAndView(XML_VIEW_NAME, XML_MODEL_NAME, listVo);
 	}
 
 }

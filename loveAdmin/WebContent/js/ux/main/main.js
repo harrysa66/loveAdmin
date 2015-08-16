@@ -80,10 +80,10 @@ Love.main = function(){
 			});
 			$('#btn-pwd-submit').click(this.modifyPwd);
 			
+			$('#tab-box').bind("click",function(){
+				Love.refreshTab();
+			})
 			$('#tab-box').tabs({    
-    			onSelect:function(title){    
-        			  
-    			},
     			onContextMenu:function(e, title,index){
     				e.preventDefault();
         			$('#tabs-menu').menu('show', {
@@ -99,7 +99,7 @@ Love.main = function(){
     			var currtab_title = $('#tabs-menu').data("currtab");
         		var tab = $('#tab-box').tabs('getTab',currtab_title);
         		var index = $('#tab-box').tabs('getTabIndex',tab);
-        		if(index != 0){
+        		if(index > 0){
         			$('#tab-box').tabs('close',index);
         		}
     		});

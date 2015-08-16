@@ -15,6 +15,13 @@ public class DateUtil {
 	public final static String TYPE_MONTH = "MONTH";
 	public final static String TYPE_DAY = "DAY";
 	
+	public static String dateToString(Date time,String fmt){ 
+	    SimpleDateFormat formatter; 
+	    formatter = new SimpleDateFormat (fmt); 
+	    String ctime = formatter.format(time); 
+	    return ctime; 
+	} 
+	
 	/**
 	 * 增加年/月/日(输入日期格式,返回字符串)
 	 * @param date 日期格式

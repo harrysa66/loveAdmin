@@ -72,7 +72,7 @@ var Love={
 					 	}
 			 		}catch(e){
 			 			alert(e);
-			 			Love.alert('提示',"请求出现异常,请联系管理员1",'error');
+			 			Love.alert('提示',"请求出现异常,请联系管理员",'error');
 			 		}
 			 	},
 			 	complete:function(){
@@ -102,7 +102,7 @@ var Love={
 					 	}
 			 		}catch(e){
 			 			alert(e);
-			 			Love.alert('提示',"请求出现异常,请联系管理员1",'error');
+			 			Love.alert('提示',"请求出现异常,请联系管理员",'error');
 			 		}
 			 	},
 			 	complete:function(){
@@ -172,10 +172,22 @@ var Love={
 					Love.alert('提示',result.msg,'error');  
 				}
 		});
-	}/*,
+	},/*,
 	getLocalTime:function(date){
 		return new Date(parseInt(date) * 1000).toLocaleString().replace(/:\d{1,2}$/,' ');
 	}*/
+	refreshTab:function(){
+		var currTab =  self.parent.$('#tab-box').tabs('getSelected'); //获得当前tab
+    	var url = $(currTab.panel('options').content).attr('src');
+    	if(url != null && url != "" && url != "undifined"){
+    		self.parent.$('#tab-box').tabs('update', {
+      			tab : currTab,
+      			options : {
+       				content:'<iframe src="'+url+'" width="1130" height="520" frameborder="no" border="0" marginwidth="0" marginheight="0" scrolling="yes" allowtransparency="yes"></iframe>'
+      			}
+     		});
+    	}
+	}
 }
 
 var fileview = $.extend({}, $.fn.datagrid.defaults.view, { onAfterRender: function (target) {checkboxUtil.ischeckItem(target); } });
@@ -220,6 +232,23 @@ var checkboxUtil={
 Date.prototype.toLocaleString = function() {
   return this.getFullYear() + "年" + (this.getMonth() + 1) + "月" + this.getDate() + "日 " + this.getHours() + ":" + this.getMinutes() + ":" + this.getSeconds();
  };
+ 
+/*Date.prototype.Format = function (fmt) { //author: meizz 
+    var o = {
+        "M+": this.getMonth() + 1, //月份 
+        "d+": this.getDate(), //日 
+        "H+": this.getHours(), //小时 
+        "h+": this.getHours(), //小时 
+        "m+": this.getMinutes(), //分 
+        "s+": this.getSeconds(), //秒 
+        "q+": Math.floor((this.getMonth() + 3) / 3), //季度 
+        "S": this.getMilliseconds() //毫秒 
+    };
+    if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+    for (var k in o)
+    if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+    return fmt;
+}*/
 
 /* 自定义密码验证*/
 $.extend($.fn.validatebox.defaults.rules, {  

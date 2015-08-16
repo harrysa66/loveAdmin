@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "mybatis-3-mapper.dtd" >
+<mapper namespace="DaysIndex" >
+  <sql id="sqlList" >
+    o.id, o.boy_id, o.girl_id,o.boy_title,o.girl_title,o.content_one,o.content_two,o.content_three
+  </sql>
+  <insert id="insert" parameterType="daysIndex" >
+    insert into love_blog_days_index (id, boy_id, girl_id, 
+      boy_title, girl_title, content_one, 
+      content_two, content_three)
+    values (#{id,jdbcType=VARCHAR}, #{boyId,jdbcType=VARCHAR}, #{girlId,jdbcType=VARCHAR}, 
+      #{boyTitle,jdbcType=VARCHAR}, #{girlTitle,jdbcType=VARCHAR}, #{contentOne,jdbcType=VARCHAR}, 
+      #{contentTwo,jdbcType=VARCHAR}, #{contentThree,jdbcType=VARCHAR})
+  </insert>
+  
+  <update id="update" parameterType="daysIndex" >
+    update love_blog_days_index
+    <set >
+      <if test="boyId != null" >
+        boy_id = #{boyId,jdbcType=VARCHAR},
+      </if>
+      <if test="girlId != null" >
+        girl_id = #{girlId,jdbcType=VARCHAR},
+      </if>
+      <if test="boyTitle != null" >
+        boy_title = #{boyTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="girlTitle != null" >
+        girl_title = #{girlTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="contentOne != null" >
+        content_one = #{contentOne,jdbcType=VARCHAR},
+      </if>
+      <if test="contentTwo != null" >
+        content_two = #{contentTwo,jdbcType=VARCHAR},
+      </if>
+      <if test="contentThree != null" >
+        content_three = #{contentThree,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  
+	<!-- 通过ID查找 -->
+	<select id="selectById" parameterType="String" resultType="daysIndex">
+		select <include refid="sqlList" />,bf.url as boyUrl,gf.url as girlUrl
+		FROM love_blog_days_index o
+		left join love_system_file bf on bf.id = o.boy_id
+		left join love_system_file gf on gf.id = o.girl_id
+		WHERE 1=1
+		<if test="id !=null and id != ''"> 
+              and  o.id=#{id}
+            </if>
+	</select>
+	
+</mapper>

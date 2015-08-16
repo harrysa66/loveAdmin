@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Days">
+	<sql id="sqlList" >
+    o.id, o.memorial_date, o.memorial_title, o.memorial_content, o.`status`, o.isvalid
+  	</sql>
+
+  	<insert id="insert" parameterType="days" >
+    insert into love_blog_days (id, memorial_date, memorial_title, 
+      memorial_content, `status`, isvalid
+      )
+    values (#{id,jdbcType=VARCHAR}, #{memorialDate,jdbcType=TIMESTAMP}, #{memorialTitle,jdbcType=VARCHAR}, 
+      #{memorialContent,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, #{isvalid,jdbcType=VARCHAR}
+      )
+  </insert>
+  
+  <update id="update" parameterType="days" >
+    update love_blog_days
+    <set >
+      <if test="memorialDate != null" >
+        memorial_date = #{memorialDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="memorialTitle != null" >
+        memorial_title = #{memorialTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="memorialContent != null" >
+        memorial_content = #{memorialContent,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        `status` = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="isvalid != null" >
+        isvalid = #{isvalid,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  
+  <!-- 分页查询 -->
+	<select id="queryPage" parameterType="map" resultType="days">
+		select distinct <include refid="sqlList" />
+		FROM love_blog_days o
+		WHERE o.STATUS !='DELETED'
+		 	<if test="memorialTitle !=null and memorialTitle != ''"> 
+              and  o.memorial_title like '%${memorialTitle}%'
+            </if> 
+            <if test="isvalid !=null and isvalid != ''"> 
+              and  o.isvalid = #{isvalid}
+            </if>
+            order by o.memorial_date asc
+	</select>
+	
+	<!-- 统计分页查询的数据条数 -->
+	<select id="queryPageCount" parameterType="map" resultType="int">
+		select count(distinct o.id)
+		FROM love_blog_days o
+		WHERE o.STATUS !='DELETED'
+		 	<if test="memorialTitle !=null and memorialTitle != ''"> 
+              and  o.memorial_title like '%${memorialTitle}%'
+            </if> 
+            <if test="isvalid !=null and isvalid != ''"> 
+              and  o.isvalid = #{isvalid}
+            </if>
+	</select>
+	
+	<!-- 通过ID查找 -->
+	<select id="selectById" parameterType="String" resultType="days">
+		select <include refid="sqlList" />
+		FROM love_blog_days o
+		WHERE o.id=#{id} and o.STATUS !='DELETED'
+	</select>
+	
+	<!-- 逻辑删除 -->
+	<update id="deleteById" parameterType="map">
+		update love_blog_days set STATUS=#{status} where ID=#{id}
+	</update>
+	
+	<!-- 启用/禁用 -->
+	<update id="runById" parameterType="map">
+		update love_blog_days set ISVALID=#{isvalid} where ID=#{id}
+	</update>
+	
+	<!-- 标题重复 -->
+	<select id="isRepeatTitle" parameterType="map" resultType="days">
+		select <include refid="sqlList" />
+		from love_blog_days o
+		where o.memorial_title=#{memorialTitle} 
+		<if test="id !=null and id != ''"> 
+            	and o.ID!=#{id}
+            </if> 
+	</select>
+	
+	<!-- 查找集合 -->
+	<select id="findListByMap" parameterType="map" resultType="days">
+		select <include refid="sqlList" />
+		from love_blog_days o
+		where 1=1
+		<if test="status !=null and status != ''"> 
+        	and o.status=#{status}
+        </if>
+	</select>
+	
+</mapper>

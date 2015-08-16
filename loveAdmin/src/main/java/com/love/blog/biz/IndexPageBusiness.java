@@ -1,7 +1,5 @@
 package com.love.blog.biz;
 
-import java.util.List;
-
 import javax.annotation.Resource;
 
 import org.apache.commons.lang3.StringUtils;

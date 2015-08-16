@@ -168,15 +168,15 @@ public class ArticleTypeBusiness {
 	}
 	
 	public ArticleType isRepeatCode(Map<String, String> map) {
-		return this.articleTypeDao.findByMap("isRepeatCode", map);
+		return articleTypeDao.findByMap("isRepeatCode", map);
 	}
 
 	public ArticleType isRepeatName(Map<String, String> map) {
-		return this.articleTypeDao.findByMap("isRepeatName", map);
+		return articleTypeDao.findByMap("isRepeatName", map);
 	}
 	
 	public ArticleType isRepeatDisplay(Map<String, String> map) {
-		return this.articleTypeDao.findByMap("isRepeatDisplay", map);
+		return articleTypeDao.findByMap("isRepeatDisplay", map);
 	}
 	
 	public List<ArticleType> findListByMap(Map<String, Object> map){

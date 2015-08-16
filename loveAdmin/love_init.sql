@@ -206,10 +206,12 @@ INSERT INTO `love_system_auth` VALUES ('0c455fd416f2404c99e50d98ae1983e4', '添�
 INSERT INTO `love_system_auth` VALUES ('0f3f2e4e37f64e1c9a054ab7a02c9fdf', '文章管理', 'MENU_BLOG_ARTICLE', '2015-07-31 00:42:21', null, 'DEFAULT', 'Y');
 INSERT INTO `love_system_auth` VALUES ('100982cf1b654bc480aff18bb9e08d59', '移出黑名单', 'BTN__BLOG_VISITOR_OUTBLACK', '2015-08-04 11:20:13', null, 'DEFAULT', 'Y');
 INSERT INTO `love_system_auth` VALUES ('12f10fc1d83a4779b780d6a05cc42be5', '启停文章类型', 'BTN_BLOG_ARTICLE_TYPE_RUN', '2015-08-04 11:12:48', null, 'DEFAULT', 'Y');
+INSERT INTO `love_system_auth` VALUES ('13dcc2c491324e6d83575195836f754c', '删除纪念日', 'BTN_BLOG_DAYS__REMOVE', '2015-08-16 13:12:47', null, 'DEFAULT', 'Y');
 INSERT INTO `love_system_auth` VALUES ('15bd06d00f03405a9eb6193f8c143a26', '修改媒体类型', 'BTN_BLOG_MEDIA_TYPE_EDIT', '2015-08-04 11:16:12', null, 'DEFAULT', 'Y');
 INSERT INTO `love_system_auth` VALUES ('171696905cb54cbe8c76fa03d9fd7a8f', '启停文章', 'BTN_BLOG_ARTICLE_RUN', '2015-08-04 11:13:49', null, 'DEFAULT', 'Y');
 INSERT INTO `love_system_auth` VALUES ('2163da0a4c404a9d93c77b5ce0be0337', '查看禁言名单', 'BTN__BLOG_VISITOR_VIEWFORBID', '2015-08-04 11:19:51', null, 'DEFAULT', 'Y');
 INSERT INTO `love_system_auth` VALUES ('217882d2a12b473ba773d2410271ca32', '修改文章', 'BTN_BLOG_ARTICLE_EDIT', '2015-08-04 11:13:09', null, 'DEFAULT', 'Y');
+INSERT INTO `love_system_auth` VALUES ('300bd3e2111846bface4cfef540dd817', '添加纪念日', 'BTN_BLOG_DAYS_ADD', '2015-08-16 13:12:29', null, 'DEFAULT', 'Y');
 INSERT INTO `love_system_auth` VALUES ('312625fd799c4fd1a73a1aa103de5b6a', '删除用户', 'BTN_SYSTEM_USER_REMOVE', '2015-07-28 10:00:48', null, 'DEFAULT', 'Y');
 INSERT INTO `love_system_auth` VALUES ('3276a76294b9448a97b31a42036b69ad', '启停角色', 'BTN_SYSTEM_USER_RUN', '2015-07-30 15:40:45', null, 'DEFAULT', 'Y');
 INSERT INTO `love_system_auth` VALUES ('374ebdaeb4704c3aad3df7b421f991ac', '禁言访客', 'BTN__BLOG_VISITOR_FORBID', '2015-08-04 11:19:31', null, 'DEFAULT', 'Y');
@@ -218,6 +220,7 @@ INSERT INTO `love_system_auth` VALUES ('42734368ca364ce9b2d5ffbf0c1dede0', '启�
 INSERT INTO `love_system_auth` VALUES ('4607edc2b86e4be28d5e4addaddb415f', '媒体组管理', 'MENU_BLOG_MEDIA_GROUP', '2015-08-04 11:09:54', null, 'DEFAULT', 'Y');
 INSERT INTO `love_system_auth` VALUES ('4cd76b97e2664f9c8869df2d87d6208b', '启停媒体文件', 'BTN__BLOG_MEDIA_RUN', '2015-08-04 11:18:50', null, 'DEFAULT', 'Y');
 INSERT INTO `love_system_auth` VALUES ('505dfa3105974fa3bb74c786da21d6c7', '修改权限', 'BTN_SYSTEM_AUTH_EDIT', '2015-07-28 10:01:00', null, 'DEFAULT', 'Y');
+INSERT INTO `love_system_auth` VALUES ('512a4a049b6c4dc58d2517dfb827491d', '纪念日首页管理', 'MENU_BLOG_DAYS_INDEX', '2015-08-16 13:11:55', null, 'DEFAULT', 'Y');
 INSERT INTO `love_system_auth` VALUES ('53966031829e4e24bed8c58046cd3a9d', '修改用户', 'BTN_SYSTEM_USER_EDIT', '2015-07-28 10:00:44', null, 'DEFAULT', 'Y');
 INSERT INTO `love_system_auth` VALUES ('53c4e4c4345e4f79b8643bdb18fd519e', '启停角色', 'BTN_SYSTEM_ROLE_RUN', '2015-07-30 15:40:26', null, 'DEFAULT', 'Y');
 INSERT INTO `love_system_auth` VALUES ('55d9dda66fbb4e31b88774144704e0f6', '删除媒体类型', 'BTN_BLOG_MEDIA_TYPE_REMOVE', '2015-08-04 11:16:33', null, 'DEFAULT', 'Y');
@@ -226,6 +229,7 @@ INSERT INTO `love_system_auth` VALUES ('59c4a3679a484a9087525f85a66a133e', '删�
 INSERT INTO `love_system_auth` VALUES ('5fc91d22b8ee43188ecd43c102750609', '添加文章类型', 'BTN_BLOG_ARTICLE_TYPE_ADD', '2015-08-04 11:10:21', null, 'DEFAULT', 'Y');
 INSERT INTO `love_system_auth` VALUES ('5ff16b10fff54858a70145669c249590', '添加角色', 'BTN_SYSTEM_ROLE_ADD', '2015-07-28 10:00:51', null, 'DEFAULT', 'Y');
 INSERT INTO `love_system_auth` VALUES ('60cf447451af4f39bb01485659d5bddb', '重置用户密码', 'BTN_SYSTEM_USER_RESETPASSWORD', '2015-07-31 00:41:50', null, 'DEFAULT', 'Y');
+INSERT INTO `love_system_auth` VALUES ('77deb7b8b17a40dcbdd5f150dfb6bba8', '保存首页', 'BTN_BLOG_INDEX_PAGE_SAVE', '2015-08-16 13:11:19', null, 'DEFAULT', 'Y');
 INSERT INTO `love_system_auth` VALUES ('79d5e0b1cac447e9b8eef4464e0e30bf', '用户管理', 'MENU_SYSTEM_USER', '2015-07-27 17:17:19', null, 'DEFAULT', 'Y');
 INSERT INTO `love_system_auth` VALUES ('7c54257f3cab4848a5cbbe9b974672d6', '修改媒体组', 'BTN_BLOG_MEDIA_GROUP_EDIT', '2015-08-04 11:17:11', null, 'DEFAULT', 'Y');
 INSERT INTO `love_system_auth` VALUES ('7de590365a2b4d03b930d9ed624b58fd', '删除角色', 'BTN_SYSTEM_ROLE_REMOVE', '2015-07-28 10:00:55', null, 'DEFAULT', 'Y');
@@ -235,8 +239,10 @@ INSERT INTO `love_system_auth` VALUES ('80bfad325bb34bb99635030d246d0b87', '博�
 INSERT INTO `love_system_auth` VALUES ('85cc034702a94e9d96d4a113f070d3ae', '添加用户', 'BTN_SYSTEM_USER_ADD', '2015-07-28 10:00:41', null, 'DEFAULT', 'Y');
 INSERT INTO `love_system_auth` VALUES ('861a2361699e4e93a35d374600741040', '访客管理', 'MENU_BLOG_VISITOR', '2015-07-31 09:18:16', null, 'DEFAULT', 'Y');
 INSERT INTO `love_system_auth` VALUES ('90acd9d8eb4e4ba6b6e772e8bb8a5cce', '添加媒体组', 'BTN_BLOG_MEDIA_GROUP_ADD', '2015-08-04 11:17:03', null, 'DEFAULT', 'Y');
+INSERT INTO `love_system_auth` VALUES ('92df6c6a39404e3f8a74f7789e136c8a', '保存纪念日首页', 'BTN_BLOG_DAYS_INDEX_SAVE', '2015-08-16 13:12:07', null, 'DEFAULT', 'Y');
 INSERT INTO `love_system_auth` VALUES ('942eae29881140f2a3dd1c5e3bb21a74', '媒体类型管理', 'MENU_BLOG_MEDIA_TYPE', '2015-07-31 09:17:40', null, 'DEFAULT', 'Y');
 INSERT INTO `love_system_auth` VALUES ('9b781da27edf47cb9a2d3defe412eb6c', '启停媒体组', 'BTN_BLOG_MEDIA_GROUP_RUN', '2015-08-04 11:17:27', null, 'DEFAULT', 'Y');
+INSERT INTO `love_system_auth` VALUES ('9b8eed64fca740c39ba9a51b4aeab3e3', '修改纪念日', 'BTN_BLOG_DAYS_EDIT', '2015-08-16 13:12:38', null, 'DEFAULT', 'Y');
 INSERT INTO `love_system_auth` VALUES ('aa3ed655f55147db8c81b9cb61edfb72', '设置媒体文件分组', 'BTN__BLOG_MEDIA_SETGROUP', '2015-08-04 11:18:27', null, 'DEFAULT', 'Y');
 INSERT INTO `love_system_auth` VALUES ('ad7b718fcefd4a2cb1aa793083a65bd5', '设置媒体文件名称', 'BTN__BLOG_MEDIA_SETNAME', '2015-08-04 11:18:10', null, 'DEFAULT', 'Y');
 INSERT INTO `love_system_auth` VALUES ('b1c1de5252f64cd79a4a25568f053522', '上传媒体文件', 'BTN__BLOG_MEDIA_UPLOAD', '2015-08-04 11:17:59', null, 'DEFAULT', 'Y');
@@ -251,6 +257,8 @@ INSERT INTO `love_system_auth` VALUES ('d39f3069ea1246059aa01491c11e46fc', '解�
 INSERT INTO `love_system_auth` VALUES ('d7b1e792413b4382b44237d6b9e9572b', '留言板管理', 'MENU_BLOG_BOARD', '2015-07-31 09:18:07', null, 'DEFAULT', 'Y');
 INSERT INTO `love_system_auth` VALUES ('d7e2285d81304d75b7e168644e85c2c4', '查看黑名单', 'BTN__BLOG_VISITOR_VIEWBLACK', '2015-08-04 11:20:26', null, 'DEFAULT', 'Y');
 INSERT INTO `love_system_auth` VALUES ('dfd8c30d5b7348be91d03ae76e01539d', '添加媒体类型', 'BTN_BLOG_MEDIA_TYPE_ADD', '2015-08-04 11:15:44', null, 'DEFAULT', 'Y');
+INSERT INTO `love_system_auth` VALUES ('e0b960133ca046da8a223a70318c50f1', '纪念日管理', 'MENU_BLOG_DAYS', '2015-08-16 13:12:19', null, 'DEFAULT', 'Y');
+INSERT INTO `love_system_auth` VALUES ('e130e751758b4afbab1e1d90812d901c', '启停纪念日', 'BTN_BLOG_DAYS_RUN', '2015-08-16 13:12:58', null, 'DEFAULT', 'Y');
 INSERT INTO `love_system_auth` VALUES ('ed7aec5ab0014a20a2b30339302e8470', '首页管理', 'MENU_BLOG_INDEX_PAGE', '2015-08-10 14:13:42', null, 'DEFAULT', 'Y');
 INSERT INTO `love_system_auth` VALUES ('f34bff06caaf48a48965eafce9807289', '用户分配权限', 'BTN_SYSTEM_USER_GRANT_AUTH', '2015-07-30 15:41:32', null, 'DEFAULT', 'Y');
 INSERT INTO `love_system_auth` VALUES ('f3e3e297187b4e8eb8b5ff1d36f4227c', '回复留言', 'BTN__BLOG_BOARD_REPLY', '2015-08-04 11:19:05', null, 'DEFAULT', 'Y');
@@ -320,6 +328,8 @@ INSERT INTO `love_system_menu` VALUES ('10', '5', 'MENU_BLOG_MEDIA', '媒体文�
 INSERT INTO `love_system_menu` VALUES ('11', '5', 'MENU_BLOG_BOARD', '留言板管理', '/blog/board/query.s', '2015-07-31 09:12:58', null, 'DEFAULT', 'Y', 'ADMIN', 'dataList.s', 'd7b1e792413b4382b44237d6b9e9572b');
 INSERT INTO `love_system_menu` VALUES ('12', '5', 'MENU_BLOG_VISITOR', '访客管理', '/blog/visitor/query.s', '2015-07-31 09:14:55', null, 'DEFAULT', 'Y', 'ADMIN', 'dataList.s', '861a2361699e4e93a35d374600741040');
 INSERT INTO `love_system_menu` VALUES ('13', '5', 'MENU_BLOG_INDEX_PAGE', '首页管理', '/blog/indexPage/query.s', '2015-07-31 09:14:55', null, 'DEFAULT', 'Y', 'ADMIN', 'dataList.s', 'ed7aec5ab0014a20a2b30339302e8470');
+INSERT INTO `love_system_menu` VALUES ('14', '5', 'MENU_BLOG_DAYS_INDEX', '纪念日首页管理', '/blog/daysIndex/query.s', '2015-08-16 13:04:55', null, 'DEFAULT', 'Y', 'ADMIN', 'dataList.s', '512a4a049b6c4dc58d2517dfb827491d');
+INSERT INTO `love_system_menu` VALUES ('15', '5', 'MENU_BLOG_DAYS', '纪念日管理', '/blog/days/query.s', '2015-08-16 13:07:34', null, 'DEFAULT', 'Y', 'ADMIN', 'dataList.s', 'e0b960133ca046da8a223a70318c50f1');
 
 -- ----------------------------
 -- Table structure for love_system_menu_btn
@@ -389,6 +399,12 @@ INSERT INTO `love_system_menu_btn` VALUES ('43', '12', 'BTN__BLOG_VISITOR_VIEWFO
 INSERT INTO `love_system_menu_btn` VALUES ('44', '12', 'BTN__BLOG_VISITOR_BLACK', '拉黑', 'inBlack.s', '2015-08-04 10:40:29', null, 'DEFAULT', 'Y', 'bfd99212f50848db83c0550590d9cc0f', 'inblack');
 INSERT INTO `love_system_menu_btn` VALUES ('45', '12', 'BTN__BLOG_VISITOR_OUTBLACK', '移出黑名单', 'outBlack.s', '2015-08-04 10:40:29', null, 'DEFAULT', 'Y', '100982cf1b654bc480aff18bb9e08d59', 'outblack');
 INSERT INTO `love_system_menu_btn` VALUES ('46', '12', 'BTN__BLOG_VISITOR_VIEWBLACK', '查看黑名单', 'viewByStatus.s', '2015-08-04 10:40:29', null, 'DEFAULT', 'Y', 'd7e2285d81304d75b7e168644e85c2c4', 'viewblack');
+INSERT INTO `love_system_menu_btn` VALUES ('47', '13', 'BTN_BLOG_INDEX_PAGE_SAVE', '保存', 'view.s|save.s', '2015-08-16 13:02:20', null, 'DEFAULT', 'Y', '77deb7b8b17a40dcbdd5f150dfb6bba8', 'saveIndex');
+INSERT INTO `love_system_menu_btn` VALUES ('48', '14', 'BTN_BLOG_DAYS_INDEX_SAVE', '保存', 'view.s|save.s', '2015-08-16 13:06:20', null, 'DEFAULT', 'Y', '92df6c6a39404e3f8a74f7789e136c8a', 'saveDaysIndex');
+INSERT INTO `love_system_menu_btn` VALUES ('49', '15', 'BTN_BLOG_DAYS_ADD', '添加', 'save.s', '2015-08-16 13:06:20', null, 'DEFAULT', 'Y', '300bd3e2111846bface4cfef540dd817', 'add');
+INSERT INTO `love_system_menu_btn` VALUES ('50', '15', 'BTN_BLOG_DAYS_EDIT', '修改', 'view.s|save.s', '2015-08-16 13:06:20', null, 'DEFAULT', 'Y', '9b8eed64fca740c39ba9a51b4aeab3e3', 'edit');
+INSERT INTO `love_system_menu_btn` VALUES ('51', '15', 'BTN_BLOG_DAYS__REMOVE', '删除', 'remove.s', '2015-08-16 13:06:20', null, 'DEFAULT', 'Y', '13dcc2c491324e6d83575195836f754c', 'remove');
+INSERT INTO `love_system_menu_btn` VALUES ('52', '15', 'BTN_BLOG_DAYS_RUN', '启停', 'run.s', '2015-08-16 13:06:20', null, 'DEFAULT', 'Y', 'e130e751758b4afbab1e1d90812d901c', 'run');
 
 -- ----------------------------
 -- Table structure for love_system_role
@@ -476,3 +492,42 @@ CREATE TABLE `love_system_user` (
 -- Records of love_system_user
 -- ----------------------------
 INSERT INTO `love_system_user` VALUES ('6f60af2d074141ccb4e835906fdefe66', 'admin', '4392c4f26c8de6034f758c61331d6e60', '超级管理员', '2015-07-27 14:08:12', null, 'DEFAULT', 'Y');
+
+-- ----------------------------
+-- Table structure for love_blog_days
+-- ----------------------------
+DROP TABLE IF EXISTS `love_blog_days`;
+CREATE TABLE `love_blog_days` (
+  `id` varchar(32) NOT NULL,
+  `memorial_date` datetime DEFAULT NULL,
+  `memorial_title` varchar(20) DEFAULT NULL,
+  `memorial_content` varchar(50) DEFAULT NULL,
+  `status` varchar(10) DEFAULT NULL,
+  `isvalid` varchar(10) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of love_blog_days
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for love_blog_days_index
+-- ----------------------------
+DROP TABLE IF EXISTS `love_blog_days_index`;
+CREATE TABLE `love_blog_days_index` (
+  `id` varchar(32) NOT NULL,
+  `boy_id` varchar(32) DEFAULT NULL,
+  `girl_id` varchar(32) DEFAULT NULL,
+  `boy_title` varchar(10) DEFAULT NULL,
+  `girl_title` varchar(10) DEFAULT NULL,
+  `content_one` varchar(50) DEFAULT NULL,
+  `content_two` varchar(50) DEFAULT NULL,
+  `content_three` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of love_blog_days_index
+-- ----------------------------
+INSERT INTO `love_blog_days_index` VALUES ('6b444ddd5b494e6d8db3d868cd16dc49', null, null, '海♂', '清♀', '人生，是一场盛大的遇见', '若你懂得，就请珍惜', '无论下多久的雨，最后都会有彩虹；无论你多么悲伤，要相信幸福在前方等候');
