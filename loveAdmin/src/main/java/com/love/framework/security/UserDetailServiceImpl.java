@@ -53,8 +53,10 @@ public class UserDetailServiceImpl implements UserDetailsService {
 			roleCodeList.append(tempRole.getCode());
 			roleCodeList.append(",");
 		}
-		user.setRoleCodeList(roleCodeList.toString().substring(0,
-				roleCodeList.length() - 1));
+		if(!roleCodeList.toString().equals("")){
+			user.setRoleCodeList(roleCodeList.toString().substring(0,
+					roleCodeList.length() - 1));
+		}
 		Role role = roleBusiness.findRoleByCode(Constants.ROLE_ADMIN_CODE);
 		if ((roleList.contains(role))
 				|| ("admin".equals(user.getUsername()))) {

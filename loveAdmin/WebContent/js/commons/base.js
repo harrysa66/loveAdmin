@@ -204,9 +204,7 @@ var checkboxUtil={
         }
         return -1;
 	},
-	addcheckItem:function(row){
-		var rows = [row];
-		//var row = checkgrid.datagrid('getChecked');
+	addcheckItem:function(rows){
         for (var i = 0; i < rows.length; i++) {
             if (this.findCheckedItem(rows[i].id) == -1) {
                 checkedItems.push(rows[i].id);

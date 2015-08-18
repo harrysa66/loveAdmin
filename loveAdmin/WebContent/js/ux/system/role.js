@@ -100,7 +100,8 @@ Love.system.role = function(){
 					{id:'btndelete',text:'删除',btnType:'remove'},
 					{id:'btnrun',text:'启停',btnType:'run'},
 					{id:'btngrant',text:'分配权限',btnType:'grantAutn',iconCls:'icon-setting',handler:function(){
-						$('#authSearchForm')[0].reset();
+						$("#authSearchForm").form().resetForm();
+						$('#combMenu').combotree('clear');
 						var param = $('#authSearchForm').serializeObject();
 						authGrid.datagrid('load',param);
 						var selected = _box.utils.getCheckedRows();
@@ -109,8 +110,9 @@ Love.system.role = function(){
 							if(code == contants['adminRole']){
 								Love.alert('警告','超级管理员不能进行该操作!','warning');
 							}else{
-								authGrid.datagrid('load');
 							checkedItems.splice(0,checkedItems.length);
+							authGrid.datagrid('clearChecked');
+							authGrid.datagrid('clearSelections');
 							$.ajax({
 								type:'POST',
 								async:false,
@@ -182,16 +184,17 @@ Love.system.role = function(){
 					authGrid.datagrid('uncheckRow',rowIndex);
 				},*/
 				onCheckAll:function(rows){
-					checkboxUtil.addcheckItem(rows)
+					checkboxUtil.addcheckItem(rows);
 				}, 
 				onCheck:function(rowIndex,rowData){
-					checkboxUtil.addcheckItem(rowData)
+					var rows = [rowData];
+					checkboxUtil.addcheckItem(rows);
 				},
 				onUncheckAll:function(rows){
-					checkboxUtil.removeAllItem(rows)
+					checkboxUtil.removeAllItem(rows);
 				},
 				onUncheck:function(rowIndex,rowData){
-					checkboxUtil.removeSingleItem(rowIndex,rowData)
+					checkboxUtil.removeSingleItem(rowIndex,rowData);
 				},
 				toolbar:  [{
 					iconCls: 'icon-save',

@@ -4,3 +4,7 @@
 3.spring-security.xml的验证码验证注意要开启
 4.urls.properties文件中的域名
 5.错误页面的地址
+
+
+源码改动:
+jquery.easyui.min.js的3334行注释掉_273(0);---->首页刷新时默认菜单关闭.

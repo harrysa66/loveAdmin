@@ -137,7 +137,7 @@ Love.system.user = function(){
 					{id:'btndelete',text:'删除',btnType:'remove'},
 					{id:'btnrun',text:'启停',btnType:'run'},
 					{id:'btngrantRole',text:'分配角色',btnType:'grantRole',iconCls:'icon-setting',handler:function(){
-						$('#roleSearchForm')[0].reset();
+						$('#roleSearchForm').form().resetForm();
 						var param = $('#roleSearchForm').serializeObject();
 						roleGrid.datagrid('load',param);
 						var selected = _box.utils.getCheckedRows();
@@ -146,8 +146,9 @@ Love.system.user = function(){
 							if(username == contants['adminUser']){
 								Love.alert('警告','超级管理员不能进行该操作!','warning');
 							}else{
-							roleGrid.datagrid('load');
 							checkedItems.splice(0,checkedItems.length);
+							roleGrid.datagrid('clearChecked');
+							roleGrid.datagrid('clearSelections');
 							$.ajax({
 								type:'POST',
 								async:false,
@@ -165,7 +166,8 @@ Love.system.user = function(){
 						}
 					}},
 					{id:'btngrantAuth',text:'分配权限',btnType:'grantAutn',iconCls:'icon-setting',handler:function(){
-						$('#authSearchForm')[0].reset();
+						$('#authSearchForm').form().resetForm();
+						$('#combMenu').combotree('clear');
 						var param = $('#authSearchForm').serializeObject();
 						authGrid.datagrid('load',param);
 						var selected = _box.utils.getCheckedRows();
@@ -174,8 +176,9 @@ Love.system.user = function(){
 							if(username == contants['adminUser']){
 								Love.alert('警告','超级管理员不能进行该操作!','warning');
 							}else{
-							authGrid.datagrid('load');
 							checkedItems.splice(0,checkedItems.length);
+							authGrid.datagrid('clearChecked');
+							authGrid.datagrid('clearSelections');
 							$.ajax({
 								type:'POST',
 								async:false,
@@ -258,16 +261,17 @@ Love.system.user = function(){
 				loadMsg: 'Loading in ...',
 				idField: 'id',
 				onCheckAll:function(rows){
-					checkboxUtil.addcheckItem(rows)
+					checkboxUtil.addcheckItem(rows);
 				}, 
 				onCheck:function(rowIndex,rowData){
-					checkboxUtil.addcheckItem(rowData)
+					var rows = [rowData];
+					checkboxUtil.addcheckItem(rows);
 				},
 				onUncheckAll:function(rows){
-					checkboxUtil.removeAllItem(rows)
+					checkboxUtil.removeAllItem(rows);
 				},
 				onUncheck:function(rowIndex,rowData){
-					checkboxUtil.removeSingleItem(rowIndex,rowData)
+					checkboxUtil.removeSingleItem(rowIndex,rowData);
 				},
 				toolbar:  [{
 					iconCls: 'icon-save',
@@ -356,13 +360,14 @@ Love.system.user = function(){
 					authGrid.datagrid('uncheckRow',rowIndex);
 				},*/
 				onCheckAll:function(rows){
-					checkboxUtil.addcheckItem(rows)
+					checkboxUtil.addcheckItem(rows);
 				}, 
 				onCheck:function(rowIndex,rowData){
-					checkboxUtil.addcheckItem(rowData)
+					var rows = [rowData];
+					checkboxUtil.addcheckItem(rows);
 				},
 				onUncheckAll:function(rows){
-					checkboxUtil.removeAllItem(rows)
+					checkboxUtil.removeAllItem(rows);
 				},
 				onUncheck:function(rowIndex,rowData){
 					checkboxUtil.removeSingleItem(rowIndex,rowData)
