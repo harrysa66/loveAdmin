@@ -256,7 +256,7 @@ $.extend($.fn.validatebox.defaults.rules, {
         validator: function(value,param){  
             return value == $(param[0]).val();  
         },  
-        message: 'Field do not match.'  
+        message: '密码不一致'  
     }  
 });  
 

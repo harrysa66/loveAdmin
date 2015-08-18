@@ -155,14 +155,19 @@ public class UserBusiness {
 	}
 
 	@Transactional
-	public String updatePassword(Map<String, String> map)
+	public Map<String, Object> updatePassword(Map<String, String> map)
 			throws ApplicationRuntimeException {
+		Map<String, Object> result = new HashMap<String, Object>();
 		try {
 			if (userDao.countByMap("passwordCorrect", map) > 0) {
 				userDao.updateObject("updatePassword", map);
-				return Constants.UPDATE_PASSWORD_SUCCESS;
+				result.put("success", true);
+				result.put("msg", Constants.UPDATE_PASSWORD_SUCCESS);
+				return result;
 			} else {
-				return Constants.OLD_PASSWORD_ERROR;
+				result.put("success", false);
+				result.put("msg", Constants.OLD_PASSWORD_ERROR);
+				return result;
 			}
 		} catch (Exception e) {
 			throw new ApplicationRuntimeException(Constants.UPDATE_PASSWORD_ERROR, e);

@@ -68,8 +68,8 @@ public class MainController extends BaseController{
 		map.put("id", id);
 		map.put("oldPassword", MD5Util.MD5(oldPwd));
 		map.put("newPassword", MD5Util.MD5(newPwd));
-		String message = userBusiness.updatePassword(map);
-		sendSuccessMessage(response, message);
+		Map<String, Object> result = userBusiness.updatePassword(map);
+		HtmlUtil.writerJson(response, result);
 	}
 	
 	@RequestMapping("/index")
