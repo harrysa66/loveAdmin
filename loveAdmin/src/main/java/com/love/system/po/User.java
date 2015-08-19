@@ -25,6 +25,7 @@ public class User implements UserDetails {
 	private String status;
 	private String isvalid;
 	private String roleCodeList;
+	private String loginCount;
 	boolean enabled = true;
 	boolean accountNonExpired = true;
 	boolean credentialsNonExpired = true;
@@ -234,6 +235,14 @@ public class User implements UserDetails {
 
 	public void setRoleCodeList(String roleCodeList) {
 		this.roleCodeList = roleCodeList;
+	}
+
+	public String getLoginCount() {
+		return loginCount;
+	}
+
+	public void setLoginCount(String loginCount) {
+		this.loginCount = loginCount;
 	}
 
 }

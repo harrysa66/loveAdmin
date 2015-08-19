@@ -101,6 +101,28 @@
   	 <div id="viewAuth-win" class="easyui-dialog" title="查看权限" data-options="closed:true,modal:true,top:0" style="width:900px;height:520px;"> 
   	 <table id="viewAuth"></table>
   	 </div>
+  	 
+  	 <!-- 查看登录情况 -->
+  	 <div id="loginList-win" class="easyui-dialog" title="登录情况" data-options="closed:true,modal:true,top:0" style="width:900px;height:520px;"> 
+  	 	<div class="easyui-panel ui-search-panel" title="查询项" data-options="striped: true,collapsible:true,iconCls:'icon-searchfile'">  
+ 	 <form id="loginSearchForm">
+ 	 	<p class="ui-fields">
+ 	 		<label class="ui-label">登录开始时间:</label> 
+            <input id="beginLogin" class="easyui-datebox" name="beginLogin" data-options="editable:false"> 
+            <label class="ui-label">登录结束时间:</label> 
+            <input id="endLogin" class="easyui-datebox" name="endLogin" data-options="editable:false">
+            <label class="ui-label">登录IP:</label> 
+            <input name="ip" class="easyui-box ui-text" style="width:100px;">
+            <label class="ui-label">登录地址:</label> 
+            <input name="ipAddress" class="easyui-box ui-text" style="width:100px;">
+        </p>  
+        <a href="#" id="btn-search" class="easyui-linkbutton" iconCls="icon-search">查询</a>
+      </form>  
+     </div>
+  	 	<form id="loginListForm" method="post">
+     		<table id="login-list"></table>
+	 	</form>
+  	 </div>
   
 </div>
 

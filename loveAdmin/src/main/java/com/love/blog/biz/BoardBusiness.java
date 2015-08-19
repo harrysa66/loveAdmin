@@ -24,6 +24,7 @@ import com.love.framework.security.SpringSecurityUtils;
 import com.love.restful.vo.CodeMessgae;
 import com.love.util.ConnectionURL;
 import com.love.util.DateUtil;
+import com.love.util.IPUtil;
 import com.love.util.UUIDGenerator;
 
 @Service
@@ -92,22 +93,10 @@ public class BoardBusiness {
 		Board board = new Board();
 		Visitor visitor = new Visitor();
 		Date currentDate = DateUtil.getCurrentBJDate();
-		String url = "http://apis.baidu.com/apistore/iplookupservice/iplookup?ip="+ip;
-		JSONObject json = ConnectionURL.getConnectionData(url, "apikey", Constants.API_STORE_KEY);
-		StringBuilder ipAddress = new StringBuilder();
-		if(json != null){
-			JSONObject retData = json.getJSONObject("retData");
-			if(retData != null){
-				ipAddress.append(retData.getString("country")).append("-");
-				ipAddress.append(retData.getString("province")).append("-");
-				ipAddress.append(retData.getString("city")).append("-");
-				ipAddress.append(retData.getString("district")).append("-");
-				ipAddress.append(retData.getString("carrier"));
-			}
-		}
+		String ipAddress = IPUtil.getIpAddress(ip);
 		visitor.setId(UUIDGenerator.getUUID());
 		visitor.setIp(ip);
-		visitor.setIpAddress(ipAddress.toString());
+		visitor.setIpAddress(ipAddress);
 		visitor.setCreateTime(currentDate);
 		visitor.setLoginTime(currentDate);
 		visitor.setLoginCount("1");

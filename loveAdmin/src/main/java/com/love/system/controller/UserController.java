@@ -1,6 +1,11 @@
 package com.love.system.controller;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -22,10 +27,12 @@ import com.love.system.biz.AuthBusiness;
 import com.love.system.biz.MenuBusiness;
 import com.love.system.biz.RoleBusiness;
 import com.love.system.biz.UserBusiness;
+import com.love.system.biz.UserLoginBusiness;
 import com.love.system.po.Auth;
 import com.love.system.po.Menu;
 import com.love.system.po.Role;
 import com.love.system.po.User;
+import com.love.system.po.UserLogin;
 import com.love.util.HtmlUtil;
 import com.love.util.PageUtil;
 
@@ -44,6 +51,9 @@ public class UserController extends BaseController{
 	
 	@Resource
 	private MenuBusiness menuBusiness;
+	
+	@Resource
+	private UserLoginBusiness userLoginBusiness;
 	
 	@RequestMapping("/query")
 	public ModelAndView  doQuery(HttpServletRequest request) throws Exception{
@@ -252,6 +262,28 @@ public class UserController extends BaseController{
 		//设置页面数据
 		Map<String,Object> jsonMap = new HashMap<String,Object>();
 		jsonMap.put("rows", authList);
+		HtmlUtil.writerJson(response, jsonMap);
+	}
+	
+	@RequestMapping("/viewLogin")
+	public void  viewLogin(HttpServletRequest request,HttpServletResponse response){
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("username", ServletRequestUtils.getStringParameter(request, "username", "").trim());
+		map.put("ip", ServletRequestUtils.getStringParameter(request, "ip", "").trim());
+		map.put("ipAddress", ServletRequestUtils.getStringParameter(request, "ipAddress", "").trim());
+		map.put("beginLogin", ServletRequestUtils.getStringParameter(request, "beginLogin", "").trim());
+		String endLogin = ServletRequestUtils.getStringParameter(request, "endLogin", "").trim();
+		if(endLogin != null && !endLogin.equals("")){
+			endLogin = endLogin+" 23:59:59";
+		}
+		map.put("endLogin", endLogin);
+		Page<UserLogin> page = PageUtil.getPageObj(request);
+		page = userLoginBusiness.queryPage(map, page);
+		
+		//设置页面数据
+		Map<String,Object> jsonMap = new HashMap<String,Object>();
+		jsonMap.put("total",page.getTotalCount());
+		jsonMap.put("rows", page.getResult());
 		HtmlUtil.writerJson(response, jsonMap);
 	}
 	

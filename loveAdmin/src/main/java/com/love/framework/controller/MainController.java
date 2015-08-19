@@ -14,6 +14,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.ServletRequestUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -52,9 +53,19 @@ public class MainController extends BaseController{
 	private UserBusiness userBusiness; 
 	
 	@RequestMapping("/login.s")
-	public ModelAndView login(){
+	public ModelAndView login(HttpServletRequest request){
 		Map<String,Object>  context = getRootMap();
-		return forword("login",context); 
+		//boolean isLogin = ServletRequestUtils.getBooleanParameter(request, "isLogin", false);
+		boolean isLogin = false;
+		Object loginObject = request.getSession().getAttribute("isLogin");
+		if(loginObject != null){
+			isLogin = (boolean) loginObject;
+		}
+		if(isLogin){
+			return new ModelAndView("redirect:/index.s");
+		}else{
+			return forword("login",context); 
+		}
 	}
 	
 	@RequestMapping("/timeout.s")
@@ -88,7 +99,7 @@ public class MainController extends BaseController{
 		List<Menu> childMenus = initMenu(childMenuList, user);
 		List<MenuBtn> childBtns = initBtn(childBtnList,user);
 		buildData(childMenus,childBtns,request); //构建必要的数据
-		String userIp = IPUtil.getIpAddr(request);
+		String userIp = IPUtil.getIp(request);
 		context.put("user", user);
 		context.put("userIp", userIp);
 		context.put("menuList", treeMenu(rootMenus, childMenus));

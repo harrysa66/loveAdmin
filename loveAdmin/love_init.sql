@@ -531,3 +531,20 @@ CREATE TABLE `love_blog_days_index` (
 -- Records of love_blog_days_index
 -- ----------------------------
 INSERT INTO `love_blog_days_index` VALUES ('6b444ddd5b494e6d8db3d868cd16dc49', null, null, '海♂', '清♀', '人生，是一场盛大的遇见', '若你懂得，就请珍惜', '无论下多久的雨，最后都会有彩虹；无论你多么悲伤，要相信幸福在前方等候');
+
+-- ----------------------------
+-- Table structure for love_system_user_login
+-- ----------------------------
+DROP TABLE IF EXISTS `love_system_user_login`;
+CREATE TABLE `love_system_user_login` (
+  `id` varchar(32) NOT NULL,
+  `username` varchar(50) DEFAULT NULL,
+  `login_time` datetime DEFAULT NULL,
+  `ip` varchar(15) DEFAULT NULL,
+  `ip_address` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of love_system_user_login
+-- ----------------------------

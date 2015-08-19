@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="UserLogin">
+	<sql id="sqlList" >
+    	o.id, o.username, o.login_time, o.ip, o.ip_address
+  	</sql>
+	<!-- 用户插入 -->
+	<insert id="insert" parameterType="userLogin">
+		insert into love_system_user_login (id, username, login_time, 
+      ip, ip_address)
+    values (#{id,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR}, #{loginTime,jdbcType=TIMESTAMP}, 
+      #{ip,jdbcType=VARCHAR}, #{ipAddress,jdbcType=VARCHAR})
+	</insert>
+	
+	<!--用户登录列表查询 -->
+	<select id="queryPage" parameterType="map" resultType="userLogin">
+		select distinct <include refid="sqlList" />
+		FROM love_system_user_login o
+		WHERE 1=1
+			<if test="username !=null and username != ''"> 
+              and  o.username = #{username}
+            </if>
+            <if test="ip !=null and ip != ''"> 
+              and  o.ip like '%${ip}%'
+            </if>
+            <if test="ipAddress !=null and ipAddress != ''"> 
+              and  o.ip_address like '%${ipAddress}%'
+            </if>
+            <if test="beginLogin !=null and beginLogin != ''"> 
+              <![CDATA[ and  o.login_time >= #{beginLogin} ]]>
+            </if>
+            <if test="endLogin !=null and endLogin != ''"> 
+              <![CDATA[ and  o.login_time <= #{endLogin} ]]>
+            </if>
+            order by o.login_time desc
+	</select>
+	<!-- 总数 -->
+	<select id="queryPageCount" parameterType="map" resultType="int">
+		select count(1)
+		FROM love_system_user_login o
+		WHERE 1=1
+			<if test="username !=null and username != ''"> 
+              and  o.username = #{username}
+            </if>
+            <if test="ip !=null and ip != ''"> 
+              and  o.ip like '%${ip}%'
+            </if>
+            <if test="ipAddress !=null and ipAddress != ''"> 
+              and  o.ip_address like '%${ipAddress}%'
+            </if>
+            <if test="beginLogin !=null and beginLogin != ''"> 
+              <![CDATA[ and  o.login_time >= #{beginLogin} ]]>
+            </if>
+            <if test="endLogin !=null and endLogin != ''"> 
+              <![CDATA[ and  o.login_time <= #{endLogin} ]]>
+            </if>
+	</select>
+</mapper>

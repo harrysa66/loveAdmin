@@ -227,7 +227,7 @@ Love.system.role = function(){
 			var authSearchForm = $('#authSearchForm');
 			authSearchForm.find("#btn-search").click(function(callback){
 				var param = authSearchForm.serializeObject();
-				authGrid.datagrid('reload',param);
+				authGrid.datagrid('load',param);
 			});
 			
 			$('#combMenu').combotree({    

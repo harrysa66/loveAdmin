@@ -113,7 +113,9 @@
 	
 	<!--用户列表查询 -->
 	<select id="queryPage" parameterType="map" resultType="user">
-		SELECT o.* FROM love_system_user o 
+		SELECT distinct o.*,COUNT(ul.username) as loginCount 
+		FROM love_system_user o 
+		LEFT JOIN love_system_user_login ul on o.username = ul.username 
 		WHERE o.STATUS!='DELETED'
 			<if test="username !=null and username != ''"> 
               and  o.username like '%${username}%'
@@ -121,7 +123,8 @@
             <if test="nickname !=null and nickname != ''"> 
               and  o.nickname like '%${nickname}%'
             </if>
-            order by o.create_time
+            GROUP BY o.username
+            order by o.create_time desc
 	</select>
 	<!-- 总数 -->
 	<select id="queryPageCount" parameterType="map" resultType="int">
