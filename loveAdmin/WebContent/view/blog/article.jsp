@@ -35,7 +35,7 @@
      <table id="data-list"></table>
 	 </form> 
      <!-- Edit Form -->
-     <div id="edit-win" class="easyui-dialog" title="修改" data-options="closed:true,modal:true" style="width:1000px;height:500px;">  
+     <div id="edit-win" class="easyui-dialog" title="修改" data-options="closed:true,modal:true,top:0" style="width:1000px;height:500px;">  
      	<form id="editForm" class="ui-form" method="post">  
      		 <input class="hidden" type="text" name="id">
      		 <div class="ui-edit">
@@ -46,7 +46,7 @@
 	           </div>  
 	           <div class="fitem">  
 	               <label>文章副标题:</label>  
-	               <input class="easyui-validatebox" type="text" name="subtitle" data-options="required:true">
+	               <input class="easyui-validatebox" type="text" name="subtitle">
 	           </div> 
 	           <div class="fitem">  
 	               <label>类型:</label>  
