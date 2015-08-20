@@ -18,9 +18,9 @@
 <script type="text/javascript" src="${msUrl}/js/umeditor/umeditor.config.js"></script>
 <script type="text/javascript" src="${msUrl}/js/umeditor/umeditor.min.js"></script>
 <script type="text/javascript" src="${msUrl}/js/umeditor/lang/zh-cn/zh-cn.js"></script>
-<script type="text/javascript" src="${msUrl}/js/commons/urls.js?v=11"></script>
-<script type="text/javascript" src="${msUrl}/js/commons/contants.js?v=11"></script>
-<script type="text/javascript" src="${msUrl}/js/commons/base.js?v=11"></script>
+<script type="text/javascript" src="${msUrl}/js/commons/urls.js"></script>
+<script type="text/javascript" src="${msUrl}/js/commons/contants.js"></script>
+<script type="text/javascript" src="${msUrl}/js/commons/base.js"></script>
 <%-- <script type="text/javascript" src="${uploadUrl}/js/vendor/jquery.ui.widget.js"></script>
 <script type="text/javascript" src="${uploadUrl}/js/jquery.fileupload.js"></script>
 <script type="text/javascript" src="${uploadUrl}/js/cors/jquery.xdr-transport.js"></script>

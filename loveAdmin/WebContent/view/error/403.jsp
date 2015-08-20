@@ -33,13 +33,13 @@ A:hover {
   <TBODY>
   <TR>
     <TD vAlign=top height=270>
-      <DIV align=center><BR><IMG height=211 src="error.gif" 
+      <DIV align=center><BR><IMG height=211 src="/loveAdmin/view/error/error.gif" 
       width=329><BR><BR>
       <TABLE cellSpacing=0 cellPadding=0 width="80%" border=0>
         <TBODY>
         <TR>
           <TD><FONT class=p2>&nbsp;&nbsp;&nbsp; <FONT color=#ff0000><IMG 
-            height=13 src="emessage.gif" 
+            height=13 src="/loveAdmin/view/error/emessage.gif" 
             width=12>&nbsp;无法访问本页的原因是：</FONT></FONT></TD></TR>
         <TR>
           <TD height=8></TD>
@@ -55,14 +55,14 @@ A:hover {
       <TABLE cellSpacing=0 cellPadding=0 width=480 border=0>
         <TBODY>
         <TR>
-          <TD width=6><IMG height=26 src="left.gif" 
+          <TD width=6><IMG height=26 src="/loveAdmin/view/error/left.gif" 
 width=7></TD>
-          <TD background=bg.gif>
+          <TD background=/loveAdmin/view/error/bg.gif>
             <DIV align=center><FONT class=p6><A 
             href="/loveAdmin/index.s">返回首页</A>　 　|　　 <A 
-            href="javascript:history.go(-1)">返回出错页</A></FONT> </DIV></TD>
+            href="javascript:history.go(-1)">返回上一页</A></FONT> </DIV></TD>
           <TD width=7><IMG 
-      src="right.gif"></TD></TR></TBODY></TABLE></CENTER></TD></TR></TBODY></TABLE>
+      src="/loveAdmin/view/error/right.gif"></TD></TR></TBODY></TABLE></CENTER></TD></TR></TBODY></TABLE>
 <P align=center>　</P>
 <P align=center>　</P>
 </body>

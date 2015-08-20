@@ -4,6 +4,7 @@
 3.spring-security.xml的验证码验证注意要开启
 4.urls.properties文件中的域名
 5.错误页面的地址
+6.js/commons/url.js
 
 
 源码改动:
