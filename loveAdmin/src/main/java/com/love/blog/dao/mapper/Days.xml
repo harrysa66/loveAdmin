@@ -95,10 +95,11 @@
 	<select id="findListByMap" parameterType="map" resultType="days">
 		select <include refid="sqlList" />
 		from love_blog_days o
-		where 1=1
+		where 1=1 and o.isvalid = 'Y'
 		<if test="status !=null and status != ''"> 
         	and o.status=#{status}
         </if>
+        order by o.memorial_date asc
 	</select>
 	
 </mapper>

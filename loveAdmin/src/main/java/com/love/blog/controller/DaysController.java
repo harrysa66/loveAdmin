@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.beanutils.BeanUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.ServletRequestUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -62,7 +63,7 @@ public class DaysController extends BaseController{
 		List<Days> daysList = daysBusiness.findListByMap(listMap);
 		if(vaTitle != null){
 			sendFailureMessage(response, "标题已存在，请重新填写!");
-		}else if(daysList.size() >= 5){
+		}else if(StringUtils.isEmpty(days.getId()) && daysList.size() >= 5){
 			sendFailureMessage(response, "暂时只能保存5个纪念日!");
 		}else{
 			String message = daysBusiness.save(days);
