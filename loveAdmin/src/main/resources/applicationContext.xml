@@ -70,5 +70,35 @@
 	<!-- 防止sql注入的拦截器 -->
 	<!-- <bean id="SqlInjectionAttackInterceptor" class="com.cfc.creditor.asset.controller.SqlInjectionAttackInterceptor">
 	</bean> -->
+	
+	  <bean id="mailSender"  
+  class="org.springframework.mail.javamail.JavaMailSenderImpl">  
+        <property name="host">  
+            <value>smtp.hebingqing.cn</value>  
+        </property>  
+        <property name="javaMailProperties">  
+            <props>  
+                <prop key="mail.smtp.auth">true</prop>  
+                <prop key="mail.smtp.starttls.enable">true</prop> 
+                <prop key="mail.smtp.timeout">25000</prop>  
+            </props>  
+        </property>  
+        <property name="username">  
+            <value>admin@hebingqing.cn</value>  
+        </property>  
+        <property name="password">  
+            <value></value>  
+        </property>  
+    </bean>  
+	<!-- mailbox.dxsport.com.cn, port: 25 -->
+	<!-- 文本邮件服务类 -->
+	<bean id="mailManager" class="com.love.util.MailManager">
+		<property name="mailSender" ref="mailSender" />
+		<property name="textTemplate">
+			<value><![CDATA[
+			
+			]]></value>
+		</property>
+	</bean>
 
 </beans>

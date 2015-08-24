@@ -25,6 +25,8 @@ import com.love.restful.vo.CodeMessgae;
 import com.love.util.ConnectionURL;
 import com.love.util.DateUtil;
 import com.love.util.IPUtil;
+import com.love.util.MailManager;
+import com.love.util.PropertiesUtil;
 import com.love.util.UUIDGenerator;
 
 @Service
@@ -32,6 +34,9 @@ public class BoardBusiness {
 	
 	@Resource
 	private VisitorBusiness visitorBusiness;
+	
+	@Resource
+	private MailManager mailManager;
 	
 	private BaseDao<Board, String> boardDao;
 
@@ -109,6 +114,9 @@ public class BoardBusiness {
 		board.setStatus(Constants.STATUS_DEFAULT);
 		board.setIsvalid(Constants.ISVALIAD_HIDDEN);
 		insert(board);
+		String mailUrl = PropertiesUtil.getProperty("webUrl")+"/board/query.s";
+		mailManager.sendNotificationMail("留言板提示", "网友："+visitor.getIp()+"（来自："+visitor.getIpAddress()+"）对您进行了留言，请注意查看！"+mailUrl, "harrysa66@163.com");
+		mailManager.sendNotificationMail("留言板提示", "网友："+visitor.getIp()+"（来自："+visitor.getIpAddress()+"）对您进行了留言，请注意查看！"+mailUrl, "hebingqing0306@sina.com");
 		codeMessgae.setCode(CodeMessgae.CODE_SUCCESS);
 		codeMessgae.setMessage("留言成功");
 		return codeMessgae;
@@ -132,6 +140,9 @@ public class BoardBusiness {
 			board.setStatus(Constants.STATUS_DEFAULT);
 			board.setIsvalid(Constants.ISVALIAD_HIDDEN);
 			insert(board);
+			String mailUrl = PropertiesUtil.getProperty("webUrl")+"/board/query.s";
+			mailManager.sendNotificationMail("留言板提示", "网友："+visitor.getIp()+"（来自："+visitor.getIpAddress()+"）对您进行了留言，请注意查看！"+mailUrl, "harrysa66@163.com");
+			mailManager.sendNotificationMail("留言板提示", "网友："+visitor.getIp()+"（来自："+visitor.getIpAddress()+"）对您进行了留言，请注意查看！"+mailUrl, "hebingqing0306@sina.com");
 			codeMessgae.setCode(CodeMessgae.CODE_SUCCESS);
 			codeMessgae.setMessage("留言成功");
 		}else{
